@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style.css';
+import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
 
@@ -13,6 +14,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  document.documentElement.lang = cookies.get("i18next") || "en";
+
   return (
     <>
       <RouterProvider router={router} />

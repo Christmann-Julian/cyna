@@ -1,16 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/navbar.css";
 import logo from "../assets/img/logo-cyna.webp";
 import { Link } from "react-router-dom";
+import cookies from "js-cookie";
+import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faCartShopping,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import i18next from 'i18next'
+import { useTranslation } from "react-i18next";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const languages = [
+    {
+      code: "fr",
+      name: "Français",
+      country_code: "fr",
+    },
+    {
+      code: "en",
+      name: "English",
+      country_code: "gb",
+    },
+    {
+      code: "ar",
+      name: "العربية",
+      dir: "rtl",
+      country_code: "sa",
+    },
+  ];
+
+  const currentLanguageCode = cookies.get("i18next") || "en";
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.lang = currentLanguageCode;
+    document.documentElement.dir = currentLanguage.dir || "ltr";
+  }, [currentLanguage, t]);
 
   const handleToggle = () => {
     setIsCollapsed(!isCollapsed);
@@ -35,7 +68,7 @@ const Navbar = () => {
                     <form>
                       <input
                         name="search"
-                        placeholder="Recherche..."
+                        placeholder={t("navbar.input-search")}
                         type="search"
                       />
                       <button className="btnn">
@@ -67,7 +100,7 @@ const Navbar = () => {
                   <form>
                     <input
                       name="search"
-                      placeholder="Recherche..."
+                      placeholder={t("navbar.input-search")}
                       type="search"
                     />
                     <button className="btnn">
@@ -87,26 +120,50 @@ const Navbar = () => {
         <div className="container">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.languages")}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {languages.map(({ code, name, country_code }) => (
+                    <Dropdown.Item
+                      key={country_code}
+                      href="#"
+                      onClick={() => {
+                        i18next.changeLanguage(code);
+                      }}
+                    >
+                      <span className={`fi fi-${country_code} mx-2`}></span>
+                      {name}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </li>
+            <li className="nav-item">
               <Link to="/" className="nav-link">
-                Accueil
+                {t("navbar.home")}
               </Link>
             </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button">
-                Catégories
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.categories")}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Link to="/" className="dropdown-item" role="button">
                     Catégorie 1
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
                     Catégorie 2
-                  </a>
-                </li>
-              </ul>
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    Catégorie 3
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </div>

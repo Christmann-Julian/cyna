@@ -8,8 +8,10 @@ import {
   faXTwitter,
   faLinkedin
 } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer>
       <div className="social">
@@ -28,13 +30,13 @@ const Footer = () => {
       </div>
       <ul className="list-inline">
         <li className="list-inline-item">
-          <Link to="/">CGU</Link>
+          <Link to="/">{t("footer.terms-condition")}</Link>
         </li>
         <li className="list-inline-item">
-          <Link to="/">Mentions légales</Link>
+          <Link to="/">{t("footer.legal-notices")}</Link>
         </li>
         <li className="list-inline-item">
-          <Link to="/">Contact</Link>
+          <Link to="/">{t("footer.contact")}</Link>
         </li>
       </ul>
       <p className="copyright">Copyright Cyna © 2024</p>
