@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router-dom";
 import '../assets/css/errors.css';
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError();
@@ -19,9 +20,7 @@ const ErrorPage = () => {
                     peut-être été déplacée ou supprimée.
                   </p>
                   <div className="button">
-                    <a href="#" className="btn">
-                      Retourner à l'accueil
-                    </a>
+                    <Link to="/" className="btn">Retourner à l'accueil</Link>
                   </div>
                 </div>
               </div>
