@@ -21,5 +21,10 @@
         "topServicesTitle": "Our Trending Services",
         "descriptionTitle" : "Description",
         "categoriesTitle" : "Categories"
+    },
+    "product":{
+        "quantity": "Quantity",
+        "tryNow": "Try Now",
+        "similaryServices" : "Similar services"
     }
 }

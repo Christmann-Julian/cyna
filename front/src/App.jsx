@@ -4,11 +4,17 @@ import './assets/css/style.css';
 import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
+import Product from "./pages/Product";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/product",
+    element: <Product />,
     errorElement: <ErrorPage />,
   },
 ]);

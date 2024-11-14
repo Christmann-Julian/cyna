@@ -24,6 +24,10 @@
         "topServicesTitle": "خدماتنا العصرية",
         "descriptionTitle": "الوصف",
         "categoriesTitle": "الفئات"
+    },
+    "product":{
+        "quantity": "الكمية",
+        "tryNow": "جرّب الآن",
+        "similaryServices" : "خدمات مشابهة"
     }
-
 }

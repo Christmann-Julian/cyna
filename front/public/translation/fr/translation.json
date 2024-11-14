@@ -21,6 +21,10 @@
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
         "categoriesTitle" : "Catégories"
+    },
+    "product":{
+        "quantity": "Quantité",
+        "tryNow": "Essayer Maintenant",
+        "similaryServices" : "Services Similaires"
     }
-
 }
