@@ -1,4 +1,3 @@
-// src/components/ProductList.js
 import React from 'react';
 import SingleProduct from './SingleProduct';
 import { useTranslation } from 'react-i18next';

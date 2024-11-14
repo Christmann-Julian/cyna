@@ -1,9 +1,7 @@
-// src/components/SingleProduct.js
 import React from 'react';
 import '../assets/css/product-area.css';
 
 const SingleProduct = ({ name, price, imgSrc, label }) => {
-  // Déterminer la classe de style pour l'étiquette en fonction du label
   const labelClass = `product-label ${label === "Rupture" ? "rupture" : ""}`;
 
   return (
@@ -12,7 +10,6 @@ const SingleProduct = ({ name, price, imgSrc, label }) => {
         <div className="product-img">
           <a href="#">
             <img className="default-img" src={imgSrc} alt={name} />
-            {/* Affichage conditionnel du label avec la classe dynamique */}
             {label && <span className={labelClass}>{label}</span>}
           </a>
         </div>
