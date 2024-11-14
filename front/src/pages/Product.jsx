@@ -9,9 +9,21 @@ import {
 	faCartShopping,
 	faPlus,
   } from "@fortawesome/free-solid-svg-icons";
-
+import SingleProduct from '../components/SingleProduct';
+import { useTranslation } from 'react-i18next';
 
 const Product = () => {
+	const { t } = useTranslation();
+
+	const products = [
+		{ id: 1, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: 'Nouveau' },
+		{ id: 2, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: 'Rupture' },
+		{ id: 3, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: '-30%' },
+		{ id: 4, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300' },
+		{ id: 5, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300' },
+		{ id: 6, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: 'Nouveau' },
+	  ];
+
 	return (
 		<>
 			<Navbar/>
@@ -40,7 +52,7 @@ const Product = () => {
 										</div>
 										<div className="product-buy">
 											<div className="quantity">
-												<h6>Quantité :</h6>
+												<h6>{t("product.quantity")} :</h6>
 												<div className="input-group">
 													<div className="button minus">
 														<button type="button" className="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
@@ -56,7 +68,7 @@ const Product = () => {
 												</div>
 											</div>
 											<div className="add-to-cart">
-												<a href="#" className="btn">Essayer Maintenant</a>
+												<a href="#" className="btn">{t("product.tryNow")}</a>
 												<a href="#" className="btn min"><FontAwesomeIcon icon={faCartShopping} /></a>
 											</div>
 											<p>
@@ -76,105 +88,18 @@ const Product = () => {
 					<div className="row">
 						<div className="col-12">
 							<div className="section-title">
-								<h2>Services Similaires</h2>
+								<h2>{t("product.similaryServices")}</h2>
 							</div>
 						</div>
 					</div>
 					<div className="row">
 						<div className="col-12">
-							<div className="row">
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-											<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
+							<div className="row">								
+								{products.map((product) => (
+									<div className="col-xl-4 col-lg-4 col-md-4 col-12">
+										<SingleProduct key={product.id} {...product} />
 									</div>
-								</div>
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-										<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-										<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-										<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-												<span>Nouveau</span>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-										<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-									<div className="single-product">
-										<div className="product-img">
-											<a href="#">
-												<img className="default-img" src="https://via.placeholder.com/370x300" alt="#"/>
-												<span>-30%</span>
-											</a>
-										</div>
-										<div className="product-content">
-											<h3><a href="#">Nom de service</a></h3>
-											<div className="product-price">
-												<span>29,00€</span>
-											</div>
-										</div>
-									</div>
-								</div>						
+								))}													
 							</div>
 						</div>
 					</div>

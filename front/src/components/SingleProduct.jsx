@@ -4,8 +4,7 @@ import '../assets/css/product-area.css';
 const SingleProduct = ({ name, price, imgSrc, label }) => {
   const labelClass = `product-label ${label === "Rupture" ? "rupture" : ""}`;
 
-  return (
-    <div className="col-xl-3 col-lg-4 col-md-4 col-12">
+  return (    
       <div className="single-product">
         <div className="product-img">
           <a href="#">
@@ -20,7 +19,6 @@ const SingleProduct = ({ name, price, imgSrc, label }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
