@@ -2,7 +2,7 @@
 import React from 'react';
 import '../assets/css/product-area.css';
 
-function SingleProduct({ name, price, imgSrc, label }) {
+const SingleProduct = ({ name, price, imgSrc, label }) => {
   // Déterminer la classe de style pour l'étiquette en fonction du label
   const labelClass = `product-label ${label === "Rupture" ? "rupture" : ""}`;
 

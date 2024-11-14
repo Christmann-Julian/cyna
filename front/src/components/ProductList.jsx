@@ -3,7 +3,7 @@ import React from 'react';
 import SingleProduct from './SingleProduct';
 import { useTranslation } from 'react-i18next';
 
-function ProductList() {
+const ProductList = () => {
   const { t } = useTranslation();
   const products = [
     { id: 1, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: 'Nouveau' },

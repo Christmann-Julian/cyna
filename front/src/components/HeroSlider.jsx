@@ -3,7 +3,7 @@ import React from 'react';
 import '../assets/css/hero-slider.css';
 
 
-function HeroSlider() {
+const HeroSlider = () => {
   return (
     <section className="hero-slider">
       <div className="single-slider">
