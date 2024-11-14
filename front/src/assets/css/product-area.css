@@ -1,19 +1,26 @@
-.single-product{
-	margin-top:50px;
-}
-.single-product .product-img {
-  position: relative;
-  overflow: hidden;
-  cursor:pointer;
-}
-.single-product .product-img a {
-  display: block;
-  position: relative;
-}
-.single-product .product-img a img {
-  width: 100%;
-}
-.single-product .product-img a span{
+/* src/assets/css/product-area.css */
+
+.single-product {
+	margin-top: 50px;
+  }
+  
+  .single-product .product-img {
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+  }
+  
+  .single-product .product-img a {
+	display: block;
+	position: relative;
+  }
+  
+  .single-product .product-img a img {
+	width: 100%;
+  }
+  
+  /* Style de base pour le label */
+  .product-label {
 	background-color: var(--main-color);
 	display: inline-block;
 	font-size: 11px;
@@ -22,36 +29,56 @@
 	top: 20px;
 	padding: 1px 16px;
 	font-weight: 700;
-	border-radius: 0;
+	border-radius: 30px;
 	text-align: center;
 	position: absolute;
 	text-transform: uppercase;
-	border-radius: 30px;
 	height: 26px;
 	line-height: 25px;
-}
-.single-product .product-content{
-	margin-top:20px;
-}
-.single-product .product-content h3 {
-    line-height: 22px;
-}
-.single-product .product-content h3 a {
-    text-decoration: none;
-    color: var(--black-color);
+  }
+  
+  /* Style spécifique pour "Rupture" */
+  .product-label.rupture {
+	background-color: #ff5252; /* Rouge pour "Rupture" */
+  }
+  
+  /* Styles pour les autres types de labels */
+  .product-label.new {
+	background-color: #4caf50; /* Vert pour "Nouveau" */
+  }
+  
+  .product-label.discount {
+	background-color: #f0c040; /* Jaune pour "-30%" */
+  }
+  
+  .single-product .product-content {
+	margin-top: 20px;
+  }
+  
+  .single-product .product-content h3 {
+	line-height: 22px;
+  }
+  
+  .single-product .product-content h3 a {
+	text-decoration: none;
+	color: var(--black-color);
 	font-size: 14px;
 	font-weight: 700;
 	margin: 0;
-}
-.single-product .product-content h3 a:hover{
+  }
+  
+  .single-product .product-content h3 a:hover {
 	color: var(--main-color);
-}
-.single-product .product-content .product-price span {
+  }
+  
+  .single-product .product-content .product-price span {
 	font-size: 15px;
 	font-weight: 700;
-}
-.single-product .product-content .product-price span.old {
-  text-decoration: line-through;
-  opacity: .6;
-  margin-right: 2px;
-}
+  }
+  
+  .single-product .product-content .product-price span.old {
+	text-decoration: line-through;
+	opacity: .6;
+	margin-right: 2px;
+  }
+  
