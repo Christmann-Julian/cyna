@@ -5,6 +5,7 @@ import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
+import Product from "./pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/product",
+    element: <Product />,
     errorElement: <ErrorPage />,
   },
 ]);

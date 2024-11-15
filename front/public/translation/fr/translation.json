@@ -16,5 +16,15 @@
             "message": "Oups ! La page que vous recherchez n'existe pas. Elle a peut-être été déplacée ou supprimée.",
             "button": "Retour à l'accueil"
         }
+    },
+    "homepage":{
+        "topServicesTitle": "Nos Services Tendances",
+        "descriptionTitle" : "Description",
+        "categoriesTitle" : "Catégories"
+    },
+    "product":{
+        "quantity": "Quantité",
+        "tryNow": "Essayer Maintenant",
+        "similaryServices" : "Services Similaires"
     }
 }

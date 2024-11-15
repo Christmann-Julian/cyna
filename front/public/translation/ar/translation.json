@@ -16,5 +16,18 @@
             "message": "عذرًا! الصفحة التي تبحث عنها غير موجودة. قد تم نقلها أو حذفها.",
             "button": "العودة إلى الصفحة الرئيسية"
         }
+    },
+    "product-list":{
+        "topServices": "خدماتنا الشائعة"
+    },
+    "homepage":{
+        "topServicesTitle": "خدماتنا العصرية",
+        "descriptionTitle": "الوصف",
+        "categoriesTitle": "الفئات"
+    },
+    "product":{
+        "quantity": "الكمية",
+        "tryNow": "جرّب الآن",
+        "similaryServices" : "خدمات مشابهة"
     }
 }
