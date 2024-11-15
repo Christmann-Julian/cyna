@@ -66,13 +66,13 @@ const Login = () => {
                 </div>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
                   <div className="row">
-                    <div className="col-12">
-                      {errorLogin && (
+                    {errorLogin && (
+                      <div className="col-12">
                         <div className="alert alert-danger" role="alert">
                           {errorLogin}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                     <div className="col-12">
                       <div className="form-group">
                         <label>
