@@ -26,5 +26,14 @@
         "quantity": "Quantity",
         "tryNow": "Try Now",
         "similaryServices" : "Similar services"
+    },
+    "product-grid":{
+        "show": "Show",
+        "sortBy": "Sort by",
+        "categories" : "Categories",
+        "sortByPrice": "Sort By Price",
+        "only": "Only",
+        "promotions": "Promotions",
+        "available": "Available"
     }
 }

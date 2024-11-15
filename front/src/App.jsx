@@ -5,6 +5,7 @@ import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
 import Product from "./pages/Product";
+import ProductGrid from "./pages/ProductGrid";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
   {
     path: "/product",
     element: <Product />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/products",
+    element: <ProductGrid />,
     errorElement: <ErrorPage />,
   },
 ]);

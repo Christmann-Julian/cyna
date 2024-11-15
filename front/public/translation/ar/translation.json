@@ -29,5 +29,14 @@
         "quantity": "الكمية",
         "tryNow": "جرّب الآن",
         "similaryServices" : "خدمات مشابهة"
+    },
+    "product-grid":{
+        "show": "عرض",
+        "sortBy": "فرز حسب",
+        "categories" : "الفئات",
+        "sortByPrice": "فرز حسب السعر",
+        "only": "فقط",
+        "promotions": "عروض الترويجية",
+        "available": "التوفر"
     }
 }
