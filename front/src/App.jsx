@@ -6,6 +6,8 @@ import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
+import ProductGrid from "./pages/ProductGrid";
+import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import Account from "./pages/account/Account";
 import OrderAccount from "./pages/account/OrderAccount";
@@ -39,6 +41,16 @@ const router = createBrowserRouter([
   {
     path: "/product",
     element: <Product />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/products",
+    element: <ProductGrid />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
     errorElement: <ErrorPage />,
   },
 ]);

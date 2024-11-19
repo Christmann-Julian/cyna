@@ -26,5 +26,27 @@
         "quantity": "Quantité",
         "tryNow": "Essayer Maintenant",
         "similaryServices" : "Services Similaires"
-    }
+    },
+    "product-grid":{
+        "show": "Montrer",
+        "sortBy": "Trier par",
+        "categories" : "Catégories",
+        "sortByPrice": "Trier Par Prix",
+        "only": "Uniquement",
+        "promotions": "Promotions",
+        "available": "Disponible"
+    },
+    "cart":{
+        "product": "Produit",
+        "time": "Durée",
+        "unitPrice" : "Prix unitaire",
+        "quantity": "Quantité",
+        "total": "Total",
+        "codePromotion": "Code promo",
+        "apply": "Appliquer",
+        "subTotal": "Sous Total",
+        "promotion": "Promotion",
+        "tax": "Taxe",
+        "totalCart": "Total"
+    }    
 }
