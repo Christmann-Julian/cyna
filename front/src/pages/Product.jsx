@@ -59,7 +59,7 @@ const Product = () => {
 															<FontAwesomeIcon icon={faMinus} />
 														</button>
 													</div>
-													<input type="text" name="quant[1]" className="input-number"  data-min="1" data-max="1000" value="1"/>
+													<input type="text" className="input-number"/>
 													<div className="button plus">
 														<button type="button" className="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
 															<FontAwesomeIcon icon={faPlus} />
@@ -96,8 +96,8 @@ const Product = () => {
 						<div className="col-12">
 							<div className="row">								
 								{products.map((product) => (
-									<div className="col-xl-4 col-lg-4 col-md-4 col-12">
-										<SingleProduct key={product.id} {...product} />
+									<div className="col-xl-4 col-lg-4 col-md-4 col-12" key={product.id}>
+										<SingleProduct {...product} />
 									</div>
 								))}													
 							</div>
