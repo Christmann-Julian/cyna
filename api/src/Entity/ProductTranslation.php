@@ -2,26 +2,48 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductTranslationRepository;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\ProductTranslationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['productTranslation:read']],
+    denormalizationContext: ['groups' => ['productTranslation:create', 'productTranslation:update']],
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(),
+        new Patch(),
+        new Delete(),
+    ],
+)]
 #[ORM\Entity(repositoryClass: ProductTranslationRepository::class)]
 class ProductTranslation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['productTranslation:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['productTranslation:read', 'productTranslation:create', 'productTranslation:update'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['productTranslation:read', 'productTranslation:create', 'productTranslation:update'])]
     private ?string $caracteristic = null;
 
     #[ORM\ManyToOne(inversedBy: 'productTranslations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['productTranslation:read'])]
     private ?Product $product = null;
 
     public function getId(): ?int
