@@ -35,5 +35,18 @@
         "only": "Only",
         "promotions": "Promotions",
         "available": "Available"
-    }
+    },
+    "cart":{
+        "product": "Product",
+        "time": "Time",
+        "unitPrice" : "Unit Price",
+        "quantity": "Quantity",
+        "total": "Total",
+        "codePromotion": "Promotion Code",
+        "apply": "Apply",
+        "subTotal": "Sub Total",
+        "promotion": "Promotion",
+        "tax": "Tax",
+        "totalCart": "Total"
+    }    
 }
