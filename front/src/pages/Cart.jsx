@@ -22,8 +22,7 @@ const Cart = ()=> {
         <div className="shopping-cart section">
             <div className="container">
                 <CartList />
-                <TotalCart />
-                
+                <TotalCart />                
             </div>
         </div>
         <Footer/>        
