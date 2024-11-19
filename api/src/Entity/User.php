@@ -12,15 +12,18 @@ use App\Repository\UserRepository;
 use ApiPlatform\Metadata\ApiResource;
 use App\State\PasswordHasherStateProcessor;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity('email')]
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
-    denormalizationContext: ['groups' => ['user:create']],
+    denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
         new GetCollection(security: "is_granted('ROLE_ADMIN')"),
         new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
@@ -37,14 +40,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
-    #[Groups(['user:read', 'user:create'])]
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$/', match: true)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
+    #[Assert\Type('array')]
+    #[Assert\Choice(choices: ['ROLE_USER', 'ROLE_ADMIN'], multiple: true)]
     #[Groups(['user:read', 'user:create'])]
     private array $roles = [];
 
@@ -54,15 +61,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[Groups(['user:create'])]
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\Length(min: 8, max: 255)]
+    #[Assert\Regex(pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', match: true)]
+    #[Groups(['user:create', 'user:update'])]
     private ?string $plainPassword = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'user:create'])]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $firstname = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'user:create'])]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $lastname = null;
 
     public function getId(): ?int
