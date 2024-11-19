@@ -10,12 +10,14 @@ import {
   faCartShopping,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import i18next from 'i18next'
+import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isAuth, setIsAuth] = useState(!!cookies.get("userToken"));
+  const { t } = useTranslation();
 
   const languages = [
     {
@@ -38,7 +40,6 @@ const Navbar = () => {
 
   const currentLanguageCode = cookies.get("i18next") || "en";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
-  const { t } = useTranslation();
 
   useEffect(() => {
     document.documentElement.lang = currentLanguageCode;
@@ -47,6 +48,12 @@ const Navbar = () => {
 
   const handleToggle = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  const logout = () => {
+    cookies.remove("userToken");
+    setIsAuth(false);
+    setIsCollapsed(true);
   };
 
   return (
@@ -120,6 +127,45 @@ const Navbar = () => {
         <div className="container">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
+              <Link to="/" className="nav-link">
+                {t("navbar.home")}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.account")}
+                </Dropdown.Toggle>
+                {isAuth ? (
+                  <Dropdown.Menu>
+                    <Link to="/account" className="dropdown-item" role="button">
+                      {t("navbar.infoAcount")}
+                    </Link>
+                    <Link
+                      to="/account/order"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.orderAcount")}
+                    </Link>
+                  </Dropdown.Menu>
+                ) : (
+                  <Dropdown.Menu>
+                    <Link to="/login" className="dropdown-item" role="button">
+                      {t("navbar.login")}
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.register")}
+                    </Link>
+                  </Dropdown.Menu>
+                )}
+              </Dropdown>
+            </li>
+            <li className="nav-item">
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
                   {t("navbar.languages")}
@@ -142,11 +188,6 @@ const Navbar = () => {
               </Dropdown>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-link">
-                {t("navbar.home")}
-              </Link>
-            </li>
-            <li className="nav-item">
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
                   {t("navbar.categories")}
@@ -165,6 +206,35 @@ const Navbar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </li>
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.cyna")}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.about")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.terms-condition")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.legal-notices")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.contact")}
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
+            </li>
+            {isAuth && (
+              <li className="nav-item">
+                <a href="#" className="nav-link" onClick={logout}>
+                  {t("navbar.logout")}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
