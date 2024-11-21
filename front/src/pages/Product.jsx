@@ -11,9 +11,33 @@ import {
   } from "@fortawesome/free-solid-svg-icons";
 import SingleProduct from '../components/SingleProduct';
 import { useTranslation } from 'react-i18next';
+import apiRequest from "../utils/apiRequest";
+import Loading from './Loading';
+import { useState, useEffect } from 'react';
+
 
 const Product = () => {
 	const { t } = useTranslation();
+	const [product, setProduct] = useState(null);
+
+	useEffect(()=>{
+		const fetchItems = async () => {
+			const { data: product} = await apiRequest("/products", "GET", {
+			  headers: {
+				"Content-Type": "application/ld+json",
+			  },		  
+			});  
+			setProduct(product);		
+		  };
+		  
+		  fetchItems();
+	},[])
+
+	  if (!product) {
+		return <Loading />;
+	  }
+
+	  console.log(product);
 
 	const products = [
 		{ id: 1, name: 'Nom de service', price: '29,00€', imgSrc: 'https://via.placeholder.com/370x300', label: 'Nouveau' },
