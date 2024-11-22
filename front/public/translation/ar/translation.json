@@ -3,7 +3,16 @@
         "input-search": "البحث",
         "languages": "اللغات",
         "home": "الصفحة الرئيسية",
-        "categories": "الفئات"
+        "categories": "الفئات",
+        "account": "الحساب",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج",
+        "register": "تسجيل",
+        "about": "حول",
+        "terms-condition": "الشروط والأحكام",
+        "legal-notices": "الإشعارات القانونية",
+        "contact": "اتصل",
+        "cyna": "سينا"
     },
     "footer": {
         "terms-condition": "الشروط والأحكام",
@@ -51,5 +60,46 @@
         "promotion": "ترقية",
         "tax": "ضريبة",
         "totalCart": "إجمالي"
-    } 
+    },
+    "register": {
+        "title": "تسجيل",
+        "firstname": "اسمك الأول",
+        "lastname": "اسمك الأخير",
+        "email": "بريدك الإلكتروني",
+        "password": "كلمة المرور الخاصة بك",
+        "confirmPassword": "تأكيد كلمة المرور الخاصة بك",
+        "btnRegister": "سجل",
+        "btnLogin": "تسجيل الدخول",
+        "errors": {
+            "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+            "lastnameRequired": "الاسم الأخير مطلوب.",
+            "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
+            "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+            "firstNameRequired": "الاسم الأول مطلوب.",
+            "emailRequired": "البريد الإلكتروني مطلوب.",
+            "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+            "passwordRequired": "كلمة المرور مطلوبة.",
+            "passwordMinLength": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
+            "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+            "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير، ورقم، وحرف خاص.",
+            "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+            "passwordMustMatch": "كلمات المرور غير متطابقة."
+        }
+    },
+    "login": {
+        "title": "تسجيل الدخول",
+        "email": "بريدك الإلكتروني",
+        "password": "كلمة المرور الخاصة بك",
+        "btnLogin": "تسجيل الدخول",
+        "btnRegister": "سجل",
+        "rememberMe": "تذكرني",
+        "forgotPassword": "هل نسيت كلمة المرور؟",
+        "errors": {
+            "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+            "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+            "emailRequired": "البريد الإلكتروني مطلوب.",
+            "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+            "passwordRequired": "كلمة المرور مطلوبة."
+        }
+    }
 }

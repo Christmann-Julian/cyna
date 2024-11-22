@@ -60,7 +60,7 @@ const Login = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="section-title">
-                      <h2>Se connecter</h2>
+                      <h2>{t("login.title")}</h2>
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ const Login = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre Email<span>*</span>
+                          {t("login.email")}<span>*</span>
                         </label>
                         <input
                           {...register("email", {
@@ -98,7 +98,7 @@ const Login = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre mot de passe<span>*</span>
+                          {t("login.password")}<span>*</span>
                         </label>
                         <input
                           type="password"
@@ -116,19 +116,19 @@ const Login = () => {
                     <div className="col-12">
                       <div className="form-group login-btn">
                         <button className="btn" type="submit">
-                          Se connecter
+                          {t("login.btnLogin")}
                         </button>
                         <button className="btn">
-                          <Link to="/register">S'inscrire</Link>
+                          <Link to="/register">{t("login.btnRegister")}</Link>
                         </button>
                       </div>
                       <div className="checkbox">
                         <label className="checkbox-inline">
                           <input id="checkbox" type="checkbox" {...register("rememberMe")} />
-                          Se souvenir de moi
+                          {t("login.rememberMe")}
                         </label>
                       </div>
-                      <Link to="/forgot-password" className="lost-pass">Mot de passe oublié ?</Link>
+                      <Link to="/forgot-password" className="lost-pass">{t("login.forgotPassword")}</Link>
                     </div>
                   </div>
                 </form>
