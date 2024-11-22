@@ -3,6 +3,7 @@ import "../assets/css/navbar.css";
 import logo from "../assets/img/logo-cyna.webp";
 import { Link } from "react-router-dom";
 import cookies from "js-cookie";
+import languages, { getCurrentLanguage, getCurrentLanguageCode } from "../utils/language";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,31 +19,10 @@ const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isAuth, setIsAuth] = useState(!!cookies.get("userToken"));
   const { t } = useTranslation();
-
-  const languages = [
-    {
-      code: "fr",
-      name: "Français",
-      country_code: "fr",
-    },
-    {
-      code: "en",
-      name: "English",
-      country_code: "gb",
-    },
-    {
-      code: "ar",
-      name: "العربية",
-      dir: "rtl",
-      country_code: "sa",
-    },
-  ];
-
-  const currentLanguageCode = cookies.get("i18next") || "en";
-  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const currentLanguage = getCurrentLanguage();
 
   useEffect(() => {
-    document.documentElement.lang = currentLanguageCode;
+    document.documentElement.lang = getCurrentLanguageCode();
     document.documentElement.dir = currentLanguage.dir || "ltr";
   }, [currentLanguage, t]);
 
