@@ -2,66 +2,64 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ProductTranslation;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
-use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
 #[ApiResource(
     normalizationContext: ['groups' => ['product:read']],
     denormalizationContext: ['groups' => ['product:create', 'product:update']],
-    operations: [
-        new GetCollection(),
-        new Get(),
-        new Post(security: "is_granted('ROLE_ADMIN')"),
-        new Patch(security: "is_granted('ROLE_ADMIN')"),
-        new Delete(security: "is_granted('ROLE_ADMIN')"),
-    ],
+    operations: [],
 )]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['product:read'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['product:read', 'product:create', 'product:update'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?float $price = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['product:read', 'product:create', 'product:update'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?int $priority = null;
 
     #[ORM\Column]
-    #[Groups(['product:read', 'product:create', 'product:update'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?bool $disponibility = null;
 
     /**
      * @var Collection<int, ProductTranslation>
      */
     #[ORM\OneToMany(targetEntity: ProductTranslation::class, mappedBy: 'product', orphanRemoval: true)]
-    #[Groups(['product:read'])]
     private Collection $productTranslations;
 
     #[ORM\ManyToOne(inversedBy: 'product')]
-    #[Groups(['product:read'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?TopProduct $topProduct = null;
 
     #[ORM\ManyToOne(inversedBy: 'product')]
-    #[Groups(['product:read'])]
+    #[Groups([
+        'productTranslation:read'
+    ])]
     private ?Category $category = null;
 
     public function __construct()
