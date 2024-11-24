@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['productTranslation:create', 'productTranslation:update']],
     operations: [
         new GetCollection(),
+        new Get(),
         new Get(
             routeName: 'get_product_translation',
             openapi: new Operation(

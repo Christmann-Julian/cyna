@@ -25,6 +25,25 @@ class ProductTranslationController extends AbstractController
             return new JsonResponse(['error' => 'Product not found'], 404);
         }
 
+        $categoryId = $productTranslation->getProduct()->getCategory()?->getId();
+
+        if (!$categoryId) {
+            $products = $this->productTranslationRepository->findByLocale($locale, $productTranslation->getId(), 6);
+        }else{
+            $products = $this->productTranslationRepository->findByLocaleAndCategory($locale, $categoryId, $productTranslation->getId(), 6);
+        }
+
+        $similarProducts = [];
+        foreach ($products as $similarProduct) {
+            $similarProducts[] = [
+                'id' => $similarProduct->getProduct()->getId(),
+                'locale' => $similarProduct->getLocale()->getCode(),
+                'name' => $similarProduct->getName(),
+                'price' => $similarProduct->getProduct()->getPrice(),
+                'disponibility' => $similarProduct->getProduct()->isDisponibility()
+            ];
+        }
+
         return new JsonResponse([
             'id' => $productTranslation->getId(),
             'locale' => $productTranslation->getLocale()->getCode(),
@@ -34,7 +53,7 @@ class ProductTranslationController extends AbstractController
             'price' => $productTranslation->getProduct()->getPrice(),
             'priority' => $productTranslation->getProduct()->getPriority(),
             'disponibility' => $productTranslation->getProduct()->isDisponibility(),
-            'category' => $productTranslation->getProduct()->getCategory()?->getName()
+            'similarProduct' => $similarProducts
         ]);
     }
 }

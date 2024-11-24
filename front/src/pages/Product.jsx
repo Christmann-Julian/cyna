@@ -24,6 +24,7 @@ const Product = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setProduct(null);
     const fetchItems = async () => {
       const { data: product, error: errorCode } = await apiRequest(`/product/${currentLocale}/${id}`, "GET", {
         headers: {
@@ -44,49 +45,6 @@ const Product = () => {
   if (!product) {
     return <Loading />;
   }
-
-  const products = [
-    {
-      id: 1,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-      label: "Nouveau",
-    },
-    {
-      id: 2,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-      label: "Rupture",
-    },
-    {
-      id: 3,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-      label: "-30%",
-    },
-    {
-      id: 4,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-    },
-    {
-      id: 5,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-    },
-    {
-      id: 6,
-      name: "Nom de service",
-      price: "29,00€",
-      imgSrc: "https://via.placeholder.com/370x300",
-      label: "Nouveau",
-    },
-  ];
 
   return (
     <>
@@ -152,7 +110,7 @@ const Product = () => {
           <div className="row">
             <div className="col-12">
               <div className="row">
-                {products.map((product) => (
+                {product.similarProduct.map((product) => (
                   <div
                     className="col-xl-4 col-lg-4 col-md-4 col-12"
                     key={product.id}

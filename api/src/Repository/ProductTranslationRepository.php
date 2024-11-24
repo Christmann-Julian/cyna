@@ -16,28 +16,32 @@ class ProductTranslationRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductTranslation::class);
     }
 
-    //    /**
-    //     * @return ProductTranslation[] Returns an array of ProductTranslation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByLocaleAndCategory(string $locale, int $categoryId, int $id, int $limit = 10)
+    {
+        return $this->createQueryBuilder('pt')
+            ->innerJoin('pt.product', 'p')
+            ->innerJoin('p.category', 'c')
+            ->where('pt.locale = :locale')
+            ->andWhere('c.id = :categoryId')
+            ->andWhere('pt.id != :id')
+            ->setParameter('locale', $locale)
+            ->setParameter('categoryId', $categoryId)
+            ->setParameter('id', $id)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?ProductTranslation
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findByLocale(string $locale, int $id, int $limit = 10)
+    {
+        return $this->createQueryBuilder('pt')
+            ->where('pt.locale = :locale')
+            ->andWhere('pt.product != :id')
+            ->setParameter('locale', $locale)
+            ->setParameter('id', $id)
+            ->orderBy('pt.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
