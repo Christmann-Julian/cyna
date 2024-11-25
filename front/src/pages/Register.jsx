@@ -66,7 +66,7 @@ const Register = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="section-title">
-                      <h2>S'inscrire</h2>
+                      <h2>{t("register.title")}</h2>
                     </div>
                   </div>
                 </div>
@@ -82,7 +82,7 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre nom<span>*</span>
+                          { t("register.lastname")}<span>*</span>
                         </label>
                         <input
                           {...register("lastname", {
@@ -107,7 +107,7 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre prénom<span>*</span>
+                          { t("register.firstname")}<span>*</span>
                         </label>
                         <input
                           {...register("firstname", {
@@ -132,7 +132,7 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre Email<span>*</span>
+                          { t("register.email")}<span>*</span>
                         </label>
                         <input
                           {...register("email", {
@@ -154,7 +154,7 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Votre Mot de passe<span>*</span>
+                          { t("register.password")}<span>*</span>
                         </label>
                         <input
                           type="password"
@@ -185,7 +185,7 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          Confirmation de votre Mot de passe<span>*</span>
+                          { t("register.confirmPassword")}<span>*</span>
                         </label>
                         <input
                           type="password"
@@ -195,7 +195,7 @@ const Register = () => {
                             ),
                             validate: (value) =>
                               value === password ||
-                              t("register.errors.passwordsMustMatch"),
+                              t("register.errors.passwordMustMatch"),
                           })}
                         />
                         {errors.confirmPassword && (
@@ -208,10 +208,10 @@ const Register = () => {
                     <div className="col-12">
                       <div className="form-group login-btn">
                         <button className="btn" type="submit">
-                          S'inscrire
+                          { t("register.btnRegister") }
                         </button>
                         <button className="btn" type="submit">
-                          <Link to="login">Se connecter</Link>
+                          <Link to="login">{ t("register.btnLogin")}</Link>
                         </button>
                       </div>
                     </div>

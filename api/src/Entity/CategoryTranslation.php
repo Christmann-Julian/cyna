@@ -24,6 +24,10 @@ class CategoryTranslation
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]
+    private ?LocaleCyna $locale = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +65,18 @@ class CategoryTranslation
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getLocale(): ?LocaleCyna
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?LocaleCyna $locale): static
+    {
+        $this->locale = $locale;
 
         return $this;
     }
