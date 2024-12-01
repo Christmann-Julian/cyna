@@ -11,12 +11,17 @@ import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import Account from "./pages/account/Account";
 import OrderAccount from "./pages/account/OrderAccount";
+import AdminPanel from "./pages/admin/AdminPanel";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/admin/*",
+    element: <AdminPanel />,
   },
   {
     path: "/login",
