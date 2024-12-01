@@ -8,7 +8,10 @@ use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\Parameter;
 use App\Repository\ProductTranslationRepository;
@@ -20,6 +23,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new GetCollection(),
         new Get(),
+        new Post(),
+        new Put(),
+        new Delete(),
         new Get(
             routeName: 'get_product_translation',
             openapi: new Operation(
@@ -78,11 +84,13 @@ class ProductTranslation
     #[ORM\Column(length: 255)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
+        'product:read', 'product:create', 'product:update'
     ])]
     private ?string $name = null;
 
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
+        'product:read', 'product:create', 'product:update'
     ])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -90,18 +98,22 @@ class ProductTranslation
     #[ORM\Column(type: Types::TEXT)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
+        'product:read', 'product:create', 'product:update'
     ])]
     private ?string $caracteristic = null;
 
     #[ORM\ManyToOne(inversedBy: 'productTranslations')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['productTranslation:read'])]
+    #[Groups([
+        'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
+    ])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
+        'product:read', 'product:create', 'product:update'
     ])]
     private ?LocaleCyna $locale = null;
 

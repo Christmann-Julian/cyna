@@ -7,6 +7,7 @@ import UserCreate from './create/UserCreate';
 import { ProductCreate } from './create/ProductCreate';
 import { ProductEdit } from './edit/ProductEdit';
 import { ProductShow } from './show/ProductShow';
+import { UserList } from './list/UserList';
 
 const lightTheme = defaultTheme;
 const darkTheme = { ...defaultTheme, palette: { mode: 'dark' } };
@@ -21,7 +22,7 @@ function AdminPanel() {
       darkTheme={darkTheme}
     >
       <ResourceGuesser name='products' list={ProductList} edit={ProductEdit} create={ProductCreate} show={ProductShow} />
-      <ResourceGuesser name="users" edit={UserEdit} create={UserCreate}/>
+      <ResourceGuesser name="users" list={UserList} edit={UserEdit} create={UserCreate}/>
     </HydraAdmin>
   );
 }
