@@ -211,7 +211,7 @@ const Register = () => {
                           { t("register.btnRegister") }
                         </button>
                         <button className="btn" type="submit">
-                          <Link to="login">{ t("register.btnLogin")}</Link>
+                          <Link to="/login">{ t("register.btnLogin")}</Link>
                         </button>
                       </div>
                     </div>

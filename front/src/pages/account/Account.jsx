@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import "../../assets/css/account.css";
@@ -6,10 +6,16 @@ import "../../assets/css/forms.css";
 import userLogo from "../../assets/img/user.png";
 import { Link } from "react-router-dom";
 import InfoAccount from "../../components/account/InfoAccount";
-import useAuth from "../../hook/useAuth";
+import authProvider from "../../utils/authProvider";
+import { useTranslation } from "react-i18next";
 
 const Account = () => {
-  const { authenticatedUser } = useAuth();
+  const { t } = useTranslation();
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    authProvider.getPermissions().then(setRoles).catch(console.error);
+  }, []);
 
   return (
     <>
@@ -34,14 +40,17 @@ const Account = () => {
                   <div className="d-flex justify-content-between align-items-center">
                     <div>
                       <div className="d-inline-block font-weight-medium">
-                        Mes informations
+                        {t("navbar.infoAccount")}
                       </div>
                     </div>
                   </div>
                 </Link>
                 <Link className="list-group-item" to="/account/order">
-                  Mes commandes
+                  {t("navbar.orderAccount")}
                 </Link>
+                {roles.includes("ROLE_ADMIN") && (
+                  <Link className="list-group-item" to="/admin">Admin Panel</Link>
+                )}
               </nav>
             </div>
           </div>

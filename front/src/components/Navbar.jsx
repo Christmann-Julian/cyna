@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/navbar.css";
 import logo from "../assets/img/logo-cyna.webp";
-import { Link } from "react-router-dom";
-import cookies from "js-cookie";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import languages, { getCurrentLanguage, getCurrentLanguageCode } from "../utils/language";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,12 +13,15 @@ import {
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import authProvider from "../utils/authProvider";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isAuth, setIsAuth] = useState(!!cookies.get("userToken"));
+  const [isAuth, setIsAuth] = useState(authProvider.isAuthenticated());
   const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.lang = getCurrentLanguageCode();
@@ -30,10 +32,12 @@ const Navbar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const logout = () => {
-    cookies.remove("userToken");
+  const handleLogout = () => {
+    authProvider.logout();
     setIsAuth(false);
-    setIsCollapsed(true);
+    if (location.pathname.includes('account')) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -119,14 +123,14 @@ const Navbar = () => {
                 {isAuth ? (
                   <Dropdown.Menu>
                     <Link to="/account" className="dropdown-item" role="button">
-                      {t("navbar.infoAcount")}
+                      {t("navbar.infoAccount")}
                     </Link>
                     <Link
                       to="/account/order"
                       className="dropdown-item"
                       role="button"
                     >
-                      {t("navbar.orderAcount")}
+                      {t("navbar.orderAccount")}
                     </Link>
                   </Dropdown.Menu>
                 ) : (
@@ -210,7 +214,7 @@ const Navbar = () => {
             </li>
             {isAuth && (
               <li className="nav-item">
-                <a href="#" className="nav-link" onClick={logout}>
+                <a href="#" className="nav-link" onClick={handleLogout}>
                   {t("navbar.logout")}
                 </a>
               </li>
