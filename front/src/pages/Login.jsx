@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "../assets/css/forms.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import apiRequest from "../utils/apiRequest";
-import Cookies from "js-cookie";
+import authProvider from "../utils/authProvider";
+import Alert from "../components/Alert";
 
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [errorLogin, setErrorLogin] = useState(null);
+  const [errorLogin, setErrorLogin] = useState({ message: '', type: '' });
 
   const {
     register,
@@ -20,33 +20,22 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (formData) => {
-    const fetchItems = async () => {
-      const { data: user, error: errorLogin } = await apiRequest("/login_check", "POST",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: {
-            username: formData.email,
-            password: formData.password,
-          },
-        }
-      );
-      if (user) {
-        const cookieOptions = formData.rememberMe ? 
-          { expires: 30, sameSite: 'Strict', secure: true } :  { expires: 1 / 24, sameSite: 'Strict', secure: true };
-        Cookies.set('userToken', user.token, cookieOptions);
-        navigate("/account");
-      }
+    setErrorLogin({ message: '', type: '' });
 
-      if (errorLogin == 401) {
-        setErrorLogin(t("login.errors.invalidCredentials"));
-      }else {
-        setErrorLogin(t("login.errors.serverError"));
+    const tryLogin = async () => {
+      try {
+        await authProvider.login({ username: formData.email, password: formData.password });
+        navigate("/account");
+      } catch (error) {
+        if (error.status == 401) {
+          setErrorLogin({ message: t("login.errors.invalidCredentials"), type: 'danger'});
+        }else {
+          setErrorLogin({ message: t("login.errors.serverError"), type: 'danger'});
+        }
       }
     };
 
-    fetchItems();
+    tryLogin();
   };
 
   return (
@@ -65,14 +54,8 @@ const Login = () => {
                   </div>
                 </div>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                  <div className="row">
-                    {errorLogin && (
-                      <div className="col-12">
-                        <div className="alert alert-danger" role="alert">
-                          {errorLogin}
-                        </div>
-                      </div>
-                    )}
+                  <div className="row mx-2 mx-sm-0">
+                    <Alert message={errorLogin.message} type={errorLogin.type} />
                     <div className="col-12">
                       <div className="form-group">
                         <label>
