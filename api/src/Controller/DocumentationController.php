@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DocumentationController extends AbstractController
 {
     #[Route('/', name: 'documentation_homepage')]
-    public function getProductTranslation(): Response
+    public function getDocumentationHomepage(): Response
     {
         return $this->render('documentation/index.html.twig');
     }
