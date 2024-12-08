@@ -10,9 +10,11 @@ import { useTranslation } from "react-i18next";
 const OrderAccount = () => {
   const { t } = useTranslation();
   const [roles, setRoles] = useState([]);
-  
+  const [userInfo, setUserInfo] = useState(null);
+
   useEffect(() => {
     authProvider.getPermissions().then(setRoles).catch(console.error);
+    authProvider.getUserInfo().then(setUserInfo).catch(console.error);
   }, []);
 
   return (
@@ -26,10 +28,12 @@ const OrderAccount = () => {
                 <div className="account-card-avatar">
                   <img src={userLogo} alt="user image" />
                 </div>
-                <div className="account-card-details">
-                  <h5 className="account-card-name text-lg">Daniel Adams</h5>
-                  <span className="account-card-position">daniel@test.com</span>
-                </div>
+                {userInfo && (
+                  <div className="account-card-details">
+                    <h5 className="account-card-name text-lg">{userInfo.firstname + " " + userInfo.lastname}</h5>
+                    <span className="account-card-position">{userInfo.email}</span>
+                  </div>
+                 )}
               </div>
             </div>
             <div className="wizard">

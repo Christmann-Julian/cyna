@@ -17,11 +17,20 @@ import authProvider from "../utils/authProvider";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isAuth, setIsAuth] = useState(authProvider.isAuthenticated());
+  const [isAuth, setIsAuth] = useState(null);
   const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuth = async () => {
+      const authStatus = await authProvider.isAuthenticated();
+      setIsAuth(authStatus);
+    };
+
+    isAuth();
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = getCurrentLanguageCode();

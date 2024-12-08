@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import authProvider from "../utils/authProvider";
 import Alert from "../components/Alert";
+import Loading from "../pages/Loading";
 
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [errorLogin, setErrorLogin] = useState({ message: '', type: '' });
+  const [errorLogin, setErrorLogin] = useState({ message: "", type: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -20,23 +22,40 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (formData) => {
-    setErrorLogin({ message: '', type: '' });
+    setIsLoading(true);
+    setErrorLogin({ message: "", type: "" });
 
     const tryLogin = async () => {
       try {
-        await authProvider.login({ username: formData.email, password: formData.password });
+        await authProvider.login({
+          username: formData.email,
+          password: formData.password,
+          rememberMe: formData.rememberMe,
+        });
         navigate("/account");
       } catch (error) {
         if (error.status == 401) {
-          setErrorLogin({ message: t("login.errors.invalidCredentials"), type: 'danger'});
-        }else {
-          setErrorLogin({ message: t("login.errors.serverError"), type: 'danger'});
+          setErrorLogin({
+            message: t("login.errors.invalidCredentials"),
+            type: "danger",
+          });
+        } else {
+          setErrorLogin({
+            message: t("login.errors.serverError"),
+            type: "danger",
+          });
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
     tryLogin();
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -55,11 +74,15 @@ const Login = () => {
                 </div>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
                   <div className="row mx-2 mx-sm-0">
-                    <Alert message={errorLogin.message} type={errorLogin.type} />
+                    <Alert
+                      message={errorLogin.message}
+                      type={errorLogin.type}
+                    />
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          {t("login.email")}<span>*</span>
+                          {t("login.email")}
+                          <span>*</span>
                         </label>
                         <input
                           {...register("email", {
@@ -81,7 +104,8 @@ const Login = () => {
                     <div className="col-12">
                       <div className="form-group">
                         <label>
-                          {t("login.password")}<span>*</span>
+                          {t("login.password")}
+                          <span>*</span>
                         </label>
                         <input
                           type="password"
@@ -107,11 +131,17 @@ const Login = () => {
                       </div>
                       <div className="checkbox">
                         <label className="checkbox-inline">
-                          <input id="checkbox" type="checkbox" {...register("rememberMe")} />
+                          <input
+                            id="checkbox"
+                            type="checkbox"
+                            {...register("rememberMe")}
+                          />
                           {t("login.rememberMe")}
                         </label>
                       </div>
-                      <Link to="/forgot-password" className="lost-pass">{t("login.forgotPassword")}</Link>
+                      <Link to="/forgot-password" className="lost-pass">
+                        {t("login.forgotPassword")}
+                      </Link>
                     </div>
                   </div>
                 </form>
