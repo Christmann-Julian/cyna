@@ -21,11 +21,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['productTranslation:read']],
     denormalizationContext: ['groups' => ['productTranslation:create', 'productTranslation:update']],
     operations: [
-        new GetCollection(),
-        new Get(),
-        new Post(),
-        new Put(),
-        new Delete(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
         new Get(
             routeName: 'get_product_translation',
             openapi: new Operation(

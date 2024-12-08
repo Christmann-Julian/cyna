@@ -22,11 +22,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['product:read']],
     denormalizationContext: ['groups' => ['product:create', 'product:update']],
     operations: [
-        new GetCollection(),
-        new Get(),
-        new Post(),
-        new Put(),
-        new Delete(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility'])]

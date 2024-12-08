@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['locale:read']],
     operations: [
-        new Get(),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
     ]
 )]
 #[ORM\Entity(repositoryClass: LocaleCynaRepository::class)]

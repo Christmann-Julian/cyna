@@ -29,14 +29,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
-        new GetCollection(),
-        new Get(),
-        new Put(),
-        new Patch(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(processor: PasswordHasherStateProcessor::class, security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Patch(processor: PasswordHasherStateProcessor::class, security: "is_granted('ROLE_ADMIN') or object == user"),
         new Post(processor: PasswordHasherStateProcessor::class, validationContext: ['groups' => ['Default', 'user:create']]),
-        // new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
-        // new Patch(processor: PasswordHasherStateProcessor::class, security: "is_granted('ROLE_ADMIN') or object == user"),
-        // new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
     ],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'roles', 'email', 'firstname', 'lastname'])]
