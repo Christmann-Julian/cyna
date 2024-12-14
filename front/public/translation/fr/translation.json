@@ -100,5 +100,42 @@
             "emailPattern": "L'adresse email n'est pas valide.",
             "passwordRequired": "Le mot de passe est obligatoire."
         }
+    },
+    "infoAccount": {
+        "title":  "Mes Informations",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "Email",
+        "password": "Nouveau mot de passe (optionnel)",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnUpdate": "Mettre à jour",
+        "success": "Vos informations ont été mises à jour avec succès.",
+        "errors": {
+            "fetchError": "Une erreur est survenue. Veuillez réessayer plus tard.",
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "forgotPassword": {
+        "title": "Mot de passe oublié",
+        "email": "L'email de votre compte",
+        "btnSend": "Recevoir un email",
+        "btnLogin": "Se connecter",
+        "success": "Un email vous a été envoyé pour réinitialiser votre mot de passe.",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide."
+        }
     }
 }

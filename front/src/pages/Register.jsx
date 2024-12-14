@@ -3,6 +3,7 @@ import "../assets/css/forms.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loading from "../pages/Loading";
+import Alert from "../components/Alert";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [errorRegister, setErrorRegister] = useState(null);
+  const [errorRegister, setErrorRegister] = useState({ message: "", type: "" });
 
   const {
     register,
@@ -40,7 +41,10 @@ const Register = () => {
       setLoading(false);
 
       if (errorRegister) {
-        setErrorRegister(t("register.errors.serverError"));
+        setErrorRegister({
+          message: t("register.errors.serverError"),
+          type: "danger",
+        });
       } else {
         navigate("/login");
       }
@@ -71,15 +75,12 @@ const Register = () => {
                   </div>
                 </div>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                  {errorRegister && (
-                    <div className="col-12">
-                      <div className="alert alert-danger" role="alert">
-                        {errorRegister}
-                      </div>
-                    </div>
-                  )}
                   <div className="row">
                     <div className="col-12">
+                      <Alert
+                        message={errorRegister.message}
+                        type={errorRegister.type}
+                      />
                       <div className="form-group">
                         <label>
                           { t("register.lastname")}<span>*</span>

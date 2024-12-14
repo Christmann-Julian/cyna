@@ -111,10 +111,8 @@ const authProvider = {
       const currentTime = Date.now() / 1000;
 
       if (decodedToken.exp < currentTime) {
-        if (decodedToken.exp < currentTime) {
-          const refreshed = await this.refreshToken();
-          return refreshed;
-        }
+        const refreshed = await this.refreshToken();
+        return refreshed;
       }
 
       return true;
