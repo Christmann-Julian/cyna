@@ -1,141 +1,158 @@
 {
-    "navbar": {
-        "input-search": "Search",
-        "languages": "Languages",
-        "home": "Home",
-        "categories": "Categories",
-        "account": "Account",
-        "login": "Login",
-        "logout": "Logout",
-        "infoAccount": "My settings",
-        "orderAccount": "My orders",
-        "register": "Register",
-        "about": "About",
-        "terms-condition": "Terms and Conditions",
-        "legal-notices": "Legal Notices",
-        "contact": "Contact",
-        "cyna": "Cyna"
-    },
-    "footer": {
-        "terms-condition": "Terms and Conditions",
-        "legal-notices": "Legal Notices",
-        "contact": "Contact"
-    },
-    "error-page": {
-        "error-404": {
-            "title": "This page is not found",
-            "message": "Oops! The page you are looking for does not exist. It may have been moved or deleted.",
-            "button": "Back to home"
-        }
-    },
-    "homepage":{
-        "topServicesTitle": "Our Trending Services",
-        "descriptionTitle" : "Description",
-        "categoriesTitle" : "Categories"
-    },
-    "product":{
-        "quantity": "Quantity",
-        "tryNow": "Try Now",
-        "similaryServices" : "Similar services"
-    },
-    "product-grid":{
-        "show": "Show",
-        "sortBy": "Sort by",
-        "categories" : "Categories",
-        "sortByPrice": "Sort By Price",
-        "only": "Only",
-        "promotions": "Promotions",
-        "available": "Available"
-    },
-    "cart":{
-        "product": "Product",
-        "time": "Time",
-        "unitPrice" : "Unit Price",
-        "quantity": "Quantity",
-        "total": "Total",
-        "codePromotion": "Promotion Code",
-        "apply": "Apply",
-        "subTotal": "Sub Total",
-        "promotion": "Promotion",
-        "tax": "Tax",
-        "totalCart": "Total"
-    },
-    "register": {
-        "title": "Register",
-        "firstname": "Your First Name",
-        "lastname": "Your Last Name",
-        "email": "Your Email",
-        "password": "Your Password",
-        "confirmPassword": "Confirm Your Password",
-        "btnRegister": "Register",
-        "btnLogin": "Login",
-        "errors": {
-            "serverError": "Server error! Please try again later.",
-            "lastnameRequired": "Last name is required.",
-            "maxLength": "The field must not exceed 50 characters.",
-            "minLength": "The field must contain at least 3 characters.",
-            "firstnameRequired": "First name is required.",
-            "emailRequired": "Email is required.",
-            "emailPattern": "The email address is not valid.",
-            "passwordRequired": "Password is required.",
-            "passwordMinLength": "The password must contain at least 8 characters.",
-            "passwordMaxLength": "The password must not exceed 255 characters.",
-            "passwordPattern": "The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
-            "confirmPasswordRequired": "Password confirmation is required.",
-            "passwordMustMatch": "Passwords do not match."
-        }
-    },
-    "login": {
-        "title": "Login",
-        "email": "Your Email",
-        "password": "Your Password",
-        "btnLogin": "Login",
-        "btnRegister": "Register",
-        "rememberMe": "Remember Me",
-        "forgotPassword": "Forgot Password?",
-        "errors": {
-            "serverError": "Server error! Please try again later.",
-            "invalidCredentials": "Invalid email or password.",
-            "emailRequired": "Email is required.",
-            "emailPattern": "The email address is not valid.",
-            "passwordRequired": "Password is required."
-        }
-    },
-    "infoAccount": {
-        "title": "My Information",
-        "firstname": "First Name",
-        "lastname": "Last Name",
-        "email": "Email",
-        "password": "New Password (optional)",
-        "confirmPassword": "Confirm Your Password",
-        "btnUpdate": "Update",
-        "success": "Your information has been successfully updated.",
-        "errors": {
-            "fetchError": "An error occurred while fetching your information.",
-            "serverError": "Server error! Please try again later.",
-            "lastnameRequired": "Last name is required.",
-            "maxLength": "The field must not exceed 50 characters.",
-            "minLength": "The field must contain at least 3 characters.",
-            "firstnameRequired": "First name is required.",
-            "emailRequired": "Email is required.",
-            "emailPattern": "The email address is not valid.",
-            "passwordMinLength": "The password must be at least 8 characters long.",
-            "passwordMaxLength": "The password must not exceed 255 characters.",
-            "passwordPattern": "The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
-            "confirmPasswordRequired": "Password confirmation is required.",
-            "passwordMustMatch": "Passwords do not match."
-        }
-    },
-    "forgotPassword": {
-        "title": "Forgot Password",
-        "email": "Your account email",
-        "btnSend": "Receive an email",
-        "btnLogin": "Login",
-        "success": "An email has been sent to reset your password.",
-        "errors": {
-            "serverError": "Server error! Please try again later.",
-            "emailRequired": "Email is required.",
-            "emailPattern": "The email address is not valid."
-        }
+  "navbar": {
+    "input-search": "Search",
+    "languages": "Languages",
+    "home": "Home",
+    "categories": "Categories",
+    "account": "Account",
+    "login": "Login",
+    "logout": "Logout",
+    "infoAccount": "My settings",
+    "orderAccount": "My orders",
+    "register": "Register",
+    "about": "About",
+    "terms-condition": "Terms and Conditions",
+    "legal-notices": "Legal Notices",
+    "contact": "Contact",
+    "cyna": "Cyna"
+  },
+  "footer": {
+    "terms-condition": "Terms and Conditions",
+    "legal-notices": "Legal Notices",
+    "contact": "Contact"
+  },
+  "error-page": {
+    "error-404": {
+      "title": "This page is not found",
+      "message": "Oops! The page you are looking for does not exist. It may have been moved or deleted.",
+      "button": "Back to home"
     }
+  },
+  "homepage": {
+    "topServicesTitle": "Our Trending Services",
+    "descriptionTitle": "Description",
+    "categoriesTitle": "Categories"
+  },
+  "product": {
+    "quantity": "Quantity",
+    "tryNow": "Try Now",
+    "similaryServices": "Similar services"
+  },
+  "product-grid": {
+    "show": "Show",
+    "sortBy": "Sort by",
+    "categories": "Categories",
+    "sortByPrice": "Sort By Price",
+    "only": "Only",
+    "promotions": "Promotions",
+    "available": "Available"
+  },
+  "cart": {
+    "product": "Product",
+    "time": "Time",
+    "unitPrice": "Unit Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "codePromotion": "Promotion Code",
+    "apply": "Apply",
+    "subTotal": "Sub Total",
+    "promotion": "Promotion",
+    "tax": "Tax",
+    "totalCart": "Total"
+  },
+  "register": {
+    "title": "Register",
+    "firstname": "Your First Name",
+    "lastname": "Your Last Name",
+    "email": "Your Email",
+    "password": "Your Password",
+    "confirmPassword": "Confirm Your Password",
+    "btnRegister": "Register",
+    "btnLogin": "Login",
+    "errors": {
+      "serverError": "Server error! Please try again later.",
+      "lastnameRequired": "Last name is required.",
+      "maxLength": "The field must not exceed 50 characters.",
+      "minLength": "The field must contain at least 3 characters.",
+      "firstnameRequired": "First name is required.",
+      "emailRequired": "Email is required.",
+      "emailPattern": "The email address is not valid.",
+      "passwordRequired": "Password is required.",
+      "passwordMinLength": "The password must contain at least 8 characters.",
+      "passwordMaxLength": "The password must not exceed 255 characters.",
+      "passwordPattern": "The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      "confirmPasswordRequired": "Password confirmation is required.",
+      "passwordMustMatch": "Passwords do not match."
+    }
+  },
+  "login": {
+    "title": "Login",
+    "email": "Your Email",
+    "password": "Your Password",
+    "btnLogin": "Login",
+    "btnRegister": "Register",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "errors": {
+      "serverError": "Server error! Please try again later.",
+      "invalidCredentials": "Invalid email or password.",
+      "emailRequired": "Email is required.",
+      "emailPattern": "The email address is not valid.",
+      "passwordRequired": "Password is required."
+    }
+  },
+  "infoAccount": {
+    "title": "My Information",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "email": "Email",
+    "password": "New Password (optional)",
+    "confirmPassword": "Confirm Your Password",
+    "btnUpdate": "Update",
+    "success": "Your information has been successfully updated.",
+    "errors": {
+      "fetchError": "An error occurred while fetching your information.",
+      "serverError": "Server error! Please try again later.",
+      "lastnameRequired": "Last name is required.",
+      "maxLength": "The field must not exceed 50 characters.",
+      "minLength": "The field must contain at least 3 characters.",
+      "firstnameRequired": "First name is required.",
+      "emailRequired": "Email is required.",
+      "emailPattern": "The email address is not valid.",
+      "passwordMinLength": "The password must be at least 8 characters long.",
+      "passwordMaxLength": "The password must not exceed 255 characters.",
+      "passwordPattern": "The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      "confirmPasswordRequired": "Password confirmation is required.",
+      "passwordMustMatch": "Passwords do not match."
+    }
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "email": "Your account email",
+    "btnSend": "Receive an email",
+    "btnLogin": "Login",
+    "success": "An email has been sent to reset your password.",
+    "errors": {
+      "serverError": "Server error! Please try again later.",
+      "emailRequired": "Email is required.",
+      "emailPattern": "The email address is not valid."
+    }
+  },
+  "resetPassword": {
+    "title": "Password Reset",
+    "password": "New Password",
+    "confirmPassword": "Confirm Your Password",
+    "btnReset": "Reset",
+    "btnLogin": "Login",
+    "errors": {
+      "serverError": "Server error! Please try again later.",
+      "linkExpired": "The reset link has expired.",
+      "passwordRequired": "Password is required.",
+      "passwordMinLength": "Password must be at least 8 characters long.",
+      "passwordMaxLength": "Password must not exceed 255 characters.",
+      "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+      "confirmPasswordRequired": "Password confirmation is required.",
+      "passwordMustMatch": "Passwords do not match."
+    }
+  }
 }

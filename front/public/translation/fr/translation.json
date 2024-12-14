@@ -137,5 +137,22 @@
             "emailRequired": "L'email est obligatoire.",
             "emailPattern": "L'adresse email n'est pas valide."
         }
+    },
+    "resetPassword": {
+        "title": "Réinitialisation du mot de passe",
+        "password": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnReset": "Réinitialiser",
+        "btnLogin": "Se connecter",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "linkExpired": "Le lien de réinitialisation a expiré.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
     }
 }

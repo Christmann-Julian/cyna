@@ -13,6 +13,8 @@ import Account from "./pages/account/Account";
 import OrderAccount from "./pages/account/OrderAccount";
 import AdminPanel from "./pages/admin/AdminPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
     errorElement: <ErrorPage />,
   },
   {

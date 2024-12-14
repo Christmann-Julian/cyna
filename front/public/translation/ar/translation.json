@@ -1,144 +1,161 @@
 {
-    "navbar": {
-        "input-search": "البحث",
-        "languages": "اللغات",
-        "home": "الصفحة الرئيسية",
-        "categories": "الفئات",
-        "account": "الحساب",
-        "login": "تسجيل الدخول",
-        "logout": "تسجيل الخروج",
-        "infoAccount": "إعداداتي",
-        "orderAccount": "طلباتي",
-        "register": "تسجيل",
-        "about": "حول",
-        "terms-condition": "الشروط والأحكام",
-        "legal-notices": "الإشعارات القانونية",
-        "contact": "اتصل",
-        "cyna": "سينا"
-    },
-    "footer": {
-        "terms-condition": "الشروط والأحكام",
-        "legal-notices": "الإشعارات القانونية",
-        "contact": "اتصل"
-    },
-    "error-page": {
-        "error-404": {
-            "title": "هذه الصفحة غير موجودة",
-            "message": "عذرًا! الصفحة التي تبحث عنها غير موجودة. قد تم نقلها أو حذفها.",
-            "button": "العودة إلى الصفحة الرئيسية"
-        }
-    },
-    "product-list":{
-        "topServices": "خدماتنا الشائعة"
-    },
-    "homepage":{
-        "topServicesTitle": "خدماتنا العصرية",
-        "descriptionTitle": "الوصف",
-        "categoriesTitle": "الفئات"
-    },
-    "product":{
-        "quantity": "الكمية",
-        "tryNow": "جرّب الآن",
-        "similaryServices" : "خدمات مشابهة"
-    },
-    "product-grid":{
-        "show": "عرض",
-        "sortBy": "فرز حسب",
-        "categories" : "الفئات",
-        "sortByPrice": "فرز حسب السعر",
-        "only": "فقط",
-        "promotions": "عروض الترويجية",
-        "available": "التوفر"
-    },
-    "cart":{
-        "product": "منتج",
-        "time": "وقت",
-        "unitPrice" : "سعر الوحدة",
-        "quantity": "كمية",
-        "total": "إجمالي",
-        "codePromotion": "رمز الترويج",
-        "apply": "قدم طلبك",
-        "subTotal": "مجموع الفرعي",
-        "promotion": "ترقية",
-        "tax": "ضريبة",
-        "totalCart": "إجمالي"
-    },
-    "register": {
-        "title": "تسجيل",
-        "firstname": "اسمك الأول",
-        "lastname": "اسمك الأخير",
-        "email": "بريدك الإلكتروني",
-        "password": "كلمة المرور الخاصة بك",
-        "confirmPassword": "تأكيد كلمة المرور الخاصة بك",
-        "btnRegister": "سجل",
-        "btnLogin": "تسجيل الدخول",
-        "errors": {
-            "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
-            "lastnameRequired": "الاسم الأخير مطلوب.",
-            "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
-            "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
-            "firstnameRequired": "الاسم الأول مطلوب.",
-            "emailRequired": "البريد الإلكتروني مطلوب.",
-            "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
-            "passwordRequired": "كلمة المرور مطلوبة.",
-            "passwordMinLength": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
-            "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
-            "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير، ورقم، وحرف خاص.",
-            "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
-            "passwordMustMatch": "كلمات المرور غير متطابقة."
-        }
-    },
-    "login": {
-        "title": "تسجيل الدخول",
-        "email": "بريدك الإلكتروني",
-        "password": "كلمة المرور الخاصة بك",
-        "btnLogin": "تسجيل الدخول",
-        "btnRegister": "سجل",
-        "rememberMe": "تذكرني",
-        "forgotPassword": "هل نسيت كلمة المرور؟",
-        "errors": {
-            "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
-            "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
-            "emailRequired": "البريد الإلكتروني مطلوب.",
-            "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
-            "passwordRequired": "كلمة المرور مطلوبة."
-        }
-    },
-    "infoAccount": {
-        "title": "معلوماتي",
-        "firstname": "الاسم الأول",
-        "lastname": "الاسم الأخير",
-        "email": "البريد الإلكتروني",
-        "password": "كلمة المرور الجديدة (اختياري)",
-        "confirmPassword": "تأكيد كلمة المرور",
-        "btnUpdate": "تحديث",
-        "success": "تم تحديث معلوماتك بنجاح.",
-        "errors": {
-            "fetchError": "خطأ في الحصول على معلومات الحساب! يرجى المحاولة لاحقًا.",
-            "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا.",
-            "lastnameRequired": "الاسم الأخير مطلوب.",
-            "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
-            "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
-            "firstnameRequired": "الاسم الأول مطلوب.",
-            "emailRequired": "البريد الإلكتروني مطلوب.",
-            "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
-            "passwordMinLength": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل.",
-            "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
-            "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد.",
-            "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
-            "passwordMustMatch": "كلمات المرور غير متطابقة."
-        }
-    },
-    "forgotPassword": {
-        "title": "نسيت كلمة المرور",
-        "email": "البريد الإلكتروني لحسابك",
-        "btnSend": "تلقي بريد إلكتروني",
-        "btnLogin": "تسجيل الدخول",
-        "success": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور الخاصة بك.",
-        "errors": {
-            "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
-            "emailRequired": "البريد الإلكتروني مطلوب.",
-            "emailPattern": "عنوان البريد الإلكتروني غير صالح."
-        }
+  "navbar": {
+    "input-search": "البحث",
+    "languages": "اللغات",
+    "home": "الصفحة الرئيسية",
+    "categories": "الفئات",
+    "account": "الحساب",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "infoAccount": "إعداداتي",
+    "orderAccount": "طلباتي",
+    "register": "تسجيل",
+    "about": "حول",
+    "terms-condition": "الشروط والأحكام",
+    "legal-notices": "الإشعارات القانونية",
+    "contact": "اتصل",
+    "cyna": "سينا"
+  },
+  "footer": {
+    "terms-condition": "الشروط والأحكام",
+    "legal-notices": "الإشعارات القانونية",
+    "contact": "اتصل"
+  },
+  "error-page": {
+    "error-404": {
+      "title": "هذه الصفحة غير موجودة",
+      "message": "عذرًا! الصفحة التي تبحث عنها غير موجودة. قد تم نقلها أو حذفها.",
+      "button": "العودة إلى الصفحة الرئيسية"
     }
+  },
+  "product-list": {
+    "topServices": "خدماتنا الشائعة"
+  },
+  "homepage": {
+    "topServicesTitle": "خدماتنا العصرية",
+    "descriptionTitle": "الوصف",
+    "categoriesTitle": "الفئات"
+  },
+  "product": {
+    "quantity": "الكمية",
+    "tryNow": "جرّب الآن",
+    "similaryServices": "خدمات مشابهة"
+  },
+  "product-grid": {
+    "show": "عرض",
+    "sortBy": "فرز حسب",
+    "categories": "الفئات",
+    "sortByPrice": "فرز حسب السعر",
+    "only": "فقط",
+    "promotions": "عروض الترويجية",
+    "available": "التوفر"
+  },
+  "cart": {
+    "product": "منتج",
+    "time": "وقت",
+    "unitPrice": "سعر الوحدة",
+    "quantity": "كمية",
+    "total": "إجمالي",
+    "codePromotion": "رمز الترويج",
+    "apply": "قدم طلبك",
+    "subTotal": "مجموع الفرعي",
+    "promotion": "ترقية",
+    "tax": "ضريبة",
+    "totalCart": "إجمالي"
+  },
+  "register": {
+    "title": "تسجيل",
+    "firstname": "اسمك الأول",
+    "lastname": "اسمك الأخير",
+    "email": "بريدك الإلكتروني",
+    "password": "كلمة المرور الخاصة بك",
+    "confirmPassword": "تأكيد كلمة المرور الخاصة بك",
+    "btnRegister": "سجل",
+    "btnLogin": "تسجيل الدخول",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "lastnameRequired": "الاسم الأخير مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "passwordMinLength": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير، ورقم، وحرف خاص.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "email": "بريدك الإلكتروني",
+    "password": "كلمة المرور الخاصة بك",
+    "btnLogin": "تسجيل الدخول",
+    "btnRegister": "سجل",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordRequired": "كلمة المرور مطلوبة."
+    }
+  },
+  "infoAccount": {
+    "title": "معلوماتي",
+    "firstname": "الاسم الأول",
+    "lastname": "الاسم الأخير",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور الجديدة (اختياري)",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "btnUpdate": "تحديث",
+    "success": "تم تحديث معلوماتك بنجاح.",
+    "errors": {
+      "fetchError": "خطأ في الحصول على معلومات الحساب! يرجى المحاولة لاحقًا.",
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا.",
+      "lastnameRequired": "الاسم الأخير مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordMinLength": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  },
+  "forgotPassword": {
+    "title": "نسيت كلمة المرور",
+    "email": "البريد الإلكتروني لحسابك",
+    "btnSend": "تلقي بريد إلكتروني",
+    "btnLogin": "تسجيل الدخول",
+    "success": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور الخاصة بك.",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح."
+    }
+  },
+  "resetPassword": {
+    "title": "إعادة تعيين كلمة المرور",
+    "password": "كلمة مرور جديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "btnReset": "إعادة تعيين",
+    "btnLogin": "تسجيل الدخول",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "linkExpired": "رابط إعادة التعيين منتهي الصلاحية.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "passwordMinLength": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  }
 }
