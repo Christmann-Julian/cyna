@@ -11,6 +11,10 @@ import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import Account from "./pages/account/Account";
 import OrderAccount from "./pages/account/OrderAccount";
+import AdminPanel from "./pages/admin/AdminPanel";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +23,22 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/admin/*",
+    element: <AdminPanel />,
+  },
+  {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
     errorElement: <ErrorPage />,
   },
   {
@@ -30,12 +48,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/account",
-    element: <Account />,
+    element: (
+      <ProtectedRoute>
+        <Account />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "/account/order",
-    element: <OrderAccount />,
+    element: (
+      <ProtectedRoute>
+        <OrderAccount />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {

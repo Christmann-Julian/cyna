@@ -25,3 +25,7 @@ services:
     App\State\PasswordHasherStateProcessor:
         bind:
             $processor: '@api_platform.doctrine.orm.state.persist_processor'
+    
+    App\EventListener\CustomJWTListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
