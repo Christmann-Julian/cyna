@@ -86,6 +86,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $lastname = null;
 
+    #[ORM\Column]
+    private ?bool $isEmailVerified = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -201,6 +204,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isEmailVerified(): ?bool
+    {
+        return $this->isEmailVerified;
+    }
+
+    public function setEmailVerified(bool $isEmailVerified): static
+    {
+        $this->isEmailVerified = $isEmailVerified;
 
         return $this;
     }

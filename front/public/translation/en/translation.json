@@ -95,6 +95,7 @@
     "forgotPassword": "Forgot Password?",
     "errors": {
       "serverError": "Server error! Please try again later.",
+      "emailNotVerified": "Your email is not verified. Please check your inbox.",
       "invalidCredentials": "Invalid email or password.",
       "emailRequired": "Email is required.",
       "emailPattern": "The email address is not valid.",
