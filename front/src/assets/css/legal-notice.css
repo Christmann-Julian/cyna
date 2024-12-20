@@ -1,0 +1,31 @@
+/* legal-notice.css */
+
+.legal-notice {
+    background-color: var(--main-color); /* Couleur de fond principale */
+    color: white; /* Texte en blanc pour contraster avec le fond */
+    padding: 20px; /* Espacement interne */
+    min-height: 100vh; /* Assure une pleine hauteur de la fenêtre */
+  } 
+  
+  .legal-notice h1 , .legal-notice h3{
+    font-size: 36px; /* Taille du titre principal */
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left; /* Alignement à gauche */
+  }
+  .legal-notice h2{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
+    text-decoration: underline;
+  }
+  
+  .legal-notice p {
+    font-size: 16px; /* Taille du texte */
+    line-height: 1.6; /* Hauteur des lignes pour une lisibilité optimale */
+    text-align: left; /* Alignement à gauche */
+    color: var(--white-color);
+  }
+
+  

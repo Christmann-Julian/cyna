@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "../assets/css/terms-page.css";
+import "../assets/css/legal-notice.css";
 
 const LegalNotice = () => {
   const [locale, setLocale] = useState("fr-FR"); 
