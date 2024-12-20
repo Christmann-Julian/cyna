@@ -15,6 +15,7 @@ import AdminPanel from "./pages/admin/AdminPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ConfirmEmail from "./pages/ConfirmEmail";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "confirm-email",
+    element: <ConfirmEmail />,
     errorElement: <ErrorPage />,
   },
   {

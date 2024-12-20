@@ -35,10 +35,18 @@ const Login = () => {
         navigate("/account");
       } catch (error) {
         if (error.status == 401) {
-          setErrorLogin({
-            message: t("login.errors.invalidCredentials"),
-            type: "danger",
-          });
+          const errorMessage = JSON.parse(error.message).message;
+          if (errorMessage == "Email is not verified.") {
+            setErrorLogin({
+              message: t("login.errors.emailNotVerified"),
+              type: "danger",
+            });
+          } else {
+            setErrorLogin({
+              message: t("login.errors.invalidCredentials"),
+              type: "danger",
+            });
+          }
         } else {
           setErrorLogin({
             message: t("login.errors.serverError"),

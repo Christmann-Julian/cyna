@@ -10,9 +10,11 @@ const authProvider = {
     return fetch(request)
       .then((response) => {
         if (response.status < 200 || response.status >= 300) {
-          const error = new Error(response.statusText);
-          error.status = response.status;
-          throw error;
+          return response.text().then((responseMessage) => {
+            const error = new Error(responseMessage);
+            error.status = response.status;
+            throw error;
+          });
         }
         return response.json();
       })

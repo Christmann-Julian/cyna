@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\PasswordReset;
+use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +15,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordResetController extends AbstractController
 {
+    public function __construct(private EmailService $emailService)
+    {
+    }
+
     #[Route('/api/password-forgot', name: 'password_forgot_mail', methods: ['POST'])]
     public function passwordForgot(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
     {
@@ -54,29 +58,8 @@ class PasswordResetController extends AbstractController
         $em->persist($passwordReset);
         $em->flush();
 
-        switch ($locale) {
-            case 'fr-FR':
-                $subject = 'Cyna - Lien pour réinitialiser votre mot de passe';
-                break;
-            case 'ar-SA':
-                $subject = 'رابط لإعادة تعيين كلمة المرور الخاصة بك';
-                break;
-            default:
-                $subject = 'Cyna - Link to reset your password';
-                break;
-        }
-
-        $email = (new TemplatedEmail())
-            ->from('noreply@cyna.com')
-            ->to($user->getEmail())
-            ->subject($subject)
-            ->htmlTemplate('emails/'. $locale .'/passwordReset.html.twig')
-            ->context([
-                'resetLink' => sprintf("http://localhost:5173/reset-password?token=%s", $resetToken)
-            ]);
-
         try {
-            $mailer->send($email);
+            $this->emailService->sendResetPasswordEmail($locale, $user, $resetToken);
         } catch (\Exception $e) {
             return new JsonResponse(['message' => 'An error occurred while sending the email'], 500);
         }
