@@ -1,4 +1,3 @@
-/* src/assets/css/hero-slider.css */
 .hero-slider {
 	position: relative;
 	width: 100%;
@@ -8,7 +7,7 @@
   
   .slider-container {
 	display: flex;
-	transition: transform 0.5s ease-in-out; /* Smooth slide transition */
+	transition: transform 0.5s ease-in-out; 
   }
   
   .slide {
@@ -28,7 +27,7 @@
 	left: 50%;
 	transform: translateX(-50%);
 	color: black;
-	background: rgba(255, 255, 255, 0.7); /* Background for text readability */
+	background: rgba(255, 255, 255, 0.7); 
 	padding: 10px 20px;
 	border-radius: 5px;
   }

@@ -1,4 +1,3 @@
-// src/components/HeroSlider.js
 import React, { useState, useEffect, useRef } from 'react';
 import '../assets/css/hero-slider.css';
 import Bureau from '../assets/img/bureau.jpg';
@@ -18,17 +17,17 @@ function HeroSlider() {
   const startCarousel = () => {
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    }, 5000); // Change every 5 seconds
+    }, 5000); 
   };
 
   useEffect(() => {
-    startCarousel(); // Start the carousel on mount
-    return () => clearInterval(intervalRef.current); // Clear interval on unmount
+    startCarousel(); 
+    return () => clearInterval(intervalRef.current); 
   }, []);
 
   const resetCarouselInterval = () => {
-    clearInterval(intervalRef.current); // Clear the existing interval
-    startCarousel(); // Restart the interval
+    clearInterval(intervalRef.current); 
+    startCarousel(); 
   };
 
   const goToPrevious = () => {
