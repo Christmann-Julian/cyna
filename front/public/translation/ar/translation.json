@@ -158,5 +158,10 @@
       "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
       "passwordMustMatch": "كلمات المرور غير متطابقة."
     }
+  },
+  "category": {
+    "description": "وصف",
+    "category": "فئة",
+    "services": "الخدمات"
   }
 }
