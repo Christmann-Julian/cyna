@@ -1,0 +1,47 @@
+import {
+  SimpleForm,
+  TextInput,
+  SimpleFormIterator,
+  ArrayInput,
+  SelectInput,
+  BooleanInput,
+  NumberInput,
+  Edit,
+} from "react-admin";
+import { RichTextInput } from "ra-input-rich-text";
+
+export const ProductEdit = () => (
+  <Edit>
+    <SimpleForm>
+      <NumberInput source="price" />
+      <NumberInput source="priority" />
+      <BooleanInput source="disponibility" />
+      <ArrayInput source="productTranslations">
+        <SimpleFormIterator>
+          <TextInput source="name" label="Name" />
+          <TextInput
+            source="description"
+            label="Description"
+            multiline
+            required
+          />
+          <RichTextInput
+            source="caracteristic"
+            label="Characteristic"
+            required
+          />
+          <SelectInput
+            label="Locale"
+            source="locale"
+            required
+            choices={[
+              { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
+              { id: "/api/locale_cynas/en-GB", name: "en-GB" },
+              { id: "/api/locale_cynas/ar-SA", name: "ar-SA" },
+            ]}
+          />
+        </SimpleFormIterator>
+      </ArrayInput>
+    </SimpleForm>
+  </Edit>
+);

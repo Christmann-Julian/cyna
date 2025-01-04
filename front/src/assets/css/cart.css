@@ -1,0 +1,199 @@
+.shopping-cart {
+	background: var(--white-color);
+	padding: 50px 0;
+}
+.shopping-summery thead .main-hading{
+	padding: 0px 50px;
+}
+.shopping-summery thead th {
+	background: var(--main-color);
+	color: var(--white-color);
+}
+.shopping-summery thead tr th {
+	border: none;
+	font-weight: 600;
+	color: var(--white-color);
+	text-align: center;
+}
+.shopping-summery tbody tr {
+	border-bottom: 1px solid var(--main-color);
+	margin-top: 20px;
+}
+.shopping-summery tbody tr:last-child{
+	border:none;
+}
+.shopping-summery tbody .product-name a {
+	font-weight: 600;
+	color: var(--black-color);
+	font-weight: 600;
+	font-size: 17px;
+}
+.shopping-summery tbody .product-name a:hover{
+	color: var(--main-color);
+}
+.shopping-cart .table td .fa-trash-can{
+	font-size: 20px;
+    color: var(--black-color);
+}
+.shopping-cart .table td {
+	vertical-align: middle;
+	padding: 30px;
+}
+.shopping-summery tbody .price {
+	text-align: center;
+}
+.shopping-cart tbody .qty .input-group {
+	width: 175px;
+	display: inline-block;
+}
+.shopping-cart .qty .button {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+}
+.shopping-cart .qty .button.minus{
+	left:0;
+	border-radius:0;
+	overflow:hidden;
+}
+.shopping-cart .qty .button.plus {
+	right: 0;
+	border-radius:0;
+	overflow:hidden;
+}
+.shopping-cart .qty .button .btn {
+	padding: 0;
+	width: 44px;
+	height: 47px;
+	line-height: 50px;
+	border-radius: 0px;
+	background: transparent;
+	color: var(--black-color);
+	border: none;
+	font-size: 12px;
+}
+.shopping-cart .qty .button .btn:hover, .shopping-summery tbody .action a:hover{
+	color: var(--main-color);
+}
+.shopping-cart .qty .input-number {
+	border: 1px solid #eceded;
+	width: 100%;
+	text-align: center;
+	height: 47px;
+	border-radius:0;
+	overflow: hidden;
+	padding: 0px 45px;
+}
+.shopping-summery tbody .total-amount, .shopping-summery tbody .action {
+	text-align: center;
+}
+.shopping-cart .total-amount .row {
+	margin-top:50px;
+}
+.shopping-cart .total-amount .left .coupon {
+    margin-bottom: 50px;
+}
+.shopping-cart .total-amount .left .coupon form input {
+	width: 220px;
+	display: inline-block;
+	height: 48px;
+	color: var(--black-color);
+	padding: 0px 20px;
+	border: 1px solid var(--black-color);
+}
+.shopping-cart .total-amount .right ul {
+    padding: 0;
+	list-style-type: none;
+}
+.shopping-cart .total-amount .right ul li{
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black-color);
+    margin-bottom: 12px;
+}
+.shopping-cart .total-amount .right ul li {
+	margin-bottom: 12px;
+}
+.shopping-cart .total-amount .right ul li.last {
+	padding-top: 12px;
+	border-top: 1px solid var(--black-color);
+}
+.shopping-cart .total-amount .right ul li span{
+	float:right;
+}
+.shopping-cart .total-amount .btn {
+	text-align: center;
+	padding: 12px;
+	font-size: 13px;
+	color: var(--white-color);
+    background-color: var(--main-color);
+}
+.shopping-cart .total-amount .right .btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+    .shopping-cart .main-hading {
+        display: none;
+    }
+    .shopping-cart .table tr {
+        border-top: 1px solid var(--main-color);
+    }
+    .shopping-cart .table td {
+        padding: .75rem;
+        border-right: 1px solid var(--main-color);
+        display: block;
+        height: auto;
+        text-align: left !important;
+        padding-left: calc(50% + 20px) !important;
+        width: 100%;
+        position: relative;
+        padding-left: 91px;
+        padding: 10px;
+    }
+    .shopping-cart .table td select{
+        width: 100%;
+    }
+    .shopping-cart .qty .button .btn {
+        padding: 0;
+        width: 35px;
+    }
+    .shopping-cart .table td::before {
+        content: attr(data-title);
+        display: block;
+        font-weight: bold;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        padding: 10px 20px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 50%;
+        height: 100%;
+        border-bottom: 1px solid #e6ebee;
+        background: var(--main-color);
+        color: var(--white-color);
+    }
+    .shopping-summery thead tr th {
+        padding: 10px;
+    }
+    .shopping-cart tbody .qty .input-group {
+        width: auto;
+    }
+    .shopping-cart .total-amount .right {
+        padding-left: 0px;
+    }
+    .shopping-cart .total-amount .left {
+        margin-bottom: 30px;
+    }
+    .shopping-cart .total-amount .left .coupon form .btn {
+        display: inline-block;
+        height: 48px;
+        margin-left: 0px;
+        width: 220px;
+        margin-top: 10px;
+        display:block;
+    }
+}

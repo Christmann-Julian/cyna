@@ -3,7 +3,18 @@
         "input-search": "Rechercher",
         "languages": "Langues",
         "home": "Accueil",
-        "categories": "Catégories"
+        "categories": "Catégories",
+        "account": "Compte",
+        "login": "Se connecter",
+        "logout": "Se déconnecter",
+        "infoAccount": "Mes paramètres",
+        "orderAccount": "Mes commandes",
+        "register": "S'inscrire",
+        "about": "À propos",
+        "terms-condition": "CGU",
+        "legal-notices": "Mentions légales",
+        "contact": "Contact",
+        "cyna": "Cyna"
     },
     "footer": {
         "terms-condition": "CGU",
@@ -21,6 +32,133 @@
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
         "categoriesTitle" : "Catégories"
+    },
+    "product":{
+        "quantity": "Quantité",
+        "tryNow": "Essayer Maintenant",
+        "similaryServices" : "Services Similaires"
+    },
+    "product-grid":{
+        "show": "Montrer",
+        "sortBy": "Trier par",
+        "categories" : "Catégories",
+        "sortByPrice": "Trier Par Prix",
+        "only": "Uniquement",
+        "promotions": "Promotions",
+        "available": "Disponible"
+    },
+    "cart":{
+        "product": "Produit",
+        "time": "Durée",
+        "unitPrice" : "Prix unitaire",
+        "quantity": "Quantité",
+        "total": "Total",
+        "codePromotion": "Code promo",
+        "apply": "Appliquer",
+        "subTotal": "Sous Total",
+        "promotion": "Promotion",
+        "tax": "Taxe",
+        "totalCart": "Total"
+    },
+    "register": {
+        "title": "Inscription",
+        "firstname": "Votre Prénom",
+        "lastname": "Votre Nom",
+        "email": "Votre Email",
+        "password": "Votre Mot de passe",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnRegister": "S'inscrire",
+        "btnLogin": "Se connecter",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "login": {
+        "title": "Connexion",
+        "email": "Votre Email",
+        "password": "Votre Mot de passe",
+        "btnLogin": "Se connecter",
+        "btnRegister": "S'inscrire",
+        "rememberMe": "Se souvenir de moi",
+        "forgotPassword": "Mot de passe oublié ?",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailNotVerified": "Votre email n'a pas été vérifié. Veuillez vérifier votre boîte de réception.",
+            "invalidCredentials": "Identifiant ou mot de passe invalide.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordRequired": "Le mot de passe est obligatoire."
+        }
+    },
+    "infoAccount": {
+        "title":  "Mes Informations",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "Email",
+        "password": "Nouveau mot de passe (optionnel)",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnUpdate": "Mettre à jour",
+        "success": "Vos informations ont été mises à jour avec succès.",
+        "errors": {
+            "fetchError": "Une erreur est survenue. Veuillez réessayer plus tard.",
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "forgotPassword": {
+        "title": "Mot de passe oublié",
+        "email": "L'email de votre compte",
+        "btnSend": "Recevoir un email",
+        "btnLogin": "Se connecter",
+        "success": "Un email vous a été envoyé pour réinitialiser votre mot de passe.",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide."
+        }
+    },
+    "resetPassword": {
+        "title": "Réinitialisation du mot de passe",
+        "password": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnReset": "Réinitialiser",
+        "btnLogin": "Se connecter",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "linkExpired": "Le lien de réinitialisation a expiré.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "category": {
+        "description": "Description",
+        "category": "Catégorie",
+        "services": "Les services"        
     }
-
 }

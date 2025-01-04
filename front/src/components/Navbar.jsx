@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/navbar.css";
 import logo from "../assets/img/logo-cyna.webp";
-import { Link } from "react-router-dom";
-import cookies from "js-cookie";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import languages, { getCurrentLanguage, getCurrentLanguageCode } from "../utils/language";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,43 +10,43 @@ import {
   faCartShopping,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import i18next from 'i18next'
+import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import authProvider from "../utils/authProvider";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const languages = [
-    {
-      code: "fr",
-      name: "Français",
-      country_code: "fr",
-    },
-    {
-      code: "en",
-      name: "English",
-      country_code: "gb",
-    },
-    {
-      code: "ar",
-      name: "العربية",
-      dir: "rtl",
-      country_code: "sa",
-    },
-  ];
-
-  const currentLanguageCode = cookies.get("i18next") || "en";
-  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const [isAuth, setIsAuth] = useState(null);
   const { t } = useTranslation();
+  const currentLanguage = getCurrentLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    document.documentElement.lang = currentLanguageCode;
+    const isAuth = async () => {
+      const authStatus = await authProvider.isAuthenticated();
+      setIsAuth(authStatus);
+    };
+
+    isAuth();
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = getCurrentLanguageCode();
     document.documentElement.dir = currentLanguage.dir || "ltr";
   }, [currentLanguage, t]);
 
   const handleToggle = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  const handleLogout = () => {
+    authProvider.logout();
+    setIsAuth(false);
+    if (location.pathname.includes('account')) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -120,6 +120,45 @@ const Navbar = () => {
         <div className="container">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
+              <Link to="/" className="nav-link">
+                {t("navbar.home")}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.account")}
+                </Dropdown.Toggle>
+                {isAuth ? (
+                  <Dropdown.Menu>
+                    <Link to="/account" className="dropdown-item" role="button">
+                      {t("navbar.infoAccount")}
+                    </Link>
+                    <Link
+                      to="/account/order"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.orderAccount")}
+                    </Link>
+                  </Dropdown.Menu>
+                ) : (
+                  <Dropdown.Menu>
+                    <Link to="/login" className="dropdown-item" role="button">
+                      {t("navbar.login")}
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.register")}
+                    </Link>
+                  </Dropdown.Menu>
+                )}
+              </Dropdown>
+            </li>
+            <li className="nav-item">
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
                   {t("navbar.languages")}
@@ -142,11 +181,6 @@ const Navbar = () => {
               </Dropdown>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-link">
-                {t("navbar.home")}
-              </Link>
-            </li>
-            <li className="nav-item">
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
                   {t("navbar.categories")}
@@ -165,6 +199,35 @@ const Navbar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </li>
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  {t("navbar.cyna")}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.about")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.terms-condition")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.legal-notices")}
+                  </Link>
+                  <Link to="/" className="dropdown-item" role="button">
+                    {t("navbar.contact")}
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
+            </li>
+            {isAuth && (
+              <li className="nav-item">
+                <a href="#" className="nav-link" onClick={handleLogout}>
+                  {t("navbar.logout")}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

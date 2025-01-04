@@ -3,34 +3,42 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\State\PasswordHasherStateProcessor;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity('email')]
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
-    denormalizationContext: ['groups' => ['user:write']],
+    denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
-        new GET(),
-        new GetCollection(),
-        new Post(processor: UserPasswordHasher::class),
-        new Put(processor: UserPasswordHasher::class),
-        new Patch(processor: UserPasswordHasher::class),
-        new Delete(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(processor: PasswordHasherStateProcessor::class, security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Patch(processor: PasswordHasherStateProcessor::class, security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Post(processor: PasswordHasherStateProcessor::class, validationContext: ['groups' => ['Default', 'user:create']]),
+        new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
     ],
 )]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'roles', 'email', 'firstname', 'lastname'])]
+#[ApiFilter(SearchFilter::class, properties: ['email' => 'partial'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -39,31 +47,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
-    #[Groups(['user:read', 'user:write'])]
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$/', match: true)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    #[Groups(['user:read', 'user:write'])]
+    #[Assert\Type('array')]
+    #[Assert\Choice(choices: ['ROLE_USER', 'ROLE_ADMIN'], multiple: true)]
+    #[Groups(['user:read', 'user:create'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['user:write'])]
     private ?string $password = null;
 
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\Length(min: 8, max: 255)]
+    #[Assert\Regex(pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', match: true)]
+    #[Groups(['user:create', 'user:update'])]
+    private ?string $plainPassword = null;
+
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'user:write'])]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $firstname = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'user:write'])]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $lastname = null;
+
+    #[ORM\Column]
+    private ?bool $isEmailVerified = null;
 
     public function getId(): ?int
     {
@@ -139,13 +163,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -168,6 +204,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isEmailVerified(): ?bool
+    {
+        return $this->isEmailVerified;
+    }
+
+    public function setEmailVerified(bool $isEmailVerified): static
+    {
+        $this->isEmailVerified = $isEmailVerified;
 
         return $this;
     }

@@ -1,26 +1,25 @@
 import React from 'react';
 import '../assets/css/product-area.css';
+import { Link } from 'react-router-dom';
 
-const SingleProduct = ({ name, price, imgSrc, label }) => {
+const SingleProduct = ({ id, name, price, imgSrc, label }) => {
   const labelClass = `product-label ${label === "Rupture" ? "rupture" : ""}`;
 
-  return (
-    <div className="col-xl-3 col-lg-4 col-md-4 col-12">
+  return (    
       <div className="single-product">
         <div className="product-img">
-          <a href="#">
-            <img className="default-img" src={imgSrc} alt={name} />
+          <Link to={"/product/" + id}>
+            <img className="default-img" src={imgSrc || 'https://via.placeholder.com/370x300'} alt={name} />
             {label && <span className={labelClass}>{label}</span>}
-          </a>
+          </Link>
         </div>
         <div className="product-content">
-          <h3><a href="#">{name}</a></h3>
+          <h3><Link to={"/product/" + id}>{name}</Link></h3>
           <div className="product-price">
             <span>{price}</span>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

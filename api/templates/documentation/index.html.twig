@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="doc-container">
+        <h1> Documentation </h1>
+        <p>
+            This page provides access to the documentation for Cyna website. Here you will find detailed.
+        </p>
+        <a href="{{ path('api_doc') }}">
+            Go to Documentation
+        </a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #D3D3D3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .doc-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #288690;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 15px 0 30px 0;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #288690;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            p {
+                font-size: 1rem;
+                margin: 10px 0 20px 0;
+            }
+
+            a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+{% endblock %}
