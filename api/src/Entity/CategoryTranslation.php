@@ -2,28 +2,63 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryTranslationRepository;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\CategoryTranslationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+
+#[ApiResource(
+    normalizationContext: ['groups' => ['categoryTranslation:read']],
+    denormalizationContext: ['groups' => ['categoryTranslation:create', 'categoryTranslation:update']],
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Get(routeName:"get_category_translation"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
+    ],
+)]
 #[ORM\Entity(repositoryClass: CategoryTranslationRepository::class)]
 class CategoryTranslation
 {
+    #[Groups([
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+    ])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups([
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+    ])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups([
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+    ])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Groups([
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+    ])]
     #[ORM\ManyToOne(inversedBy: 'categoryTranslations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
-
+    
+    #[Groups([
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+    ])]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]
     private ?LocaleCyna $locale = null;

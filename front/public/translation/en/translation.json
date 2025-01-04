@@ -155,5 +155,10 @@
       "confirmPasswordRequired": "Password confirmation is required.",
       "passwordMustMatch": "Passwords do not match."
     }
+  },
+  "category": {
+    "description": "Description",
+    "category": "Category",
+    "services": "Services"        
   }
 }

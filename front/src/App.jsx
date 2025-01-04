@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ConfirmEmail from "./pages/ConfirmEmail";
+import Category from "./pages/Category";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
     element: <Cart />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: '/category/:id',
+    element: <Category/>,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 function App() {

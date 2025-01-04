@@ -32,6 +32,20 @@ class ProductTranslationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findProdyuctByLocaleAndCategory(string $locale, int $categoryId, int $limit = 10)
+    {
+        return $this->createQueryBuilder('pt')
+            ->innerJoin('pt.product', 'p')
+            ->innerJoin('p.category', 'c')
+            ->where('pt.locale = :locale')
+            ->andWhere('c.id = :categoryId')
+            ->setParameter('locale', $locale)
+            ->setParameter('categoryId', $categoryId)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByLocale(string $locale, int $id, int $limit = 10)
     {
         return $this->createQueryBuilder('pt')

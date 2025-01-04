@@ -19,6 +19,10 @@ import {
 } from "@api-platform/admin";
 import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
 import authProvider from "../../utils/authProvider";
+import { CategoryList } from "./list/CategoryList";
+import CategoryCreate from "./create/CategoryCreate";
+import CategoryEdit from "./edit/CategoryEdit";
+import { CategoryShow } from "./show/CategoryShow";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -111,6 +115,13 @@ const AdminPanel = () => {
             edit={UserEdit}
             create={UserCreate}
           />
+          <ResourceGuesser
+            name="categories"
+            create={CategoryCreate}
+            list={CategoryList}
+            show={CategoryShow}
+            edit={CategoryEdit}
+          />   
         </>
       )}
     </HydraAdmin>

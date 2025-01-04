@@ -155,5 +155,10 @@
             "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
             "passwordMustMatch": "Les mots de passe ne correspondent pas."
         }
+    },
+    "category": {
+        "description": "Description",
+        "category": "Catégorie",
+        "services": "Les services"        
     }
 }
