@@ -23,9 +23,9 @@
 
 .text-inner {
   position: absolute;
-  bottom: 20px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   color: black;
   background: rgba(255, 255, 255, 0.7);
   padding: 10px 20px;
@@ -55,4 +55,24 @@
 
 .carousel-control:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 300px;
+  }
+
+  .slide {
+    height: 300px;
+  }
+
+  .text-inner {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  .carousel-control {
+    font-size: 25px;
+    padding: 5px;
+  }
 }
