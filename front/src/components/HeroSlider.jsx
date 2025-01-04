@@ -1,29 +1,59 @@
-// src/components/HeroSlider.js
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/css/hero-slider.css';
+import Bureau from '../assets/img/bureau.jpg';
+import Clock from '../assets/img/clock.jpg';
+import Travail from '../assets/img/Travail.jpg';
 
+function HeroSlider() {
+  const images = [
+    { src: Bureau, caption: "Service de XDR - Promo de 50%" },
+    { src: Clock, caption: "Service de SOC - Promo de 30%" },
+    { src: Travail, caption: "Service de EDR - Nouveau" }
+  ];
 
-const HeroSlider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef(null);
+
+  const startCarousel = () => {
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    }, 5000); 
+  };
+
+  useEffect(() => {
+    startCarousel(); 
+    return () => clearInterval(intervalRef.current); 
+  }, []);
+
+  const resetCarouselInterval = () => {
+    clearInterval(intervalRef.current); 
+    startCarousel(); 
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex(currentIndex === 0 ? images.length - 1 : currentIndex - 1);
+    resetCarouselInterval();
+  };
+
+  const goToNext = () => {
+    setCurrentIndex(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
+    resetCarouselInterval();
+  };
+
   return (
     <section className="hero-slider">
-      <div className="single-slider">
-        <img src="https://via.placeholder.com/1900x700" alt="#" />
-        <div className="container">
-          <div className="row no-gutters">
-            <div className="col-lg-9 offset-lg-3 col-12">
-              <div className="text-inner">
-                <div className="row">
-                  <div className="col-lg-7 col-12">
-                    <div className="hero-text">
-                      <h1><span>PROMO DE 50% SUR </span>Service de XDR</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div className="slider-container" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        {images.map((image, index) => (
+          <div className="slide" key={index}>
+            <img src={image.src} alt="Slide" />
+            <div className="text-inner">
+              <h1><span>{image.caption}</span></h1>
             </div>
           </div>
-        </div>
+        ))}
       </div>
+      <button className="carousel-control prev" onClick={goToPrevious}>&#10094;</button>
+      <button className="carousel-control next" onClick={goToNext}>&#10095;</button>
     </section>
   );
 }

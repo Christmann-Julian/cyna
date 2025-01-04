@@ -4,6 +4,8 @@ import './assets/css/style.css';
 import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
+import TermsFooter from "./pages/TermsFooter";
+import LegalNotice from "./pages/LegalNotice";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
 import ProductGrid from "./pages/ProductGrid";
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/mentions-legales",
+    element: <LegalNotice />,
+    errorElement: <ErrorPage />,
+  },
     path: "/admin/*",
     element: <AdminPanel />,
   },
@@ -100,7 +106,7 @@ function App() {
     <>
       <RouterProvider router={router} />
     </>
-  );
+  ); 
 }
 
 export default App;
