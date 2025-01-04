@@ -27,10 +27,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/mentions-legales",
-    element: <LegalNotice />,
-    errorElement: <ErrorPage />,
-  },
     path: "/admin/*",
     element: <AdminPanel />,
   },
@@ -96,7 +92,17 @@ const router = createBrowserRouter([
     path: '/category/:id',
     element: <Category/>,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: "/legal-notice",
+    element: <LegalNotice />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/terms-condition",
+    element: <TermsFooter />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 function App() {

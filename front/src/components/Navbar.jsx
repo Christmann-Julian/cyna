@@ -206,16 +206,16 @@ const Navbar = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Link to="/" className="dropdown-item" role="button">
+                  <Link to="/about" className="dropdown-item" role="button">
                     {t("navbar.about")}
                   </Link>
-                  <Link to="/" className="dropdown-item" role="button">
+                  <Link to="/terms-condition" className="dropdown-item" role="button">
                     {t("navbar.terms-condition")}
                   </Link>
-                  <Link to="/" className="dropdown-item" role="button">
+                  <Link to="/legal-notice" className="dropdown-item" role="button">
                     {t("navbar.legal-notices")}
                   </Link>
-                  <Link to="/" className="dropdown-item" role="button">
+                  <Link to="/contact" className="dropdown-item" role="button">
                     {t("navbar.contact")}
                   </Link>
                 </Dropdown.Menu>
