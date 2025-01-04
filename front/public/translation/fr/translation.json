@@ -1,0 +1,26 @@
+{
+    "navbar": {
+        "input-search": "Rechercher",
+        "languages": "Langues",
+        "home": "Accueil",
+        "categories": "Catégories"
+    },
+    "footer": {
+        "terms-condition": "CGU",
+        "legal-notices": "Mentions légales",
+        "contact": "Contact"
+    },
+    "error-page": {
+        "error-404": {
+            "title": "Cette page est introuvable",
+            "message": "Oups ! La page que vous recherchez n'existe pas. Elle a peut-être été déplacée ou supprimée.",
+            "button": "Retour à l'accueil"
+        }
+    },
+    "homepage":{
+        "topServicesTitle": "Nos Services Tendances",
+        "descriptionTitle" : "Description",
+        "categoriesTitle" : "Catégories"
+    }
+
+}

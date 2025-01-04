@@ -1,0 +1,38 @@
+/* term-page.css */
+
+.terms-container {
+  background-color: var(--main-color); /* Votre couleur de fond principale */
+  color: white;
+  padding: 20px; /* Ajustez le padding si nécessaire */
+  min-height: 100vh; /* Assure que le conteneur prend toute la hauteur de la fenêtre */
+}
+
+.terms-content {
+  max-width: none; /* Supprime la largeur maximale pour utiliser toute la largeur disponible */
+  margin: 0; /* Supprime les marges automatiques */
+}
+
+.terms-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+.terms-section {
+  margin-bottom: 30px;
+}
+
+.terms-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+.terms-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: left; /* Aligne le texte à gauche */
+}
