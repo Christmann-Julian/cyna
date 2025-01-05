@@ -13,7 +13,6 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CategoryTranslationRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
 #[ApiResource(
     normalizationContext: ['groups' => ['categoryTranslation:read']],
     denormalizationContext: ['groups' => ['categoryTranslation:create', 'categoryTranslation:update']],
@@ -21,6 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(security: "is_granted('ROLE_ADMIN')"),
         new Get(security: "is_granted('ROLE_ADMIN')"),
         new Get(routeName:"get_category_translation"),
+        new Get(routeName:"get_all_category_translation"),
         new Post(security: "is_granted('ROLE_ADMIN')"),
         new Put(security: "is_granted('ROLE_ADMIN')"),
         new Delete(security: "is_granted('ROLE_ADMIN')"),
@@ -55,7 +55,7 @@ class CategoryTranslation
     #[ORM\ManyToOne(inversedBy: 'categoryTranslations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
-    
+
     #[Groups([
         'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
     ])]

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/navbar.css";
 import logo from "../assets/img/logo-cyna.webp";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import languages, { getCurrentLanguage, getCurrentLanguageCode } from "../utils/language";
+import languages, {
+  getCurrentLanguage,
+  getCurrentLanguageCode,
+  getCurrentLocale,
+} from "../utils/language";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,14 +18,35 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import authProvider from "../utils/authProvider";
+import apiRequest from "../utils/apiRequest";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isAuth, setIsAuth] = useState(null);
+  const [categories, setCategories] = useState(null);
   const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
+  const currentLocale = getCurrentLocale();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const fetchCategories = async () => {
+    const { data, error: errorCode } = await apiRequest(
+      `/${currentLocale}/categories`,
+      "GET",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (errorCode) {
+      setCategories(null);
+    } else {
+      setCategories(data);
+    }
+  };
 
   useEffect(() => {
     const isAuth = async () => {
@@ -31,6 +56,10 @@ const Navbar = () => {
 
     isAuth();
   }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [currentLocale]);
 
   useEffect(() => {
     document.documentElement.lang = getCurrentLanguageCode();
@@ -44,8 +73,8 @@ const Navbar = () => {
   const handleLogout = () => {
     authProvider.logout();
     setIsAuth(false);
-    if (location.pathname.includes('account')) {
-      navigate('/login');
+    if (location.pathname.includes("account")) {
+      navigate("/login");
     }
   };
 
@@ -187,15 +216,19 @@ const Navbar = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Link to="/" className="dropdown-item" role="button">
-                    Catégorie 1
-                  </Link>
-                  <Link to="/" className="dropdown-item" role="button">
-                    Catégorie 2
-                  </Link>
-                  <Link to="/" className="dropdown-item" role="button">
-                    Catégorie 3
-                  </Link>
+                  {categories === null ? (
+                    <Link to="#" className="dropdown-item" role="button" disabled>
+                      {t("navbar.no-categories")}
+                    </Link>
+                  ) : (
+                    <>
+                      {categories.map(category => (
+                        <Link key={category.id} to={`/category/${category.id}`} className="dropdown-item" role="button">
+                          {category.name}
+                        </Link>
+                      ))}
+                    </>
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </li>
@@ -209,10 +242,18 @@ const Navbar = () => {
                   <Link to="/about" className="dropdown-item" role="button">
                     {t("navbar.about")}
                   </Link>
-                  <Link to="/terms-condition" className="dropdown-item" role="button">
+                  <Link
+                    to="/terms-condition"
+                    className="dropdown-item"
+                    role="button"
+                  >
                     {t("navbar.terms-condition")}
                   </Link>
-                  <Link to="/legal-notice" className="dropdown-item" role="button">
+                  <Link
+                    to="/legal-notice"
+                    className="dropdown-item"
+                    role="button"
+                  >
                     {t("navbar.legal-notices")}
                   </Link>
                   <Link to="/contact" className="dropdown-item" role="button">

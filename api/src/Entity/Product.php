@@ -81,6 +81,12 @@ class Product
     ])]
     private ?Category $category = null;
 
+    #[Groups([
+        'product:read',
+    ])]
+    #[ORM\Column(length: 255)]
+    private ?string $url_image = null;
+
     public function __construct()
     {
         $this->productTranslations = new ArrayCollection();
@@ -177,6 +183,18 @@ class Product
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getUrlImage(): ?string
+    {
+        return $this->url_image;
+    }
+
+    public function setUrlImage(string $url_image): static
+    {
+        $this->url_image = $url_image;
 
         return $this;
     }

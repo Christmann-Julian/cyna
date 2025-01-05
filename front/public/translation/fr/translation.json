@@ -4,6 +4,7 @@
         "languages": "Langues",
         "home": "Accueil",
         "categories": "Catégories",
+        "no-categories": "Aucune catégorie",
         "account": "Compte",
         "login": "Se connecter",
         "logout": "Se déconnecter",
