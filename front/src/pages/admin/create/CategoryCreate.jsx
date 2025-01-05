@@ -3,12 +3,12 @@ import {
   Create,
   SimpleForm,
   TextInput,
-  PasswordInput,
-  SelectArrayInput,
   maxLength,
   required,
   minLength,
-  regex,
+  SimpleFormIterator,
+  SelectInput,
+  ArrayInput,
 } from "react-admin";
 
 const CategoryCreate = () => (
@@ -18,8 +18,29 @@ const CategoryCreate = () => (
         source="url_image"
         label="URL Image"
         required
-        validate={[required(), minLength(2), maxLength(50)]}
-      />      
+        validate={[minLength(2), maxLength(255)]}
+      />
+      <ArrayInput source="categoryTranslations">
+        <SimpleFormIterator>
+          <TextInput source="name" label="Name" required />
+          <TextInput
+            source="description"
+            label="Description"
+            multiline
+            required
+          />
+          <SelectInput
+            label="Locale"
+            source="locale"
+            required
+            choices={[
+              { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
+              { id: "/api/locale_cynas/en-GB", name: "en-GB" },
+              { id: "/api/locale_cynas/ar-SA", name: "ar-SA" },
+            ]}
+          />
+        </SimpleFormIterator>
+      </ArrayInput>
     </SimpleForm>
   </Create>
 );

@@ -17,6 +17,7 @@ export const ProductShow = () => (
       <NumberField source="price" />
       <NumberField source="priority" />
       <BooleanField source="disponibility" />
+      <TextField source="url_image" />
       <ArrayField source="productTranslations">
         <Datagrid bulkActionButtons={false} sort={false} rowClick={false}>
           <TextField source="name" label="Name" />

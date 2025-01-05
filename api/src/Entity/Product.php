@@ -82,7 +82,7 @@ class Product
     private ?Category $category = null;
 
     #[Groups([
-        'product:read',
+        'product:read', 'product:create', 'product:update'
     ])]
     #[ORM\Column(length: 255)]
     private ?string $url_image = null;

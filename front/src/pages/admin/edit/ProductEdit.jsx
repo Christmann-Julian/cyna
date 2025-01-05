@@ -13,12 +13,13 @@ import { RichTextInput } from "ra-input-rich-text";
 export const ProductEdit = () => (
   <Edit>
     <SimpleForm>
-      <NumberInput source="price" />
+      <NumberInput source="price" required/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
+      <TextInput source="url_image" label="URL Image" required />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" />
+          <TextInput source="name" label="Name" required />
           <TextInput
             source="description"
             label="Description"

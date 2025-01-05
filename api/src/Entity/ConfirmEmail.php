@@ -10,8 +10,6 @@ use ApiPlatform\OpenApi\Model\RequestBody;
 use App\Repository\ConfirmEmailRepository;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['productTranslation:read']],
-    denormalizationContext: ['groups' => ['productTranslation:create', 'productTranslation:update']],
     operations: [
         new Post(
             routeName: 'confirm_email',

@@ -14,12 +14,15 @@ export const ProductList = () => (
     <FunctionField
       label="Name by locale"
       render={(record) =>
-        record.productTranslations.map((translation, index) => (
-          <div key={index}>
-            {translation.name} ({translation.locale.split("/").pop() || "??-??"}
-            )
-          </div>
-        ))
+        record.productTranslations && record.productTranslations.length > 0 ? (
+          record.productTranslations.map((translation, index) => (
+            <div key={index}>
+              {translation.name} ({translation.locale.split("/").pop() || "??-??"})
+            </div>
+          ))
+        ) : (
+          <div>No translations available</div>
+        )
       }
     />
     <FieldGuesser source="price" />

@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class CategoryTranslation
 {
     #[Groups([
-        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+        'categoryTranslation:read'
     ])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,13 +38,15 @@ class CategoryTranslation
     private ?int $id = null;
 
     #[Groups([
-        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update',
+        'category:read', 'category:create', 'category:update'
     ])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[Groups([
-        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update',
+        'category:read', 'category:create', 'category:update'
     ])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -57,7 +59,8 @@ class CategoryTranslation
     private ?Category $category = null;
 
     #[Groups([
-        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update'
+        'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update',
+        'category:read', 'category:create', 'category:update'
     ])]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]

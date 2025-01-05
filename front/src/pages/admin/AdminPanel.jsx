@@ -110,18 +110,18 @@ const AdminPanel = () => {
             show={ProductShow}
           />
           <ResourceGuesser
-            name="users"
-            list={UserList}
-            edit={UserEdit}
-            create={UserCreate}
-          />
-          <ResourceGuesser
             name="categories"
             create={CategoryCreate}
             list={CategoryList}
             show={CategoryShow}
             edit={CategoryEdit}
-          />   
+          /> 
+          <ResourceGuesser
+            name="users"
+            list={UserList}
+            edit={UserEdit}
+            create={UserCreate}
+          />  
         </>
       )}
     </HydraAdmin>

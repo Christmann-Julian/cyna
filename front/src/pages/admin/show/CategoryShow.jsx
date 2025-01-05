@@ -1,12 +1,9 @@
 import {
   Show,
   SimpleShowLayout,
-  NumberField,
-  BooleanField,
+  TextField,
   ArrayField,
   Datagrid,
-  TextField,
-  RichTextField,
   ReferenceField,
   FunctionField,
 } from "react-admin";
@@ -14,7 +11,20 @@ import {
 export const CategoryShow = () => (
   <Show>
     <SimpleShowLayout>
-      <TextField source="url_image" />            
+      <TextField source="url_image" />
+      <ArrayField source="categoryTranslations">
+        <Datagrid bulkActionButtons={false} sort={false} rowClick={false}>
+          <TextField source="name" label="Name" />
+          <TextField source="description" label="Description" />
+          <ReferenceField
+            source="locale"
+            reference="locale_cynas"
+            label="Locale"
+          >
+            <FunctionField render={(record) => record.code.split("/").pop()} />
+          </ReferenceField>
+        </Datagrid>
+      </ArrayField>
     </SimpleShowLayout>
   </Show>
 );

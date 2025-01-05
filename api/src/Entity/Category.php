@@ -8,12 +8,15 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\CategoryTranslation;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategoryRepository;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
@@ -27,11 +30,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'url_image'])]
+#[ApiFilter(SearchFilter::class, properties: ['categoryTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
     #[Groups([
-        'category:read', 'category:create', 'category:update'
+        'category:read'
     ])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -52,8 +57,11 @@ class Category
 
     /**
      * @var Collection<int, CategoryTranslation>
-     */    
-    #[ORM\OneToMany(targetEntity: CategoryTranslation::class, mappedBy: 'category', orphanRemoval: true)]
+     */
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]    
+    #[ORM\OneToMany(targetEntity: CategoryTranslation::class, mappedBy: 'category', orphanRemoval: true, cascade: ['persist'])]
     private Collection $categoryTranslations;
 
     public function __construct()
