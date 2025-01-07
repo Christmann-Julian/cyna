@@ -2,27 +2,61 @@
 
 namespace App\Entity;
 
-use App\Repository\HomepageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Image;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\HomepageRepository;
+use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['homepage:read']],
+    denormalizationContext: ['groups' => ['homepage:create', 'homepage:update']],
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
+    ],
+)]
 #[ORM\Entity(repositoryClass: HomepageRepository::class)]
 class Homepage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups([
+        'homepage:read'
+    ])]
     private ?int $id = null;
 
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
+
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
+    #[ORM\Column(length: 5)]
+    private ?string $locale = null;
 
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'homepage')]
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'homepage', orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
     public function __construct()
@@ -73,6 +107,18 @@ class Homepage
                 $image->setHomepage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): static
+    {
+        $this->locale = $locale;
 
         return $this;
     }
