@@ -1,0 +1,35 @@
+{
+    "fr": {
+        "title1": "À propos de Cyna",
+        "mainText1": "Chez Cyna, nous sommes spécialisés dans la fourniture de solutions de sécurité SaaS (SOC, EDR, XDR) adaptées aux besoins des entreprises modernes.",
+        "mainText2": "Face à l'évolution constante des menaces numériques, nous aidons nos clients à protéger leurs données, leurs systèmes et leur tranquillité d'esprit grâce à des technologies de pointe.",
+        "missionTitle": "Notre mission",
+        "missionTexte": "Proposer des outils performants et accessibles pour renforcer la cybersécurité des entreprises.",
+        "choiseTitle": "Pourquoi choisir Cyna ?",
+        "expertise": "Expertise", 
+        "innovation": "Innovation", 
+        "reliability": "Fiabilité"
+    }, 
+    "en": {
+        "title1": "About Cyna",
+        "mainText1": "At Cyna, we specialise in providing SaaS security solutions (SOC, EDR, XDR) tailored to the needs of modern businesses.",
+        "mainText2": "As digital threats continue to evolve, we help our customers protect their data, their systems and their peace of mind with cutting-edge technologies.",
+        "missionTitle": "Our mission",
+        "missionTexte": "Offering high-performance, accessible tools to strengthen corporate cyber security.",
+        "choiseTitle": "Why choose Cyna?",
+        "expertise": "Expertise", 
+        "innovation": "Innovation", 
+        "reliability": "Reliability"
+    }, 
+    "ar": {
+        "title1": "عن سينا",
+        "mainText1": "في Cyna، نحن متخصصون في توفير حلول أمن البرمجيات كخدمة (SOC، EDR، XDR) المصممة خصيصًا لتلبية احتياجات الشركات الحديثة",
+        "mainText2": "ومع استمرار تطور التهديدات الرقمية، فإننا نساعد عملاءنا على حماية بياناتهم وأنظمتهم وراحة بالهم باستخدام أحدث التقنيات",
+        "missionTitle": "مهمتنا",
+        "missionTexte": "تقديم أدوات عالية الأداء ويمكن الوصول إليها لتعزيز الأمن السيبراني للشركات.",
+        "choiseTitle": "لماذا تختار سينا؟",
+        "expertise": "خبرة", 
+        "innovation": "ابتكار", 
+        "reliability": "موثوقية"
+    }
+}

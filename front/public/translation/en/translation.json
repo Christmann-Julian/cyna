@@ -163,5 +163,14 @@
     "description": "Description",
     "category": "Category",
     "services": "Services"        
+  },
+  "contact": {
+    "help": "Need help or information ?",
+    "writeUs": "Write us a message",
+    "email" : "Your email", 
+    "subject": "Your Sujet",
+    "message": "Your message", 
+    "send": "Send your message",
+    "chatbot": "Chatbot"
   }
 }
