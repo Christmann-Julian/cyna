@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\HomepageRepository;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Parameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -25,6 +27,59 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(security: "is_granted('ROLE_ADMIN')"),
         new Put(security: "is_granted('ROLE_ADMIN')"),
         new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new Get(
+            routeName: 'get_homepage',
+            openapi: new Operation(
+                tags: ['Homepage'],
+                summary: 'Get a homepage by Locale',
+                parameters: [
+                    new Parameter(
+                        name: 'locale',
+                        in: 'path',
+                        required: true,
+                        schema: ['type' => 'string'],
+                        description: 'The code of the locale',
+                    ),
+                ],
+                responses: [
+                    '200' => [
+                        'description' => 'Product translation retrieved successfully',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => ['type' => 'object'],
+                                'example' => [
+                                    'id' => 0,
+                                    'description' => 'string',
+                                    'locale' => 'string',
+                                    'slides' => [
+                                        [
+                                            'id' => 0,
+                                            'title' => 'string',
+                                            'url_image' => 'string'
+                                        ]
+                                    ],
+                                    'categories' => [
+                                        [
+                                            'id' => 0,
+                                            'name' => 'string',
+                                            'url_image' => 'string',
+                                        ]
+                                    ],
+                                    'top_products' => [
+                                        [
+                                            'id' => 0,
+                                            'name' => 'string',
+                                            'url_image' => 'string',
+                                            'price' => 0.0,
+                                        ]
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ),
+        ),
     ],
 )]
 #[ORM\Entity(repositoryClass: HomepageRepository::class)]

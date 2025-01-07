@@ -32,7 +32,9 @@
   "homepage": {
     "topServicesTitle": "Our Trending Services",
     "descriptionTitle": "Description",
-    "categoriesTitle": "Categories"
+    "categoriesTitle": "Categories",
+    "seeMore": "See More",
+    "noCategories": "No categories"
   },
   "product": {
     "quantity": "Quantity",

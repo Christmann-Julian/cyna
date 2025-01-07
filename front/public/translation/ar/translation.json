@@ -35,7 +35,9 @@
   "homepage": {
     "topServicesTitle": "خدماتنا العصرية",
     "descriptionTitle": "الوصف",
-    "categoriesTitle": "الفئات"
+    "categoriesTitle": "الفئات",
+    "seeMore": "عرض المزيد",
+    "noCategories": "لا توجد فئات"
   },
   "product": {
     "quantity": "الكمية",

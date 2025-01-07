@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility', 'top_product', 'position'])]
 #[ApiFilter(SearchFilter::class, properties: ['productTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -73,12 +73,6 @@ class Product
     #[Groups([
         'product:read',
     ])]
-    private ?TopProduct $topProduct = null;
-
-    #[ORM\ManyToOne(inversedBy: 'product')]
-    #[Groups([
-        'product:read',
-    ])]
     private ?Category $category = null;
 
     #[Groups([
@@ -86,6 +80,18 @@ class Product
     ])]
     #[ORM\Column(length: 255)]
     private ?string $url_image = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\Column]
+    private ?bool $top_product = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\Column(nullable: true)]
+    private ?int $position = null;
 
     public function __construct()
     {
@@ -163,18 +169,6 @@ class Product
         return $this;
     }
 
-    public function getTopProduct(): ?TopProduct
-    {
-        return $this->topProduct;
-    }
-
-    public function setTopProduct(?TopProduct $topProduct): static
-    {
-        $this->topProduct = $topProduct;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -195,6 +189,30 @@ class Product
     public function setUrlImage(string $url_image): static
     {
         $this->url_image = $url_image;
+
+        return $this;
+    }
+
+    public function isTopProduct(): ?bool
+    {
+        return $this->top_product;
+    }
+
+    public function setTopProduct(bool $top_product): static
+    {
+        $this->top_product = $top_product;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): static
+    {
+        $this->position = $position;
 
         return $this;
     }

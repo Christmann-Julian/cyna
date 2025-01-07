@@ -16,6 +16,8 @@ export const ProductEdit = () => (
       <NumberInput source="price" required/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
+      <BooleanInput source="top_product" />
+      <NumberInput source="position" defaultValue={0} />
       <TextInput source="url_image" label="URL Image" required />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>

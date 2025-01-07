@@ -59,7 +59,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                                     'name' => 'string',
                                     'description' => 'string',
                                     'caracteristic' => 'string',
-                                    'price' => 0,
+                                    'price' => 0.0,
                                     'priority' => 0,
                                     'disponibility' => true,
                                     'category' => 'string',
