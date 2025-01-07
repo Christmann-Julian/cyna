@@ -94,6 +94,8 @@
     "btnRegister": "Register",
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password?",
+    "registerSuccess": "Your account has been successfully created. Please check your inbox to verify your email.",
+    "resetPasswordSuccess": "Your password has been successfully reset.",
     "errors": {
       "serverError": "Server error! Please try again later.",
       "emailNotVerified": "Your email is not verified. Please check your inbox.",

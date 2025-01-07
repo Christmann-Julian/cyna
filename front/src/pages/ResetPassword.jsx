@@ -59,7 +59,7 @@ const ResetPassword = () => {
           });
         }
       } else {
-        navigate("/login");
+        navigate("/login?message=login.resetPasswordSuccess");
       }
 
       setIsLoading(false);

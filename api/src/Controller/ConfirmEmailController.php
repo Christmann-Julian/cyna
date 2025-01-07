@@ -39,7 +39,7 @@ class ConfirmEmailController extends AbstractController
             return new JsonResponse(['message' => 'User not found'], 404);
         }
 
-        $user->setEmailVerified(true);
+        $user->setIsEmailVerified(true);
         $em->persist($user);
         $em->flush();
 
