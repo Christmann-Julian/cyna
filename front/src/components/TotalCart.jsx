@@ -1,6 +1,7 @@
 import React from 'react';
 import  "../assets/css/cart.css";
 import { useTranslation } from 'react-i18next';
+import "../pages/Checkout";
 
 
 const TotalCart = ()=> {
@@ -30,7 +31,7 @@ const TotalCart = ()=> {
                                     <li className="last">Total<span>450,00€</span></li>
                                 </ul>
                                 <div>
-                                    <a href="#" className="btn">Passer à la caisse</a>
+                                    <a href="/checkout" className="btn">Passer à la caisse</a>
                                     <a href="#" className="btn">Continuer mes achats</a>
                                 </div>
                             </div>
