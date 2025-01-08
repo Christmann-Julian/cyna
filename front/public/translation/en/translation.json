@@ -11,6 +11,7 @@
     "infoAccount": "My settings",
     "orderAccount": "My orders",
     "register": "Register",
+    "cart": "Cart",
     "about": "About",
     "terms-condition": "Terms and Conditions",
     "legal-notices": "Legal Notices",
@@ -32,7 +33,9 @@
   "homepage": {
     "topServicesTitle": "Our Trending Services",
     "descriptionTitle": "Description",
-    "categoriesTitle": "Categories"
+    "categoriesTitle": "Categories",
+    "seeMore": "See More",
+    "noCategories": "No categories"
   },
   "product": {
     "quantity": "Quantity",

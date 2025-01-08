@@ -11,6 +11,7 @@
     "infoAccount": "إعداداتي",
     "orderAccount": "طلباتي",
     "register": "تسجيل",
+    "cart": "عربة التسوق",
     "about": "حول",
     "terms-condition": "الشروط والأحكام",
     "legal-notices": "الإشعارات القانونية",
@@ -35,7 +36,9 @@
   "homepage": {
     "topServicesTitle": "خدماتنا العصرية",
     "descriptionTitle": "الوصف",
-    "categoriesTitle": "الفئات"
+    "categoriesTitle": "الفئات",
+    "seeMore": "عرض المزيد",
+    "noCategories": "لا توجد فئات"
   },
   "product": {
     "quantity": "الكمية",

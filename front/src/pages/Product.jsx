@@ -115,7 +115,7 @@ const Product = () => {
                     className="col-xl-4 col-lg-4 col-md-4 col-12"
                     key={product.id}
                   >
-                    <SingleProduct {...product} />
+                    <SingleProduct product={product} />
                   </div>
                 ))}
               </div>
