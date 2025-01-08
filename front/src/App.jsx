@@ -4,7 +4,7 @@ import './assets/css/style.css';
 import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
-import TermsFooter from "./pages/TermsFooter";
+import CGU from "./pages/CGU";
 import LegalNotice from "./pages/LegalNotice";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
@@ -106,13 +106,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/about",
-    element: <About />,
+    path: "/cgu",
+    element: <CGU />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/terms-condition",
-    element: <TermsFooter />,
+    path: "/about",
+    element: <About />,
     errorElement: <ErrorPage />,
   },
 ]);
