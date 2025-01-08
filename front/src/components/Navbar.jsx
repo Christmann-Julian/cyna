@@ -8,21 +8,29 @@ import languages, {
   getCurrentLocale,
 } from "../utils/language";
 import Dropdown from "react-bootstrap/Dropdown";
+import {
+  Navbar as BoostrapNavbar,
+  Container,
+  Nav,
+  Form,
+  InputGroup,
+  Button,
+  Badge,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMagnifyingGlass,
   faCartShopping,
-  faBars,
+  faGlobe,
+  faUser,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import authProvider from "../utils/authProvider";
 import apiRequest from "../utils/apiRequest";
-import LoadingSpinner from "./LoadingSpinner";
 
 const Navbar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isAuth, setIsAuth] = useState(null);
   const [categories, setCategories] = useState(null);
   const { t } = useTranslation();
@@ -66,10 +74,6 @@ const Navbar = () => {
     document.documentElement.dir = currentLanguage.dir || "ltr";
   }, [currentLanguage, t]);
 
-  const handleToggle = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
   const handleLogout = () => {
     authProvider.logout();
     setIsAuth(false);
@@ -79,87 +83,171 @@ const Navbar = () => {
   };
 
   return (
-    <>
-      <header className="header shop">
-        <nav className="middle-inner">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-2 col-md-2 col-6">
-                <div className="logo">
-                  <Link to="/" href="index.html">
-                    <img src={logo} alt="logo" />
-                  </Link>
-                </div>
-              </div>
-              <div className="col-lg-8 col-md-7 search-desktop">
-                <div className="search-bar-top">
-                  <div className="search-bar">
-                    <form>
-                      <input
-                        name="search"
-                        placeholder={t("navbar.input-search")}
-                        type="search"
-                      />
-                      <button className="btnn">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-2 col-md-3 col-6">
-                <div className="right-bar">
-                  <div className="sinlge-bar shopping">
-                    <Link to="/cart" className="single-icon">
-                      <FontAwesomeIcon icon={faCartShopping} />{" "}
-                      <span className="total-count">2</span>
-                    </Link>
-                  </div>
-                  <div className="sinlge-bar" aria-label="Toggle navigation">
-                    <a className="single-icon" onClick={handleToggle}>
-                      <FontAwesomeIcon icon={faBars} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row search-mobile">
-              <div className="search-bar-top">
-                <div className="search-bar">
-                  <form>
-                    <input
-                      name="search"
-                      placeholder={t("navbar.input-search")}
-                      type="search"
-                    />
-                    <button className="btnn">
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                  </form>
-                </div>
-              </div>
+    <header className="header shop">
+      <BoostrapNavbar bg="light" expand="lg" className="border-bottom">
+        <Container>
+          <BoostrapNavbar.Brand href="#">
+            <Link to="/">
+              <img src={logo} alt="Logo" height="30" />
+            </Link>
+          </BoostrapNavbar.Brand>
+
+          <div className="top-bar-mobile">
+            <Dropdown className="d-inline-block me-2">
+              <Dropdown.Toggle variant="link" className="nav-link">
+                <FontAwesomeIcon icon={faGlobe} /> {currentLocale.slice(-2)}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {languages.map(({ code, name, country_code }) => (
+                  <Dropdown.Item
+                    key={country_code}
+                    href="#"
+                    onClick={() => {
+                      i18next.changeLanguage(code);
+                    }}
+                    className="me-2"
+                  >
+                    <span className={`fi fi-${country_code} mx-2`}></span>
+                    {name}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown className="d-inline-block">
+              <Dropdown.Toggle variant="link" className="nav-link">
+                EUR €
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {["EUR €"].map((currency) => (
+                  <Dropdown.Item key={currency} href="#">
+                    {currency}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </Container>
+      </BoostrapNavbar>
+
+      <BoostrapNavbar expand="lg" className="py-3 navbar-color">
+        <Container>
+          <div className="navbar-mobile-top d-flex d-lg-none w-100">
+            <BoostrapNavbar.Toggle aria-controls="navbarMain" />
+            <div className="mobile-search-container">
+              <Form className="d-flex">
+                <InputGroup>
+                  <Form.Control
+                    type="search"
+                    placeholder={t("navbar.input-search")}
+                  />
+                  <Button variant="light">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </Button>
+                </InputGroup>
+              </Form>
             </div>
           </div>
-        </nav>
-      </header>
-      <nav
-        className={`header-collapse collapse ${isCollapsed ? "" : "show"}`}
-        id="navbarToggleExternalContent"
-      >
-        <div className="container">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link to="/" className="nav-link">
-                {t("navbar.home")}
+
+          <BoostrapNavbar.Collapse id="navbarMain">
+            <Nav className="me-auto mb-2 mb-lg-0">
+              <Link to="/" className="nav-link text-white">
+                <span>{t("navbar.home")}</span>
               </Link>
-            </li>
-            <li className="nav-item">
               <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {t("navbar.account")}
+                <Dropdown.Toggle variant="link" className="nav-link text-white">
+                  {t("navbar.categories")}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {categories === null ? (
+                    <Link
+                      to="#"
+                      className="dropdown-item"
+                      role="button"
+                      disabled
+                    >
+                      {t("navbar.no-categories")}
+                    </Link>
+                  ) : (
+                    <>
+                      {categories.map((category) => (
+                        <Dropdown.Item key={category} href="#">
+                          <Link
+                            className="dropdown-item"
+                            to={`/category/${category.id}`}
+                            role="button"
+                          >
+                            {category.name}
+                          </Link>
+                        </Dropdown.Item>
+                      ))}
+                    </>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle variant="link" className="nav-link text-white">
+                  {t("navbar.cyna")}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item>
+                    <Link to="/about" className="dropdown-item" role="button">
+                      {t("navbar.about")}
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link
+                      to="/terms-condition"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.terms-condition")}
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link
+                      to="/legal-notice"
+                      className="dropdown-item"
+                      role="button"
+                    >
+                      {t("navbar.legal-notices")}
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to="/contact" className="dropdown-item" role="button">
+                      {t("navbar.contact")}
+                    </Link>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav>
+
+            <Form
+              className="d-none d-lg-flex mx-auto"
+              style={{ minWidth: "40%" }}
+            >
+              <InputGroup>
+                <Form.Control
+                  type="search"
+                  placeholder={t("navbar.input-search")}
+                />
+                <Button variant="light">
+                  <FontAwesomeIcon icon={faSearch} />
+                </Button>
+              </InputGroup>
+            </Form>
+
+            <Nav className="ms-auto">
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="link"
+                  className="nav-link text-white d-flex align-items-center"
+                >
+                  <FontAwesomeIcon icon={faUser} className="me-2" />
+                  <span>{t("navbar.account")}</span>
                 </Dropdown.Toggle>
                 {isAuth ? (
-                  <Dropdown.Menu>
+                  <Dropdown.Menu align="end">
                     <Link to="/account" className="dropdown-item" role="button">
                       {t("navbar.infoAccount")}
                     </Link>
@@ -170,9 +258,18 @@ const Navbar = () => {
                     >
                       {t("navbar.orderAccount")}
                     </Link>
+                    <Dropdown.Divider />
+                    <Link
+                      to="#"
+                      className="dropdown-item"
+                      role="button"
+                      onClick={handleLogout}
+                    >
+                      {t("navbar.logout")}
+                    </Link>
                   </Dropdown.Menu>
                 ) : (
-                  <Dropdown.Menu>
+                  <Dropdown.Menu align="end">
                     <Link to="/login" className="dropdown-item" role="button">
                       {t("navbar.login")}
                     </Link>
@@ -186,93 +283,18 @@ const Navbar = () => {
                   </Dropdown.Menu>
                 )}
               </Dropdown>
-            </li>
-            <li className="nav-item">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {t("navbar.languages")}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  {languages.map(({ code, name, country_code }) => (
-                    <Dropdown.Item
-                      key={country_code}
-                      href="#"
-                      onClick={() => {
-                        i18next.changeLanguage(code);
-                      }}
-                    >
-                      <span className={`fi fi-${country_code} mx-2`}></span>
-                      {name}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            <li className="nav-item">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {t("navbar.categories")}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  {categories === null ? (
-                    <Link to="#" className="dropdown-item" role="button" disabled>
-                      {t("navbar.no-categories")}
-                    </Link>
-                  ) : (
-                    <>
-                      {categories.map(category => (
-                        <Link key={category.id} to={`/category/${category.id}`} className="dropdown-item" role="button">
-                          {category.name}
-                        </Link>
-                      ))}
-                    </>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            <li className="nav-item">
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {t("navbar.cyna")}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Link to="/about" className="dropdown-item" role="button">
-                    {t("navbar.about")}
-                  </Link>
-                  <Link
-                    to="/terms-condition"
-                    className="dropdown-item"
-                    role="button"
-                  >
-                    {t("navbar.terms-condition")}
-                  </Link>
-                  <Link
-                    to="/legal-notice"
-                    className="dropdown-item"
-                    role="button"
-                  >
-                    {t("navbar.legal-notices")}
-                  </Link>
-                  <Link to="/contact" className="dropdown-item" role="button">
-                    {t("navbar.contact")}
-                  </Link>
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            {isAuth && (
-              <li className="nav-item">
-                <a href="#" className="nav-link" onClick={handleLogout}>
-                  {t("navbar.logout")}
-                </a>
-              </li>
-            )}
-          </ul>
-        </div>
-      </nav>
-    </>
+              <Link to="/cart" className="nav-link text-white d-flex align-items-center">
+                <FontAwesomeIcon icon={faCartShopping} className="me-2" />
+                <span>{t("navbar.cart")}</span>
+                <Badge bg="light" text="dark" pill className="ms-2">
+                  3
+                </Badge>
+              </Link>
+            </Nav>
+          </BoostrapNavbar.Collapse>
+        </Container>
+      </BoostrapNavbar>
+    </header>
   );
 };
 
