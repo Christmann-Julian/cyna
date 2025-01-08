@@ -11,6 +11,7 @@
         "infoAccount": "Mes paramètres",
         "orderAccount": "Mes commandes",
         "register": "S'inscrire",
+        "cart": "Panier",
         "about": "À propos",
         "terms-condition": "CGU",
         "legal-notices": "Mentions légales",
@@ -32,7 +33,9 @@
     "homepage":{
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
-        "categoriesTitle" : "Catégories"
+        "categoriesTitle" : "Catégories",
+        "seeMore": "Voir Plus",
+        "noCategories": "Aucune catégorie"
     },
     "product":{
         "quantity": "Quantité",
@@ -94,6 +97,8 @@
         "btnRegister": "S'inscrire",
         "rememberMe": "Se souvenir de moi",
         "forgotPassword": "Mot de passe oublié ?",
+        "registerSuccess": "Votre compte a été créé avec succès. Veuillez vérifier votre boîte de réception pour activer votre compte.",
+        "resetPasswordSuccess": "Votre mot de passe a été réinitialisé avec succès.",
         "errors": {
             "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
             "emailNotVerified": "Votre email n'a pas été vérifié. Veuillez vérifier votre boîte de réception.",
@@ -161,5 +166,14 @@
         "description": "Description",
         "category": "Catégorie",
         "services": "Les services"        
+    },
+    "contact": {
+        "help": "Besoin d'aide ou d'informations ?",
+        "writeUs":"Écrivez-nous un message",
+        "email" : "Votre email", 
+        "subject": "Votre Sujet",
+        "message": "Votre message", 
+        "send": "Envoyer votre message",
+        "chatbot": "Chatbot"
     }
 }

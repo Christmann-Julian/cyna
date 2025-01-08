@@ -58,4 +58,17 @@ class ProductTranslationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findTopProduct(string $locale, int $limit = 6)
+    {
+        return $this->createQueryBuilder('pt')
+            ->innerJoin('pt.product', 'p')
+            ->where('pt.locale = :locale')
+            ->andWhere('p.top_product = 1')
+            ->setParameter('locale', $locale)
+            ->orderBy('p.position', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

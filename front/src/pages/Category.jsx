@@ -107,7 +107,7 @@ const Category = () => {
                     className="col-xl-3 col-lg-4 col-md-4 col-12"
                     key={product.id}
                   >
-                    <SingleProduct {...product} />
+                    <SingleProduct product={product} />
                   </div>
                 ))}
               </div>

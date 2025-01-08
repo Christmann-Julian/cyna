@@ -2,9 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImageRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['image:read']],
+    denormalizationContext: ['groups' => ['image:create', 'image:update']],
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
+    ],
+)]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
@@ -13,12 +31,23 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update',
+        'image:read', 'image:create', 'image:update'
+    ])]
     #[ORM\Column(length: 255)]
     private ?string $text = null;
 
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update',
+        'image:read', 'image:create', 'image:update'
+    ])]
     #[ORM\Column(length: 255)]
     private ?string $url_image = null;
 
+    #[Groups([
+        'image:read'
+    ])]
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Homepage $homepage = null;
 

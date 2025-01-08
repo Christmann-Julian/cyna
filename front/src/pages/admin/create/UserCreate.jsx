@@ -3,6 +3,7 @@ import {
   Create,
   SimpleForm,
   TextInput,
+  BooleanInput,
   PasswordInput,
   SelectArrayInput,
   maxLength,
@@ -17,19 +18,16 @@ const UserCreate = () => (
       <TextInput
         source="firstname"
         label="First Name"
-        required
         validate={[required(), minLength(2), maxLength(50)]}
       />
       <TextInput
         source="lastname"
         label="Last Name"
-        required
         validate={[required(), minLength(2), maxLength(50)]}
       />
       <TextInput
         source="email"
         label="Email"
-        required
         validate={[
           required(),
           regex(
@@ -38,10 +36,10 @@ const UserCreate = () => (
           ),
         ]}
       />
+     <BooleanInput source="isEmailVerified" label="Is Email Verified" /> 
       <PasswordInput
         source="plainPassword"
-        label="New Password (optional)"
-        required
+        label="New Password"
         validate={[
           required(),
           minLength(8),

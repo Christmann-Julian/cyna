@@ -8,7 +8,6 @@ import { ProductCreate } from "./create/ProductCreate";
 import { ProductEdit } from "./edit/ProductEdit";
 import { ProductShow } from "./show/ProductShow";
 import { UserList } from "./list/UserList";
-
 import { useState } from "react";
 import { Navigate, Route } from "react-router-dom";
 import { CustomRoutes } from "react-admin";
@@ -23,6 +22,10 @@ import { CategoryList } from "./list/CategoryList";
 import CategoryCreate from "./create/CategoryCreate";
 import CategoryEdit from "./edit/CategoryEdit";
 import { CategoryShow } from "./show/CategoryShow";
+import { HomepageCreate } from "./create/HomepageCreate";
+import { HomepageList } from "./list/HomepageList";
+import { HomepageShow } from "./show/HomepageShow";
+import { HomepageEdit } from "./edit/HomepageEdit";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -103,6 +106,13 @@ const AdminPanel = () => {
       ) : (
         <>
           <ResourceGuesser
+            name="homepages"
+            list={HomepageList}
+            edit={HomepageEdit}
+            create={HomepageCreate}
+            show={HomepageShow}
+          />
+          <ResourceGuesser
             name="products"
             list={ProductList}
             edit={ProductEdit}
@@ -111,10 +121,10 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="categories"
-            create={CategoryCreate}
             list={CategoryList}
-            show={CategoryShow}
             edit={CategoryEdit}
+            create={CategoryCreate}
+            show={CategoryShow}
           /> 
           <ResourceGuesser
             name="users"

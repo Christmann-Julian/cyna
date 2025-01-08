@@ -86,8 +86,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $lastname = null;
 
-    #[ORM\Column]
-    private ?bool $isEmailVerified = null;
+    #[ORM\Column(type: 'boolean')]
+    #[Assert\Type('bool')]
+    #[Groups(['user:read', 'user:create', 'user:update'])]
+    private bool $isEmailVerified = false;
 
     public function getId(): ?int
     {
@@ -208,12 +210,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isEmailVerified(): ?bool
+    public function isEmailVerified(): bool
     {
         return $this->isEmailVerified;
     }
 
-    public function setEmailVerified(bool $isEmailVerified): static
+    public function setIsEmailVerified(bool $isEmailVerified): static
     {
         $this->isEmailVerified = $isEmailVerified;
 

@@ -109,7 +109,7 @@ const ProductGrid = () => {
                                     <div className="row">
                                         {products.map((product) => (
                                             <div className="col-xl-3 col-lg-3 col-md-2 col-12">
-                                                <SingleProduct key={product.id} {...product} />
+                                                <SingleProduct key={product.id} product={product} />
                                             </div>
                                         ))}	
                                     </div>

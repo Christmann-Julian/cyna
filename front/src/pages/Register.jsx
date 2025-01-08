@@ -35,6 +35,7 @@ const Register = () => {
           plainPassword: formData.password,
           firstname: formData.firstname,
           lastname: formData.lastname,
+          isEmailVerified: false,
         },
       });
 
@@ -46,7 +47,7 @@ const Register = () => {
           type: "danger",
         });
       } else {
-        navigate("/login");
+        navigate("/login?message=login.registerSuccess");
       }
     };
 

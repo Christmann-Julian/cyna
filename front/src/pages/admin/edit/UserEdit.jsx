@@ -3,6 +3,7 @@ import {
   Edit,
   SimpleForm,
   TextInput,
+  BooleanInput,
   PasswordInput,
   SelectArrayInput,
   maxLength,
@@ -39,6 +40,7 @@ const UserEdit = () => (
           ),
         ]}
       />
+      <BooleanInput source="isEmailVerified" label="Is Email Verified" />
       <PasswordInput
         source="plainPassword"
         label="New Password (optional)"

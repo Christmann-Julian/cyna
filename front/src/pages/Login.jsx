@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/forms.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import authProvider from "../utils/authProvider";
 import Alert from "../components/Alert";
 import Loading from "../pages/Loading";
@@ -12,8 +12,18 @@ import Loading from "../pages/Loading";
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const [errorLogin, setErrorLogin] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
+  
+  const queryParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    const message = queryParams.get("message");
+    if (message) {
+      setErrorLogin({ message: t(message), type: "success" });
+    }
+  }, []);
 
   const {
     register,

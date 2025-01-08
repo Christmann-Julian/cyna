@@ -11,6 +11,7 @@
     "infoAccount": "إعداداتي",
     "orderAccount": "طلباتي",
     "register": "تسجيل",
+    "cart": "عربة التسوق",
     "about": "حول",
     "terms-condition": "الشروط والأحكام",
     "legal-notices": "الإشعارات القانونية",
@@ -35,7 +36,9 @@
   "homepage": {
     "topServicesTitle": "خدماتنا العصرية",
     "descriptionTitle": "الوصف",
-    "categoriesTitle": "الفئات"
+    "categoriesTitle": "الفئات",
+    "seeMore": "عرض المزيد",
+    "noCategories": "لا توجد فئات"
   },
   "product": {
     "quantity": "الكمية",
@@ -97,6 +100,8 @@
     "btnRegister": "سجل",
     "rememberMe": "تذكرني",
     "forgotPassword": "هل نسيت كلمة المرور؟",
+    "registerSuccess": "تم تسجيل الحساب بنجاح. يرجى تسجيل الدخول.",
+    "resetPasswordSuccess": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول.",
     "errors": {
       "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
       "emailNotVerified": "لم يتم التحقق من عنوان البريد الإلكتروني الخاص بك. يرجى التحقق من بريدك الإلكتروني.",
@@ -164,5 +169,14 @@
     "description": "وصف",
     "category": "فئة",
     "services": "الخدمات"
+  },
+  "contact": {
+    "help": "هل تحتاج مساعدة أو معلومات ؟",
+    "writeUs": "اكتب لنا رسالة",
+    "email" : "بريدك الإلكتروني", 
+    "subject": "موضوعك",
+    "message": "رسالتك", 
+    "send": "أرسل رسالتك",
+    "chatbot": "روبوت المحادثة"
   }
 }

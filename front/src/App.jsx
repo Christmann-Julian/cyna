@@ -19,6 +19,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ConfirmEmail from "./pages/ConfirmEmail";
 import Category from "./pages/Category";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +91,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/contact",
+    element: <Contact/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
     path: '/category/:id',
     element: <Category/>,
     errorElement: <ErrorPage />,
@@ -101,6 +108,11 @@ const router = createBrowserRouter([
   {
     path: "/cgu",
     element: <CGU />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/about",
+    element: <About />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -75,6 +75,10 @@ const InfoAccount = () => {
       lastname: formData.lastname,
     };
 
+    if (formData.email !== userEmail) {
+      body.isEmailVerified = false;
+    }
+
     if (formData.password) {
       body.plainPassword = formData.password;
     }
