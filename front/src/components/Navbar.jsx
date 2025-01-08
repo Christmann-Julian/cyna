@@ -172,7 +172,7 @@ const Navbar = () => {
                     <>
                       {categories.map((category) => (
                         <Link
-                          key={category}
+                          key={category.id}
                           className="dropdown-item"
                           to={`/category/${category.id}`}
                           role="button"
