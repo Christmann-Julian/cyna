@@ -109,13 +109,13 @@ const About = () => {
                                                 </div>
                                                 <div>
                                                     <h2 className="h4 mb-3">{content.choiseTitle}</h2>
-                                                    <p className="text-secondary mb-0">
+                                                    <div className="text-secondary mb-0">
                                                         <ol  className="list-group list-group-numbered  ">
                                                             <li className="list-group-item">{content.expertise}</li>
                                                             <li className="list-group-item">{content.innovation} </li>
                                                             <li className="list-group-item">{content.reliability}</li>
                                                         </ol>
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

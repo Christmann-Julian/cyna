@@ -86,7 +86,7 @@ const Navbar = () => {
     <header className="header shop">
       <BoostrapNavbar bg="light" expand="lg" className="border-bottom">
         <Container>
-          <BoostrapNavbar.Brand href="#">
+          <BoostrapNavbar.Brand>
             <Link to="/">
               <img src={logo} alt="Logo" height="30" />
             </Link>
@@ -120,7 +120,7 @@ const Navbar = () => {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {["EUR €"].map((currency) => (
-                  <Dropdown.Item key={currency} href="#">
+                  <Dropdown.Item key={currency} as="button">
                     {currency}
                   </Dropdown.Item>
                 ))}
@@ -150,8 +150,8 @@ const Navbar = () => {
           </div>
 
           <BoostrapNavbar.Collapse id="navbarMain">
-            <Nav className="me-auto mb-2 mb-lg-0">
-              <Link to="/" className="nav-link text-white">
+            <Nav className="me-auto mb-2 mb-lg-0 d-lg-flex align-items-lg-center">
+              <Link to="/" className="nav-link text-white d-flex align-items-center">
                 <span>{t("navbar.home")}</span>
               </Link>
               <Dropdown>
@@ -171,15 +171,14 @@ const Navbar = () => {
                   ) : (
                     <>
                       {categories.map((category) => (
-                        <Dropdown.Item key={category} href="#">
-                          <Link
-                            className="dropdown-item"
-                            to={`/category/${category.id}`}
-                            role="button"
-                          >
-                            {category.name}
-                          </Link>
-                        </Dropdown.Item>
+                        <Link
+                          key={category}
+                          className="dropdown-item"
+                          to={`/category/${category.id}`}
+                          role="button"
+                        >
+                          {category.name}
+                        </Link>
                       ))}
                     </>
                   )}
@@ -190,21 +189,16 @@ const Navbar = () => {
                   {t("navbar.cyna")}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item>
                     <Link to="/about" className="dropdown-item" role="button">
                       {t("navbar.about")}
                     </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
                     <Link
-                      to="/terms-condition"
+                      to="/cgu"
                       className="dropdown-item"
                       role="button"
                     >
                       {t("navbar.terms-condition")}
                     </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
                     <Link
                       to="/legal-notice"
                       className="dropdown-item"
@@ -212,12 +206,9 @@ const Navbar = () => {
                     >
                       {t("navbar.legal-notices")}
                     </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
                     <Link to="/contact" className="dropdown-item" role="button">
                       {t("navbar.contact")}
                     </Link>
-                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav>
@@ -237,7 +228,7 @@ const Navbar = () => {
               </InputGroup>
             </Form>
 
-            <Nav className="ms-auto">
+            <Nav className="ms-auto d-lg-flex align-items-lg-center">
               <Dropdown>
                 <Dropdown.Toggle
                   variant="link"

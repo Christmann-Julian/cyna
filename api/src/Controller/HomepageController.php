@@ -18,7 +18,7 @@ class HomepageController extends AbstractController
     ) {
     }
 
-    #[Route('api/homepage/{locale}', name: 'get_homepage', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$'])]
+    #[Route('/api/homepage/{locale}', name: 'get_homepage', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$'])]
     public function getHomepage(string $locale): JsonResponse
     {
         $homepage = $this->homepageRepository->findOneBy(['locale' => $locale]);

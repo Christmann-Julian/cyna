@@ -30,7 +30,7 @@ const Footer = () => {
       </div>
       <ul className="list-inline">
         <li className="list-inline-item">
-          <Link to="/cgu">{t("CGU")}</Link>
+          <Link to="/cgu">{t("footer.terms-condition")}</Link>
         </li>
         <li className="list-inline-item">
           <Link to="/legal-notice">{t("footer.legal-notices")}</Link>
