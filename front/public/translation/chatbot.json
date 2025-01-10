@@ -1,0 +1,36 @@
+{
+    "fr":{
+        "start": "Bonjour 👋 ! Bienvenue chez CYNA. Je suis là pour vous aider avec vos questions ou problèmes liés à notre site.",
+        "showOptions":{
+            "message": "Quel est le sujet de votre demande ?",
+            "account": "Mon compte",
+            "orders": "Mes commandes",
+            "payment": "Paiement", 
+            "supportTeam": "Contacter l'équipe support"
+        }, 
+        "account": {
+            "message": "Quelle est la demande concernant votre compte ?",
+            "resetPassword": "Réinitialiser mon mot de passe",
+            "personnalInfo": "Modifier mes informations personnels",
+            "showOptions": "Choix des options"
+        },
+        "resetPassword1": "Si vous ne vous souvenez plus de votre mot de passe, cliquez sur <<Mot de passe oublié>>",
+        "resetPassword2": "Puis saisissez votre adresse email, vous recevrez ensuite un lien sur votre boite mail qui vous permettra réinitialiser votre mot de passe",
+        "personalInfo1": "Pour modifier vos informations, dans le menu, cliquez sur <<Compte>> puis sur <<Mes paramètres>>",
+        "personalInfo2": "Vous arriverez sur un formulaire qui vous permettra de modifier vos informations personnels",
+        "orders":{
+            "message": "Quelle est votre demande concernant vos commandes ? ",
+            "myOrders": "Accèder à l'historique de mes commandes",
+            "showOptions": "Choix des options"
+        }, 
+        "myOrders1": "Pour accèder à l'historique de mes commandes, dans le menu, cliquez sur <<Mon compte>> puis sur <<Mes commandes>>", 
+        "myOrders2": "Cela vous affichera la liste des commandes que vous avez passées", 
+        "payment": {
+            "message": "Quelle est votre demande concernant le paiement ? ",
+            "paymentMethod": "Quelles sont les méthodes de paiement acceptées ?",
+            "showOption": "Choix des options"
+        }, 
+        "supportTeam": "Si vous souhaitez contacter l'équipe support, voici l'adresse mail permettant de la joindre : support@cyna.fr "
+    } 
+    
+}
