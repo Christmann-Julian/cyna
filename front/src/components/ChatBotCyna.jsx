@@ -44,7 +44,7 @@ const ChatBotCyna = () => {
     }, [locale]);
 
     if(!content){
-        return <Loading/>
+        return <div></div>
 
     }
     

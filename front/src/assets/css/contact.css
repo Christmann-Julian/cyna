@@ -17,10 +17,11 @@
 	text-transform: capitalize;
 	font-weight: 600;
 }
+.title-map {
+	padding: 30px 50px 20px 30px;
+}
 .contact-us .single-head {
-	padding: 50px;
 	box-shadow: 0px 0px 15px #0000001a;
-	height: 100%;
 }
 .contact-us .single-info {
 	text-align: left;

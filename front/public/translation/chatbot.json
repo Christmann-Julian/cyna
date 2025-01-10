@@ -31,6 +31,72 @@
             "showOption": "Choix des options"
         }, 
         "supportTeam": "Si vous souhaitez contacter l'équipe support, voici l'adresse mail permettant de la joindre : support@cyna.fr "
-    } 
+    }, 
+    "en": {
+        "start": "Hello 👋! Welcome to CYNA. I'm here to help you with any questions or problems related to our site.",
+        "showOptions":{
+            "message": "What is your request about?",
+            "account": "My account",
+            "orders": "My orders",
+            "payment": "Payment", 
+            "supportTeam": "Contact the support team"
+        }, 
+        "account": {
+            "message": "What is your account request?",
+            "resetPassword": "Reset my password",
+            "personnalInfo": "Modify my personal details",
+            "showOptions": "Choice of options"
+        },
+        "resetPassword1": "If you can't remember your password, click on <<Forgot password>>.",
+        "resetPassword2": "Then enter your email address and you will receive a link in your inbox to reset your password.",
+        "personalInfo1": "To change your information, in the menu, click on <<Account>> then <<My settings>>.",
+        "personalInfo2": "You will be taken to a form where you can change your personal details",
+        "orders":{
+            "message": "What do you want to know about your orders? ",
+            "myOrders": "Access my order history",
+            "showOptions": "Choice of options"
+        }, 
+        "myOrders1": "To access my order history, in the menu, click on <<My account>> then on <<My orders>>.", 
+        "myOrders2": "This will show you the list of orders you have placed", 
+        "payment": {
+            "message": "What is your payment request? ",
+            "paymentMethod": "What payment methods are accepted ?",
+            "showOption": "Choice of options"
+        }, 
+        "supportTeam": "If you would like to contact the support team, here is the e-mail address: support@cyna.fr "
+    }, 
+    "ar": {
+        "start": "مرحباً 👋! مرحبًا بك في CYNA. أنا هنا لمساعدتك في أي أسئلة أو مشاكل تتعلق بموقعنا.",
+        "showOptions":{
+            "message": "ما هو طلبك؟",
+            "account": "حسابي",
+            "orders": "أوامري",
+            "payment": "الدفع", 
+            "supportTeam": "اتصل بفريق الدعم"
+        }, 
+        "account": {
+            "message": "ما هو طلب حسابك؟",
+            "resetPassword": "إعادة تعيين كلمة المرور الخاصة بي",
+            "personnalInfo": "تعديل بياناتي الشخصية",
+            "showOptions": "اختيار الخيارات"
+        },
+        "resetPassword1": "إذا كنت لا تستطيع تذكر كلمة المرور الخاصة بك، انقر على <<نسيت كلمة المرور>>.",
+        "resetPassword2": "ثم أدخل عنوان بريدك الإلكتروني وسيصلك رابط في بريدك الوارد لإعادة تعيين كلمة المرور الخاصة بك.",
+        "personalInfo1": "لتغيير معلوماتك، في القائمة، انقر على <<الحساب>> ثم <<إعداداتي>>.",
+        "personalInfo2": "سيتم نقلك إلى نموذج يمكنك من خلاله تغيير بياناتك الشخصية",
+        "orders":{
+            "message": "ماذا تريد أن تعرف عن طلباتك؟ ",
+            "myOrders": "الوصول إلى سجل الطلبات",
+            "showOptions": "اختيار الخيارات"
+        }, 
+        "myOrders1": "للوصول إلى سجل الطلبات الخاص بي، في القائمة، انقر على <<حسابي>> ثم على <<طلباتي>>.", 
+        "myOrders2": "سيُظهر لك هذا قائمة الطلبات التي قمت بتقديمها", 
+        "payment": {
+            "message": "ما هو طلب الدفع الخاص بك؟ ",
+            "paymentMethod": "ما هي طرق الدفع المقبولة؟",
+            "showOption": "اختيار الخيارات"
+        }, 
+        "supportTeam": "إذا كنت ترغب في الاتصال بفريق الدعم، إليك عنوان البريد الإلكتروني: support@cyna.fr "
+    }   
     
 }
