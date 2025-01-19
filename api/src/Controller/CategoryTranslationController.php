@@ -7,6 +7,7 @@ use App\Repository\ProductTranslationRepository;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryTranslationController extends AbstractController
 {
@@ -15,8 +16,10 @@ class CategoryTranslationController extends AbstractController
     }
 
     #[Route('api/category/{locale}/{id}', name: 'get_category_translation', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$', 'id' => '\d+'])]
-    public function getCategoryTranslation(string $locale, int $id): JsonResponse
+    public function getCategoryTranslation(string $locale, int $id, Request $request): JsonResponse
     {
+        $imagePath = $request->getSchemeAndHttpHost() . '/media/';
+
         $categoryTranslation = $this->categoryTranslationRepository->findOneBy([
             'category' => $id,
             'locale' => $locale
@@ -33,14 +36,14 @@ class CategoryTranslationController extends AbstractController
             'locale' => $categoryTranslation->getLocale()->getCode(),
             'name' => $categoryTranslation->getName(),
             'description' => $categoryTranslation->getDescription(),
-            'url_image' => $categoryTranslation->getCategory()->getUrlImage(),
-            'products' => array_map(function ($product) {
+            'url_image' => $categoryTranslation->getCategory()->getImage()?->getFilePath() == null ? null : $imagePath . $categoryTranslation->getCategory()->getImage()->getFilePath(),
+            'products' => array_map(function ($product) use ($imagePath) {
                 return [
                     'id' => $product->getId(),
                     'name' => $product->getName(),
                     'description' => $product->getDescription(),
                     'price' => $product->getProduct()->getPrice(),
-                    'url_image' => $product->getProduct()->getUrlImage()
+                    'url_image' => $product->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $product->getProduct()->getImage()->getFilePath(),
                 ];
             }, $products)
         ]);
@@ -61,7 +64,7 @@ class CategoryTranslationController extends AbstractController
                 'locale' => $category->getLocale()->getCode(),
                 'name' => $category->getName(),
                 'description' => $category->getDescription(),
-                'url_image' => $category->getCategory()->getUrlImage(),
+                'url_image' => $category->getCategory()->getImage()?->getFilePath(),
             ];
         }, $categories);
 

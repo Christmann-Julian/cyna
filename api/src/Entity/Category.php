@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'url_image'])]
+#[ApiFilter(OrderFilter::class, properties: ['id'])]
 #[ApiFilter(SearchFilter::class, properties: ['categoryTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -43,16 +43,10 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups([
-        'category:read', 'category:create', 'category:update'
-    ])]
-    #[ORM\Column(length: 255)]
-    private ?string $url_image = null;
-
     /**
      * @var Collection<int, Product>
      */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]    
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $product;
 
     /**
@@ -60,9 +54,15 @@ class Category
      */
     #[Groups([
         'category:read', 'category:create', 'category:update'
-    ])]    
+    ])]
     #[ORM\OneToMany(targetEntity: CategoryTranslation::class, mappedBy: 'category', orphanRemoval: true, cascade: ['persist'])]
     private Collection $categoryTranslations;
+
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]
+    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
+    private ?MediaObject $image = null;
 
     public function __construct()
     {
@@ -73,18 +73,6 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(string $url_image): static
-    {
-        $this->url_image = $url_image;
-
-        return $this;
     }
 
     /**
@@ -145,5 +133,23 @@ class Category
         }
 
         return $this;
+    }
+
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaObject $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    #[Groups(['category:read'])]
+    public function getImageUrl(): ?string
+    {
+        return $this->image?->getContentUrl();
     }
 }

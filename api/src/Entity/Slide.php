@@ -7,14 +7,14 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ImageRepository;
+use App\Repository\SlideRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['image:read']],
-    denormalizationContext: ['groups' => ['image:create', 'image:update']],
+    normalizationContext: ['groups' => ['slide:read']],
+    denormalizationContext: ['groups' => ['slide:create', 'slide:update']],
     operations: [
         new GetCollection(security: "is_granted('ROLE_ADMIN')"),
         new Get(security: "is_granted('ROLE_ADMIN')"),
@@ -23,8 +23,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
-#[ORM\Entity(repositoryClass: ImageRepository::class)]
-class Image
+#[ORM\Entity(repositoryClass: SlideRepository::class)]
+class Slide
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,22 +33,21 @@ class Image
 
     #[Groups([
         'homepage:read', 'homepage:create', 'homepage:update',
-        'image:read', 'image:create', 'image:update'
+        'slide:read', 'slide:create', 'slide:update'
     ])]
     #[ORM\Column(length: 255)]
-    private ?string $text = null;
+    private ?string $title = null;
 
     #[Groups([
         'homepage:read', 'homepage:create', 'homepage:update',
-        'image:read', 'image:create', 'image:update'
+        'slide:read', 'slide:create', 'slide:update'
     ])]
-    #[ORM\Column(length: 255)]
-    private ?string $url_image = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MediaObject $image = null;
 
-    #[Groups([
-        'image:read'
-    ])]
-    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[Groups(['slide:read'])]
+    #[ORM\ManyToOne(inversedBy: 'slides')]
     private ?Homepage $homepage = null;
 
     public function getId(): ?int
@@ -56,26 +55,26 @@ class Image
         return $this->id;
     }
 
-    public function getText(): ?string
+    public function getTitle(): ?string
     {
-        return $this->text;
+        return $this->title;
     }
 
-    public function setText(string $text): static
+    public function setTitle(string $title): static
     {
-        $this->text = $text;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getUrlImage(): ?string
+    public function getImage(): ?MediaObject
     {
-        return $this->url_image;
+        return $this->image;
     }
 
-    public function setUrlImage(string $url_image): static
+    public function setImage(?MediaObject $image): static
     {
-        $this->url_image = $url_image;
+        $this->image = $image;
 
         return $this;
     }

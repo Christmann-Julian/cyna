@@ -78,12 +78,6 @@ class Product
     #[Groups([
         'product:read', 'product:create', 'product:update'
     ])]
-    #[ORM\Column(length: 255)]
-    private ?string $url_image = null;
-
-    #[Groups([
-        'product:read', 'product:create', 'product:update'
-    ])]
     #[ORM\Column]
     private ?bool $top_product = null;
 
@@ -92,6 +86,12 @@ class Product
     ])]
     #[ORM\Column(nullable: true)]
     private ?int $position = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
+    private ?MediaObject $image = null;
 
     public function __construct()
     {
@@ -181,18 +181,6 @@ class Product
         return $this;
     }
 
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(string $url_image): static
-    {
-        $this->url_image = $url_image;
-
-        return $this;
-    }
-
     public function isTopProduct(): ?bool
     {
         return $this->top_product;
@@ -215,5 +203,24 @@ class Product
         $this->position = $position;
 
         return $this;
+    }
+
+
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaObject $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    #[Groups(['product:read'])]
+    public function getImageUrl(): ?string
+    {
+        return $this->image?->getContentUrl();
     }
 }
