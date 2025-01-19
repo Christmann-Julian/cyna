@@ -21,6 +21,7 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import Category from "./pages/Category";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Checkout from './pages/Checkout';
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,11 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
     errorElement: <ErrorPage />,
   },
 ]);
