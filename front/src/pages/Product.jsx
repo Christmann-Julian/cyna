@@ -60,8 +60,8 @@ const Product = () => {
                       <ul className="slides">
                         <li>
                           <img
-                            src="https://via.placeholder.com/570x520"
-                            alt="#"
+                            src={product.url_image ?? "https://via.placeholder.com/570x520"}
+                            alt={product.url_image ?? "https://via.placeholder.com/570x520"}
                           />
                         </li>
                       </ul>
