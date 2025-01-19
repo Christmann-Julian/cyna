@@ -7,18 +7,33 @@ import {
   BooleanInput,
   NumberInput,
   Edit,
+  ReferenceInput,
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 
+const transform = (data) => ({
+  ...data,
+  image: data.image?.['@id'], // Transforme en IRI
+});
+
 export const ProductEdit = () => (
-  <Edit>
+  <Edit transform={transform}>
     <SimpleForm>
+      <ReferenceInput 
+        source="image.@id" 
+        reference="media_objects"
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput
+          optionText="contentUrl"
+          optionValue="@id"
+        />
+      </ReferenceInput>
       <NumberInput source="price" required/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
       <NumberInput source="position" defaultValue={0} />
-      <TextInput source="url_image" label="URL Image" required />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

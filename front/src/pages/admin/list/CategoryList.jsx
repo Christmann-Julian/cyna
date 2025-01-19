@@ -1,5 +1,5 @@
 import { ListGuesser, FieldGuesser } from "@api-platform/admin";
-import { FunctionField, TextInput } from "react-admin";
+import { FunctionField, TextInput, TextField } from "react-admin";
 
 const CategorySearch = [
   <TextInput label="Search by name" source="productTranslations.name" alwaysOn />,
@@ -22,6 +22,6 @@ export const CategoryList = () => (
         )
       }
     />
-    <FieldGuesser source="url_image" />
+    <TextField source="imageUrl" />
   </ListGuesser>
 );

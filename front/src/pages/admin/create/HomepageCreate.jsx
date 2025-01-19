@@ -5,6 +5,7 @@ import {
   ArrayInput,
   Create,
   SelectInput,
+  ReferenceInput,
 } from "react-admin";
 
 export const HomepageCreate = () => (
@@ -21,10 +22,20 @@ export const HomepageCreate = () => (
           { id: "ar-SA", name: "ar-SA" },
         ]}
       />
-      <ArrayInput source="images">
+      <ArrayInput source="slides">
         <SimpleFormIterator>
-          <TextInput source="url_image" label="Url image" required />
-          <TextInput source="text" label="Title" required />
+          <ReferenceInput 
+            source="image" 
+            reference="media_objects"
+            sort={{ field: 'id', order: 'DESC' }}
+          >
+            <SelectInput
+              optionText="contentUrl"
+              optionValue="@id"
+              required
+            />
+          </ReferenceInput>
+          <TextInput source="title" label="Title" required />
         </SimpleFormIterator>
       </ArrayInput>
     </SimpleForm>

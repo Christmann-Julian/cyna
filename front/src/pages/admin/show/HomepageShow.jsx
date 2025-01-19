@@ -4,8 +4,6 @@ import {
   TextField,
   ArrayField,
   Datagrid,
-  ReferenceField,
-  FunctionField,
 } from "react-admin";
 
 export const HomepageShow = () => (
@@ -13,10 +11,10 @@ export const HomepageShow = () => (
     <SimpleShowLayout>
       <TextField source="text" label="Homepage Description" />
       <TextField source="locale" label="Locale" />
-      <ArrayField source="images">
+      <ArrayField source="slides">
         <Datagrid bulkActionButtons={false} sort={false} rowClick={false}>
-          <TextField source="url_image" label="Url image" />
-          <TextField source="text" label="Title" />
+          <TextField source="imageUrl" label="Url image" />
+          <TextField source="title" label="Title" />
         </Datagrid>
       </ArrayField>
     </SimpleShowLayout>

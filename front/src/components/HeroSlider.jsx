@@ -36,7 +36,7 @@ function HeroSlider({slides}) {
       <div className="slider-container" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {slides.map((slide, index) => (
           <div className="slide" key={index}>
-            <img src={"upload/" + slide.url_image} alt="Slide" />
+            <img src={slide.url_image} alt="Slide" />
             <div className="text-inner">
               <h1><span>{slide.title}</span></h1>
             </div>

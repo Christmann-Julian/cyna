@@ -3,23 +3,31 @@ import {
   Edit,
   SimpleForm,
   TextInput,
-  maxLength,
-  minLength,
+  ReferenceInput,
   SimpleFormIterator,
   ArrayInput,
   SelectInput,
 } from "react-admin";
 
+const transform = (data) => ({
+  ...data,
+  image: data.image?.['@id'], // Transforme en IRI
+});
+
 const CategoryEdit = () => (
-  <Edit>
+  <Edit transform={transform}>
     <SimpleForm>
       <TextInput source="id" disabled />
-      <TextInput
-        source="url_image"
-        label="Url Image"
-        required
-        validate={[minLength(2), maxLength(50)]}
-      />
+      <ReferenceInput 
+        source="image.@id" 
+        reference="media_objects"
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput
+          optionText="contentUrl"
+          optionValue="@id"
+        />
+      </ReferenceInput>
       <ArrayInput source="categoryTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

@@ -11,7 +11,7 @@ import {
 export const CategoryShow = () => (
   <Show>
     <SimpleShowLayout>
-      <TextField source="url_image" />
+      <TextField source="imageUrl" />
       <ArrayField source="categoryTranslations">
         <Datagrid bulkActionButtons={false} sort={false} rowClick={false}>
           <TextField source="name" label="Name" />

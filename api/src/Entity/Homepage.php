@@ -106,17 +106,17 @@ class Homepage
     private ?string $locale = null;
 
     /**
-     * @var Collection<int, Image>
+     * @var Collection<int, Slide>
      */
     #[Groups([
         'homepage:read', 'homepage:create', 'homepage:update'
     ])]
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'homepage', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $images;
+    #[ORM\OneToMany(targetEntity: Slide::class, mappedBy: 'homepage', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $slides;
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
+        $this->slides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,36 +136,6 @@ class Homepage
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): static
-    {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setHomepage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): static
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getHomepage() === $this) {
-                $image->setHomepage(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getLocale(): ?string
     {
         return $this->locale;
@@ -174,6 +144,36 @@ class Homepage
     public function setLocale(string $locale): static
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slide>
+     */
+    public function getSlides(): Collection
+    {
+        return $this->slides;
+    }
+
+    public function addSlide(Slide $slide): static
+    {
+        if (!$this->slides->contains($slide)) {
+            $this->slides->add($slide);
+            $slide->setHomepage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlide(Slide $slide): static
+    {
+        if ($this->slides->removeElement($slide)) {
+            // set the owning side to null (unless already changed)
+            if ($slide->getHomepage() === $this) {
+                $slide->setHomepage(null);
+            }
+        }
 
         return $this;
     }
