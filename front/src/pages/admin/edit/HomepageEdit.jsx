@@ -5,10 +5,26 @@ import {
   ArrayInput,
   SelectInput,
   Edit,
+  ReferenceInput,
 } from "react-admin";
 
+const transform = (data) => {
+  const transformedData = {
+    ...data,
+  };
+
+  if (data.slides) {
+    transformedData.slides = data.slides.map(slide => ({
+      ...slide,
+      image: slide.image?.['@id'], // Transforme en IRI chaque image des slides
+    }));
+  }
+
+  return transformedData;
+};
+
 export const HomepageEdit = () => (
-  <Edit>
+  <Edit transform={transform}>
     <SimpleForm>
       <TextInput
         source="text"
@@ -26,10 +42,20 @@ export const HomepageEdit = () => (
           { id: "ar-SA", name: "ar-SA" },
         ]}
       />
-      <ArrayInput source="images">
+      <ArrayInput source="slides">
         <SimpleFormIterator>
-          <TextInput source="url_image" label="Url image" required />
-          <TextInput source="text" label="Title" required />
+          <ReferenceInput 
+            source="image.@id" 
+            reference="media_objects"
+            sort={{ field: 'id', order: 'DESC' }}
+          >
+            <SelectInput
+              optionText="contentUrl"
+              optionValue="@id"
+              required
+            />
+          </ReferenceInput>
+          <TextInput source="title" label="Title" required />
         </SimpleFormIterator>
       </ArrayInput>
     </SimpleForm>

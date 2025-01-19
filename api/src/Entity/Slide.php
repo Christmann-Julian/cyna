@@ -90,4 +90,10 @@ class Slide
 
         return $this;
     }
+
+    #[Groups(['slide:read', 'homepage:read'])]
+    public function getImageUrl(): ?string
+    {
+        return $this->image?->getContentUrl();
+    }
 }

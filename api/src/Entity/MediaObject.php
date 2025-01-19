@@ -87,6 +87,7 @@ class MediaObject
         'product:read',
         'category:read',
         'slide:read',
+        'homepage:read',
     ])]
     public ?string $contentUrl = null;
 

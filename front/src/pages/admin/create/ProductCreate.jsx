@@ -7,22 +7,29 @@ import {
   SelectInput,
   BooleanInput,
   NumberInput,
+  ReferenceInput,
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 
 export const ProductCreate = () => (
   <Create>
     <SimpleForm>
+      <ReferenceInput 
+        source="image" 
+        reference="media_objects"
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput
+          optionText="contentUrl"
+          optionValue="@id"
+          required
+        />
+      </ReferenceInput>
       <NumberInput source="price" required/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
       <NumberInput source="position" defaultValue={0} />
-      <TextInput
-        source="url_image"
-        label="URL Image"
-        required
-      />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

@@ -26,6 +26,10 @@ import { HomepageCreate } from "./create/HomepageCreate";
 import { HomepageList } from "./list/HomepageList";
 import { HomepageShow } from "./show/HomepageShow";
 import { HomepageEdit } from "./edit/HomepageEdit";
+import { MediaObjectCreate } from "./create/MediaObjectCreate";
+import { MediaObjectList } from "./list/MediaObjetcList";
+import { MediaObjectEdit } from "./edit/MediaObjectEdit";
+import { MediaObjectShow } from "./show/MediaObjectShow";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -131,7 +135,14 @@ const AdminPanel = () => {
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
-          />  
+          />
+          <ResourceGuesser 
+            name="media_objects" 
+            list={MediaObjectList} 
+            edit={MediaObjectEdit}
+            create={MediaObjectCreate}
+            show={MediaObjectShow}
+          />
         </>
       )}
     </HydraAdmin>
