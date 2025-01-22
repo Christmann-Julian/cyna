@@ -11,6 +11,7 @@ use App\Repository\SlideRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['slide:read']],
@@ -35,6 +36,8 @@ class Slide
         'homepage:read', 'homepage:create', 'homepage:update',
         'slide:read', 'slide:create', 'slide:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 

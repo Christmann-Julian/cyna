@@ -93,9 +93,16 @@ class MediaObject
 
     #[Vich\UploadableField(mapping: 'media_object', fileNameProperty: 'filePath')]
     #[Assert\NotNull(groups: ['media_object_create'])]
+    #[Assert\File(
+        maxSize: '2M',
+        extensions: ['jpg', 'jpeg', 'png', 'svg'],
+        extensionsMessage: 'Please upload a valid Image file (jpg, jpeg, png, svg)',
+    )]
     public ?File $file = null;
 
     #[ApiProperty(writable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(nullable: true)]
     public ?string $filePath = null;
 

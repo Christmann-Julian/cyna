@@ -16,6 +16,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\Parameter;
 use App\Repository\ProductTranslationRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['productTranslation:read']],
@@ -81,6 +82,8 @@ class ProductTranslation
     #[Groups(['productTranslation:read'])]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
@@ -92,9 +95,13 @@ class ProductTranslation
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
         'product:read', 'product:create', 'product:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2000)]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+
+    #[Assert\Length(max: 3000)]
     #[ORM\Column(type: Types::TEXT)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',

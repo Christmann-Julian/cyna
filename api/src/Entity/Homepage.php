@@ -17,6 +17,7 @@ use ApiPlatform\OpenApi\Model\Parameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['homepage:read']],
@@ -96,12 +97,16 @@ class Homepage
     #[Groups([
         'homepage:read', 'homepage:create', 'homepage:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2000)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
     #[Groups([
         'homepage:read', 'homepage:create', 'homepage:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 5)]
     #[ORM\Column(length: 5)]
     private ?string $locale = null;
 

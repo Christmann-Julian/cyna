@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\RequestBody;
 use App\Repository\PasswordResetRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['productTranslation:read']],
@@ -117,12 +118,17 @@ class PasswordReset
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $resetToken = null;
 
+    #[Assert\DateTime]
     #[ORM\Column]
     private ?\DateTimeImmutable $expiresAt = null;
 

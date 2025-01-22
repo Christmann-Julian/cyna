@@ -17,6 +17,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['product:read']],
@@ -42,6 +43,7 @@ class Product
     ])]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column]
     #[Groups([
         'product:read', 'product:create', 'product:update'

@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CategoryTranslationRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['categoryTranslation:read']],
@@ -41,6 +42,8 @@ class CategoryTranslation
         'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update',
         'category:read', 'category:create', 'category:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -48,6 +51,8 @@ class CategoryTranslation
         'categoryTranslation:read', 'categoryTranslation:create', 'categoryTranslation:update',
         'category:read', 'category:create', 'category:update'
     ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2000)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 

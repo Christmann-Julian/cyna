@@ -7,7 +7,6 @@ use App\Entity\PasswordReset;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +19,7 @@ class PasswordResetController extends AbstractController
     }
 
     #[Route('/api/password-forgot', name: 'password_forgot_mail', methods: ['POST'])]
-    public function passwordForgot(Request $request, EntityManagerInterface $em, MailerInterface $mailer)
+    public function passwordForgot(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $email = $data['email'];
@@ -68,7 +67,7 @@ class PasswordResetController extends AbstractController
     }
 
     #[Route('/api/password-reset', name: 'password_reset', methods: ['POST'])]
-    public function reset(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
+    public function reset(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $token = $data['reset_token'];

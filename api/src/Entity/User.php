@@ -49,6 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank]
+    #[Assert\Length(max: 180)]
     #[Assert\Regex(pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$/', match: true)]
     #[Groups(['user:read', 'user:create', 'user:update'])]
     private ?string $email = null;
