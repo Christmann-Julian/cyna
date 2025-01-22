@@ -30,6 +30,7 @@ import { MediaObjectCreate } from "./create/MediaObjectCreate";
 import { MediaObjectList } from "./list/MediaObjetcList";
 import { MediaObjectEdit } from "./edit/MediaObjectEdit";
 import { MediaObjectShow } from "./show/MediaObjectShow";
+import { ContactList } from "./list/ContactList";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -135,6 +136,11 @@ const AdminPanel = () => {
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
+          />
+          <ResourceGuesser
+            name="contacts"
+            list={ContactList}
+            create={null}
           />
           <ResourceGuesser 
             name="media_objects" 

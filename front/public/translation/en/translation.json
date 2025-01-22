@@ -174,6 +174,17 @@
     "subject": "Your Sujet",
     "message": "Your message",
     "send": "Send your message",
-    "map": "Find us"
+    "map": "Find us",
+    "sendSuccess": "Your message has been sent successfully.",
+    "errors": {
+      "serverError": "Server error! Please try again later.",
+      "emailRequired": "Email is required.",
+      "emailPattern": "The email address is not valid.",
+      "subjectRequired": "Subject is required.",
+      "messageRequired": "Message is required.",
+      "maxLength": "The field must not exceed 255 characters.",
+      "minLength": "The field must contain at least 3 characters.",
+      "messageMaxLength": "The message must not exceed 2000 characters."
+    }
   }
 }
