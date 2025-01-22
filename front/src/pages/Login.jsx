@@ -8,6 +8,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import authProvider from "../utils/authProvider";
 import Alert from "../components/Alert";
 import Loading from "../pages/Loading";
+import { getCurrentLocale } from "../utils/language";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -41,6 +42,7 @@ const Login = () => {
           username: formData.email,
           password: formData.password,
           rememberMe: formData.rememberMe,
+          locale: getCurrentLocale(),
         });
         navigate("/account");
       } catch (error) {
