@@ -117,8 +117,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/checkout",
-    element: <Checkout />,
+    path: "/order/checkout",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <Checkout />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);

@@ -39,7 +39,7 @@
   },
   "product": {
     "quantity": "Quantity",
-    "tryNow": "Try Now",
+    "buyNow": "Subscribe now",
     "similaryServices": "Similar services"
   },
   "product-grid": {
@@ -52,17 +52,28 @@
     "available": "Available"
   },
   "cart": {
-    "product": "Product",
+    "product": "Service Name",
     "time": "Time",
+    "month": "month",
+    "year": "year",
     "unitPrice": "Unit Price",
     "quantity": "Quantity",
     "total": "Total",
     "codePromotion": "Promotion Code",
     "apply": "Apply",
-    "subTotal": "Sub Total",
+    "subTotal": "Excl tax",
     "promotion": "Promotion",
+    "noProduct": "No services in the cart",
     "tax": "Tax",
-    "totalCart": "Total"
+    "totalCart": "Total",
+    "order": "Proceed to payment",
+    "continueShopping": "Continue shopping",
+    "delete": "Delete",
+    "modal": {
+      "title": "Empty Cart",
+      "body": "Your cart is empty. Please add items before proceeding to checkout.",
+      "close": "Close"
+    }
   },
   "register": {
     "title": "Register",

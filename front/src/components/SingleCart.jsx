@@ -5,39 +5,63 @@ import {
 	faMinus,
 	faTrashCan,
 	faPlus,
-  } from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCart, addToCart, decreaseFromCart, updateDuration } from '../redux/cartSlice';
+import { t } from 'i18next';
 
-const SingleCart = ({product, price, total}) => {
+const SingleCart = ({id, name, duration, price, quantity, total}) => {
+
+    const item = useSelector(state => state.cart.items.find(item => item.id === id));
+
+    const dispatch = useDispatch();
+
+    const handleAdd = () => {
+        dispatch(addToCart({ id: id}));
+    };
+
+    const handleRemove = () => {
+        dispatch(removeFromCart({ id: id }));
+    };
+
+    const handleDecrease = () => {
+        dispatch(decreaseFromCart({ id: id }));
+    };
+
+    const handleDurationChange = (event) => {
+        const newDuration = parseInt(event.target.value, 10);
+        dispatch(updateDuration({ id, duration: newDuration }));
+    };
+    
     return(
         <tr>
-            <td className="product-des" data-title="Produit">
-                <p className="product-name"><a href="#">{product}</a></p>
+            <td className="product-des" data-title={t('cart.product')}>
+                <p className="product-name"><a href="#">{name}</a></p>
             </td>
-            <td data-title="Durée">
-                <select name="duration" id="duration">
-                <option value="">--Choisir une durée--</option>
-                <option value="1">Mois</option>
-                <option value="2">Année</option>
+            <td data-title={t('cart.time')} className="duration">
+                <select name="duration" value={item.duration} onChange={handleDurationChange}>
+                    <option value="1">{t('cart.month')}</option>
+                    <option value="10">{t('cart.year')}</option>
                 </select>
             </td>
-            <td className="price" data-title="Prix"><span>{price}</span></td>
-            <td className="qty" data-title="Qte">
+            <td className="price" data-title={t('cart.unitPrice')}><span>{price.toFixed(2).toString().replace('.', ',')}€</span></td>
+            <td className="qty text-center" data-title={t('cart.quantity')}>
                 <div className="input-group">
                     <div className="button minus">
-                        <button type="button" className="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                        <button type="button" className="btn btn-primary btn-number" onClick={handleDecrease}>
                             <FontAwesomeIcon icon={faMinus} />
                         </button>
                     </div>
-                    <input type="text" name="quant[1]" className="input-number"  data-min="1" data-max="100" value="1"/>
+                    <input type="text" className="input-number" value={quantity} readOnly disabled />
                     <div className="button plus">
-                        <button type="button" className="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                        <button type="button" className="btn btn-primary btn-number" onClick={handleAdd}>
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
                 </div>
             </td>
-            <td className="total-amount" data-title="Total"><span>{total}</span></td>
-            <td className="action" data-title="Supprimer"><a href="#"><FontAwesomeIcon icon={faTrashCan} /></a></td>
+            <td className="total-amount" data-title={t('cart.total')}><span>{total.toFixed(2).toString().replace('.', ',')}€</span></td>
+            <td className="action" data-title={t('cart.title')}><FontAwesomeIcon icon={faTrashCan} onClick={handleRemove} /></td>
         </tr> 
     )
 

@@ -3,15 +3,11 @@ import SingleCart from './SingleCart';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from 'react-redux';
 
 const CartList = ()=> {
     const { t } = useTranslation();
-
-    const products = [
-        { id: 1, product: 'CYNA XDR', price: '50,00€',  total: '150,00€' },
-        { id: 2, product: 'CYNA XDR', price: '50,00€',  total: '150,00€' },
-        { id: 3, product: 'CYNA XDR', price: '50,00€',  total: '150,00€' },
-    ];
+    const cart = useSelector(state => state.cart);
     
     return(
         <div className="row">
@@ -19,18 +15,31 @@ const CartList = ()=> {
                 <table className="table shopping-summery">
                     <thead>
                         <tr className="main-hading">
-                            <th>PRODUIT</th>
-                            <th>DUREE</th>
-                            <th className="text-center">PRIX UNITAIRE</th>
-                            <th className="text-center">QUANTITE</th>
-                            <th className="text-center">TOTAL</th> 
-                            <th className="text-center"><FontAwesomeIcon icon={faTrashCan} /></th>
+                            <th>{t("cart.product")}</th>
+                            <th>{t("cart.time")}</th>
+                            <th>{t("cart.unitPrice")}</th>
+                            <th>{t("cart.quantity")}</th>
+                            <th>{t("cart.total")}</th> 
+                            <th><FontAwesomeIcon icon={faTrashCan} /></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product) => (                                
-                            <SingleCart key={product.id} {...product} />                               
-                        ))}
+                        {cart.items.length === 0 ? (
+                            <tr>
+                                <td>{t("cart.noProduct")}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        ) : (
+                            <>
+                                {cart.items.map((product) => (                                
+                                    <SingleCart key={product.id} {...product} />                               
+                                ))}
+                            </>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -39,7 +39,7 @@
     },
     "product":{
         "quantity": "Quantité",
-        "tryNow": "Essayer Maintenant",
+        "buyNow": "S'abonner maintenant",
         "similaryServices" : "Services Similaires"
     },
     "product-grid":{
@@ -52,17 +52,28 @@
         "available": "Disponible"
     },
     "cart":{
-        "product": "Produit",
+        "product": "Nom du service",
         "time": "Durée",
+        "month": "mois",
+        "year": "année",
         "unitPrice" : "Prix unitaire",
         "quantity": "Quantité",
         "total": "Total",
         "codePromotion": "Code promo",
+        "noProduct": "Aucun service dans le panier",
         "apply": "Appliquer",
-        "subTotal": "Sous Total",
+        "subTotal": "Total HT",
         "promotion": "Promotion",
         "tax": "Taxe",
-        "totalCart": "Total"
+        "totalCart": "Total",
+        "order": "Passer à la caisse",
+        "continueShopping": "Continuer vos achats",
+        "delete": "Supprimer",
+        "modal": {
+            "title": "Panier Vide",
+            "body": "Votre panier est vide. Veuillez ajouter des articles avant de passer à la caisse.",
+            "close": "Fermer"
+        }
     },
     "register": {
         "title": "Inscription",

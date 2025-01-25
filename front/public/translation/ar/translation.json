@@ -42,7 +42,7 @@
   },
   "product": {
     "quantity": "الكمية",
-    "tryNow": "جرّب الآن",
+    "buyNow": "اشترك الآن",
     "similaryServices": "خدمات مشابهة"
   },
   "product-grid": {
@@ -57,15 +57,26 @@
   "cart": {
     "product": "منتج",
     "time": "وقت",
+    "month": "شهر",
+    "year": "سنة",
     "unitPrice": "سعر الوحدة",
     "quantity": "كمية",
     "total": "إجمالي",
     "codePromotion": "رمز الترويج",
     "apply": "قدم طلبك",
-    "subTotal": "مجموع الفرعي",
+    "subTotal": "الإجمالي",
     "promotion": "ترقية",
+    "noProduct": "لا توجد خدمات في العربة",
     "tax": "ضريبة",
-    "totalCart": "إجمالي"
+    "totalCart": "إجمالي",
+    "order": "طلب",
+    "continueShopping": "مواصلة التسوق",
+    "delete": "حذف",
+    "modal": {
+      "title": "سلة فارغة",
+      "body": "سلتك فارغة. يرجى إضافة عناصر قبل المتابعة إلى الدفع.",
+      "close": "إغلاق"
+    }
   },
   "register": {
     "title": "تسجيل",

@@ -44,7 +44,8 @@ const Login = () => {
           rememberMe: formData.rememberMe,
           locale: getCurrentLocale(),
         });
-        navigate("/account");
+        const from = location.state?.from?.pathname || "/account";
+        navigate(from);
       } catch (error) {
         if (error.status == 401) {
           const errorMessage = JSON.parse(error.message).message;
