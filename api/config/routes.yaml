@@ -7,3 +7,7 @@ api_login_check:
     path: /api/login_check
 api_refresh_token:
     path: /api/token/refresh
+checkout:
+    path: /api/checkout
+    controller: App\Controller\CheckoutController::checkout
+    methods: [POST]

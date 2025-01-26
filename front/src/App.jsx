@@ -21,7 +21,8 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import Category from "./pages/Category";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Checkout from './pages/Checkout';
+import Checkout from './pages/checkout/Checkout';
+import CreateAddress from "./pages/account/CreateAddress";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,15 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute isRedirectToOrigin={true}>
         <Checkout />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/account/address",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <CreateAddress />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,

@@ -117,11 +117,6 @@ const InfoAccount = () => {
 
   return (
     <div className="login-form">
-      <div className="row">
-        <div className="col-12">
-          <h2>{t("infoAccount.title")}</h2>
-        </div>
-      </div>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>  
         <div className="row">
           <div className="col-12">
@@ -247,7 +242,7 @@ const InfoAccount = () => {
             </div>
           </div>
           <div className="col-12">
-            <div className="form-group login-btn">
+            <div className="form-group login-btn d-flex justify-content-center">
               <button className="btn" type="submit">
                 {t("infoAccount.btnUpdate")}
               </button>

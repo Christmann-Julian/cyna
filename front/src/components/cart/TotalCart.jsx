@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../assets/css/cart.css";
+import "../../assets/css/cart.css";
 import { useTranslation } from "react-i18next";
-import "../pages/Checkout";
+import "../../pages/checkout/Checkout";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";

@@ -1,5 +1,5 @@
 import React from 'react';
-import  "../assets/css/cart.css";
+import  "../../assets/css/cart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faMinus,
@@ -7,7 +7,7 @@ import {
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart, addToCart, decreaseFromCart, updateDuration } from '../redux/cartSlice';
+import { removeFromCart, addToCart, decreaseFromCart, updateDuration } from '../../redux/cartSlice';
 import { t } from 'i18next';
 
 const SingleCart = ({id, name, duration, price, quantity, total}) => {
