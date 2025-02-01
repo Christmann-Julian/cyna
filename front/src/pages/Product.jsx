@@ -3,10 +3,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../assets/css/product.css";
 import "../assets/css/product-area.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-} from "@fortawesome/free-solid-svg-icons";
 import ErrorPage from "./ErrorPage";
 import SingleProduct from "../components/SingleProduct";
 import { useTranslation } from "react-i18next";
@@ -15,13 +11,26 @@ import Loading from "./Loading";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getCurrentLocale } from "../utils/language";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { addToCart } from '../redux/cartSlice';
 
 const Product = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { id } = useParams();
   const currentLocale = getCurrentLocale();
   const [product, setProduct] = useState(null);
+  const [productCart, setProductCart] = useState(null);
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+
+    navigate("/cart");
+  };
 
   useEffect(() => {
     setProduct(null);
@@ -32,6 +41,14 @@ const Product = () => {
         },
       });
       setProduct(product);
+      setProductCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        duration: 1,
+        total: product.price,
+      })
       setError(errorCode);
     };
 
@@ -82,12 +99,9 @@ const Product = () => {
                     </div>
                     <div className="product-buy">
                       <div className="add-to-cart">
-                        <a href="#" className="btn">
-                          {t("product.tryNow")}
-                        </a>
-                        <a href="#" className="btn min">
-                          <FontAwesomeIcon icon={faCartShopping} />
-                        </a>
+                        <button className="btn"  onClick={() => handleAddToCart(productCart)}>
+                          {t("product.buyNow")}
+                        </button>
                       </div>
                       <p dangerouslySetInnerHTML={{ __html: product.caracteristic }}></p>
                     </div>

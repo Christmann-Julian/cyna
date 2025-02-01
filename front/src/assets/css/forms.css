@@ -1,6 +1,10 @@
 .shop.login {
   padding: 50px 0;
 }
+.shop.login .form-width {
+  max-width: 600px;
+  margin: 0 auto;
+}
 .shop.login .login-form p {
   font-size: 14px;
   color: var(--black-color);
@@ -89,4 +93,10 @@
 }
 .shop.login .login-form .lost-pass:hover {
   color: var(--main-color);
+}
+
+@media (max-width: 768px) {
+  .form-width {
+    padding: 0 20px;
+  }
 }

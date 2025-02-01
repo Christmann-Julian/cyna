@@ -21,7 +21,15 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import Category from "./pages/Category";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Checkout from './pages/Checkout';
+import Checkout from './pages/checkout/Checkout';
+import CreateAddress from "./pages/account/CreateAddress";
+import CreatePaymentMethod from "./pages/account/CreatePaymentMethod";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51Il6qJHdav6xRf1DJBGOrXYvW49czc6ATRvtf9oZyFKyZNDnjHwUEGHu9Xk4JgjfKFsQm0vfOfG3uBNAxK1XkU5200tiv5MIl2"
+);
 
 const router = createBrowserRouter([
   {
@@ -117,8 +125,32 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/checkout",
-    element: <Checkout />,
+    path: "/order/checkout",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <Checkout />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/account/address",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <CreateAddress />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/account/payment-method",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <Elements stripe={stripePromise}>
+          <CreatePaymentMethod />
+        </Elements>
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);

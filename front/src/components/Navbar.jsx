@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import authProvider from "../utils/authProvider";
 import apiRequest from "../utils/apiRequest";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isAuth, setIsAuth] = useState(null);
@@ -38,6 +39,7 @@ const Navbar = () => {
   const currentLocale = getCurrentLocale();
   const location = useLocation();
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart);
 
   const fetchCategories = async () => {
     const { data, error: errorCode } = await apiRequest(
@@ -77,7 +79,7 @@ const Navbar = () => {
   const handleLogout = () => {
     authProvider.logout();
     setIsAuth(false);
-    if (location.pathname.includes("account")) {
+    if (location.pathname.includes("account") || location.pathname.includes("order")) {
       navigate("/login");
     }
   };
@@ -278,7 +280,7 @@ const Navbar = () => {
                 <FontAwesomeIcon icon={faCartShopping} className="me-2" />
                 <span>{t("navbar.cart")}</span>
                 <Badge bg="light" text="dark" pill className="ms-2">
-                  3
+                  {cart.totalQuantity}
                 </Badge>
               </Link>
             </Nav>

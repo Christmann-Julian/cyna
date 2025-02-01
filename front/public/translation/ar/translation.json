@@ -42,7 +42,7 @@
   },
   "product": {
     "quantity": "الكمية",
-    "tryNow": "جرّب الآن",
+    "buyNow": "اشترك الآن",
     "similaryServices": "خدمات مشابهة"
   },
   "product-grid": {
@@ -57,15 +57,26 @@
   "cart": {
     "product": "منتج",
     "time": "وقت",
+    "month": "شهر",
+    "year": "سنة",
     "unitPrice": "سعر الوحدة",
     "quantity": "كمية",
     "total": "إجمالي",
     "codePromotion": "رمز الترويج",
     "apply": "قدم طلبك",
-    "subTotal": "مجموع الفرعي",
+    "subTotal": "الإجمالي",
     "promotion": "ترقية",
+    "noProduct": "لا توجد خدمات في العربة",
     "tax": "ضريبة",
-    "totalCart": "إجمالي"
+    "totalCart": "إجمالي",
+    "order": "طلب",
+    "continueShopping": "مواصلة التسوق",
+    "delete": "حذف",
+    "modal": {
+      "title": "سلة فارغة",
+      "body": "سلتك فارغة. يرجى إضافة عناصر قبل المتابعة إلى الدفع.",
+      "close": "إغلاق"
+    }
   },
   "register": {
     "title": "تسجيل",
@@ -113,6 +124,8 @@
   },
   "infoAccount": {
     "title": "معلوماتي",
+    "addressTitle": "عناويني",
+    "paymentMethodTitle": "طرق الدفع الخاصة بي",
     "firstname": "الاسم الأول",
     "lastname": "الاسم الأخير",
     "email": "البريد الإلكتروني",
@@ -173,9 +186,9 @@
   "contact": {
     "help": "هل تحتاج مساعدة أو معلومات ؟",
     "writeUs": "اكتب لنا رسالة",
-    "email" : "بريدك الإلكتروني", 
+    "email": "بريدك الإلكتروني",
     "subject": "موضوعك",
-    "message": "رسالتك", 
+    "message": "رسالتك",
     "send": "أرسل رسالتك",
     "chatbot": "روبوت المحادثة",
     "map": "كيف تجدنا",
@@ -189,6 +202,88 @@
       "maxLength": "يجب ألا يتجاوز الحقل 255 حرفًا.",
       "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
       "messageMaxLength": "يجب ألا تتجاوز الرسالة 2000 حرف."
+    }
+  },
+  "checkout": {
+    "title": "ملخص الطلب",
+    "addressTitle": "عناويني",
+    "paymentMethodTitle": "طرق الدفع الخاصة بي",
+    "summary": "ملخص",
+    "summaryAddress": "عنوان الفاتورة",
+    "summaryPayment": "طريقة الدفع",
+    "month": "شهر",
+    "quantity": "الكمية",
+    "subTotal": "المجموع الفرعي",
+    "promotion": "ترقية",
+    "tax": "ضريبة",
+    "total": "المجموع",
+    "payment": "الانتقال إلى الدفع"
+  },
+  "address": {
+    "noAddress": "لا يوجد عنوان",
+    "add": "إضافة عنوان",
+    "name": "عنوان",
+    "updateAddressSuccess": "تم تحديث عنوانك بنجاح.",
+    "firstname": "الاسم الأول",
+    "firstnameExample": "جان",
+    "lastname": "الكنية",
+    "lastnameExample": "دوبون",
+    "address1": "عنوان",
+    "address1Example": "1 شارع السلام",
+    "address2": "تكملة العنوان",
+    "address2Example": "شقة، مكتب، مبنى (اختياري)",
+    "city": "مدينة",
+    "cityExample": "باريس",
+    "county": "منطقة",
+    "countyExample": "باريس",
+    "postalCode": "الرمز البريدي",
+    "postalCodeExample": "75000",
+    "country": "بلد",
+    "countryExample": "فرنسا",
+    "phone": "هاتف",
+    "phoneExample": "0600000000",
+    "updateAddress": "تحديث العنوان",
+    "deleteAddress": "حذف العنوان",
+    "createAddressTitle": "إضافة عنوان",
+    "createAddress": "إنشاء العنوان",
+    "backToPreviousPage": "العودة إلى الصفحة السابقة",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا.",
+      "addressRequired": "العنوان مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 250 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على حرفين على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "lastnameRequired": "الكنية مطلوبة.",
+      "address1Required": "العنوان مطلوب.",
+      "cityRequired": "المدينة مطلوبة.",
+      "countyRequired": "المنطقة مطلوبة.",
+      "postalCodeRequired": "الرمز البريدي مطلوب.",
+      "countryRequired": "البلد مطلوب.",
+      "phoneRequired": "الهاتف مطلوب.",
+      "phonePattern": "رقم الهاتف غير صالح."
+    },
+    "modal": {
+      "title": "حذف العنوان",
+      "body": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+      "close": "إغلاق",
+      "confirm": "حذف"
+    }
+  },
+  "paymentMethod": {
+    "noPaymentMethod": "لا توجد طريقة دفع",
+    "add": "إضافة بطاقة",
+    "expirationDate": "تنتهي في ",
+    "createSuccess": "تمت إضافة بطاقتك بنجاح.",
+    "addCard": "إضافة البطاقة",
+    "backToPreviousPage": "العودة إلى الصفحة السابقة",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا."
+    },
+    "modal": {
+      "title": "حذف البطاقة",
+      "body": "هل أنت متأكد أنك تريد حذف هذه البطاقة؟",
+      "close": "إغلاق",
+      "confirm": "حذف"
     }
   }
 }

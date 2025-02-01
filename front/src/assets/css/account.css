@@ -157,3 +157,9 @@ a.list-group-item,
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
+
+.btn-add, .btn-add:hover{
+  background-color: var(--main-color);
+  color: var(--white-color);
+  padding: 10px;
+}

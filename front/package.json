@@ -15,6 +15,9 @@
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@reduxjs/toolkit": "^2.5.0",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.5.0",
     "bootstrap": "^5.3.3",
     "flag-icons": "^7.2.3",
     "i18next": "^23.16.4",
@@ -30,7 +33,10 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",
     "react-i18next": "^15.1.0",
-    "react-router-dom": "^6.27.0"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.27.0",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
