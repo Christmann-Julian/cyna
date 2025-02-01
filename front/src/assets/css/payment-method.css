@@ -1,0 +1,12 @@
+.payment-method .pm-height {
+  min-height: calc(100vh - 391px);
+}
+
+.payment-method button, .payment-method button:hover {
+  background-color:  var(--main-color);
+  color: var(--white-color);
+}
+
+.payment-method form a {
+    text-align: center;
+}

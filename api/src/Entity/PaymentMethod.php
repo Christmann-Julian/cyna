@@ -13,15 +13,21 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 #[ApiResource(
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Get(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
+            routeName: 'get_user_payment_methods',
+        ),
         new Put(security: "is_granted('ROLE_ADMIN') or object == user"),
         new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
         new Post(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Delete(
+            security: "is_granted('ROLE_ADMIN') or object == user",
+            routeName: 'delete_payment_method',
+        ),
         new Post(
             security: "is_granted('ROLE_ADMIN') or object == user",
             routeName: 'add_payment_method',
@@ -38,15 +44,23 @@ class PaymentMethod
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
-    private string $cardHolderName;
+    private ?string $stripePaymentMethodId = null;
 
     #[ORM\Column(type: 'string', length: 4)]
     #[Assert\NotBlank]
-    private string $last4;
+    private ?string $last4 = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
-    private string $stripePaymentMethodId;
+    private ?string $brand = null;
+
+    #[ORM\Column(type: 'string', length: 2)]
+    #[Assert\NotBlank]
+    private ?string $expiryMonth = null;
+
+    #[ORM\Column(type: 'string', length: 4)]
+    #[Assert\NotBlank]
+    private ?string $expiryYear = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'paymentMethods')]
     #[ORM\JoinColumn(nullable: false)]
@@ -57,18 +71,18 @@ class PaymentMethod
         return $this->id;
     }
 
-    public function getCardHolderName(): string
+    public function getStripePaymentMethodId(): ?string
     {
-        return $this->cardHolderName;
+        return $this->stripePaymentMethodId;
     }
 
-    public function setCardHolderName(string $cardHolderName): self
+    public function setStripePaymentMethodId(string $stripePaymentMethodId): self
     {
-        $this->cardHolderName = $cardHolderName;
+        $this->stripePaymentMethodId = $stripePaymentMethodId;
         return $this;
     }
 
-    public function getLast4(): string
+    public function getLast4(): ?string
     {
         return $this->last4;
     }
@@ -79,14 +93,36 @@ class PaymentMethod
         return $this;
     }
 
-    public function getStripePaymentMethodId(): string
+    public function getBrand(): ?string
     {
-        return $this->stripePaymentMethodId;
+        return $this->brand;
     }
 
-    public function setStripePaymentMethodId(string $stripePaymentMethodId): self
+    public function setBrand(string $brand): self
     {
-        $this->stripePaymentMethodId = $stripePaymentMethodId;
+        $this->brand = $brand;
+        return $this;
+    }
+
+    public function getExpiryMonth(): ?string
+    {
+        return $this->expiryMonth;
+    }
+
+    public function setExpiryMonth(string $expiryMonth): self
+    {
+        $this->expiryMonth = $expiryMonth;
+        return $this;
+    }
+
+    public function getExpiryYear(): ?string
+    {
+        return $this->expiryYear;
+    }
+
+    public function setExpiryYear(string $expiryYear): self
+    {
+        $this->expiryYear = $expiryYear;
         return $this;
     }
 

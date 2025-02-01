@@ -52,7 +52,7 @@ const ListAddress = () => {
               {addresses.map((address, index) => (
                 <Accordion.Item eventKey={index} key={index}>
                   <Accordion.Header>
-                    {t("address.addressName")} {index + 1}
+                    {t("address.name")} {index + 1}
                   </Accordion.Header>
                   <Accordion.Body>
                     <AddressUpdateForm address={address} />
@@ -63,7 +63,7 @@ const ListAddress = () => {
           )}
           <div className="d-flex justify-content-center mt-4">
             <Link to="/account/address" className="btn btn-add">
-              {t("address.addressAdd")}
+              {t("address.add")}
             </Link>
           </div>
         </>

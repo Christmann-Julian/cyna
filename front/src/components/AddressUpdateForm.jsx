@@ -60,7 +60,7 @@ const AddressUpdateForm = ({ address }) => {
 
     if (error) {
       setAlertUpdate({
-        message: t("address.addressErrors.serverError"),
+        message: t("address.errors.serverError"),
         type: "danger",
       });
     } else {
@@ -85,7 +85,7 @@ const AddressUpdateForm = ({ address }) => {
       window.location.reload();
     } catch (error) {
       setAlertUpdate({
-        message: t("address.addressErrors.serverError"),
+        message: t("address.errors.serverError"),
         type: "danger",
       });
     }
@@ -114,14 +114,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.firstnameExample")}
               {...register("firstname", {
-                required: t("address.addressErrors.firstnameRequired"),
+                required: t("address.errors.firstnameRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -135,14 +135,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.lastnameExample")}
               {...register("lastname", {
-                required: t("address.addressErrors.lastnameRequired"),
+                required: t("address.errors.lastnameRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -156,14 +156,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.address1Example")}
               {...register("address1", {
-                required: t("address.addressErrors.address1Required"),
+                required: t("address.errors.address1Required"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -179,11 +179,11 @@ const AddressUpdateForm = ({ address }) => {
               {...register("address2", {
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -197,14 +197,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.cityExample")}
               {...register("city", {
-                required: t("address.addressErrors.cityRequired"),
+                required: t("address.errors.cityRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -218,14 +218,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.countyExample")}
               {...register("county", {
-                required: t("address.addressErrors.countyRequired"),
+                required: t("address.errors.countyRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -239,14 +239,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.postalCodeExample")}
               {...register("postalCode", {
-                required: t("address.addressErrors.postalCodeRequired"),
+                required: t("address.errors.postalCodeRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -260,14 +260,14 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.countryExample")}
               {...register("country", {
-                required: t("address.addressErrors.countryRequired"),
+                required: t("address.errors.countryRequired"),
                 maxLength: {
                   value: 250,
-                  message: t("address.addressErrors.maxLength"),
+                  message: t("address.errors.maxLength"),
                 },
                 minLength: {
                   value: 2,
-                  message: t("address.addressErrors.minLength"),
+                  message: t("address.errors.minLength"),
                 },
               })}
             />
@@ -281,7 +281,11 @@ const AddressUpdateForm = ({ address }) => {
               type="text"
               placeholder={t("address.phoneExample")}
               {...register("phone", {
-                required: t("address.addressErrors.phoneRequired"),
+                required: t("address.errors.phoneRequired"),
+                pattern: {
+                  value: /^\+?[0-9]\d{1,14}$/,
+                  message: t("address.errors.phonePattern"),
+                },
               })}
             />
             {errors.phone && (

@@ -301,6 +301,10 @@ const CreateAddress = () => {
                           placeholder={t("address.phoneExample")}
                           {...register("phone", {
                             required: t("address.addressErrors.phoneRequired"),
+                            pattern: {
+                              value: /^\+?[0-9]\d{1,14}$/,
+                              message: t("address.errors.phonePattern"),
+                            },
                           })}
                         />
                         {errors.phone && (
@@ -309,10 +313,10 @@ const CreateAddress = () => {
                           </span>
                         )}
                       </div>
-                      <button type="submit" className="btn">
+                      <button type="submit" className="btn mt-3">
                         {t("address.createAddress")}
                       </button>
-                      <button className="btn"  onClick={backToPreviousPage}>
+                      <button className="btn mt-3"  onClick={backToPreviousPage}>
                         {t("address.backToPreviousPage")}
                       </button>
                     </form>

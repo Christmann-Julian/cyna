@@ -121,6 +121,8 @@
     },
     "infoAccount": {
         "title":  "Mes Informations",
+        "addressTitle": "Mes adresses",
+        "paymentMethodTitle": "Mes moyens de paiement",
         "firstname": "Prénom",
         "lastname": "Nom",
         "email": "Email",
@@ -196,6 +198,88 @@
             "maxLength": "Le champs ne doit pas dépasser 255 caractères.",
             "minLength": "Le champs doit contenir au moins 3 caractères.",
             "messageMaxLength": "Le message ne doit pas dépasser 2000 caractères."
+        }
+    },
+    "checkout": {
+        "title": "Récapitulatif de la commande",
+        "addressTitle": "Mes adresses",
+        "paymentMethodTitle": "Mes moyens de paiement",
+        "summary": "Récapitulatif",
+        "summaryAddress": "Adresse de facturation",
+        "summaryPayment": "Moyen de paiement",
+        "month": "mois",
+        "quantity": "Quantité",
+        "subTotal": "Total HT",
+        "promotion": "Promotion",
+        "tax": "Taxe",
+        "total": "Total",
+        "payment": "Passer au paiement"
+    },
+    "address": {
+        "noAddress": "Aucune adresse",
+        "add": "Ajouter une adresse",
+        "name": "Adresse",
+        "updateAddressSuccess": "Votre adresse a été mise à jour avec succès.",
+        "firstname": "Prénom",
+        "firstnameExample": "Jean",
+        "lastname": "Nom",
+        "lastnameExample": "Dupont",
+        "address1": "Adresse",
+        "address1Example": "1 rue de la Paix",
+        "address2": "Complément d'adresse",
+        "address2Example": "Appartement, bureau, bâtiment (facultatif)",
+        "city": "Ville",
+        "cityExample": "Paris",
+        "county": "Région",
+        "countyExample": "Paris",
+        "postalCode": "Code postal",
+        "postalCodeExample": "75000",
+        "country": "Pays",
+        "countryExample": "France",
+        "phone": "Téléphone",
+        "phoneExample": "0600000000",
+        "updateAddress": "Mettre à jour l'adresse",
+        "deleteAddress": "Supprimer l'adresse",
+        "createAddressTitle": "Ajouter une adresse",
+        "createAddress": "Créer l'adresse",
+        "backToPreviousPage": "Retour à la page précédente",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "addressRequired": "L'adresse est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 250 caractères.",
+            "minLength": "Le champs doit contenir au moins 2 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "address1Required": "L'adresse est obligatoire.",
+            "cityRequired": "La ville est obligatoire.",
+            "countyRequired": "La région est obligatoire.",
+            "postalCodeRequired": "Le code postal est obligatoire.",
+            "countryRequired": "Le pays est obligatoire.",
+            "phoneRequired": "Le téléphone est obligatoire.",
+            "phonePattern": "Le téléphone n'est pas valide."
+        },
+        "modal": {
+            "title": "Supprimer l'adresse",
+            "body": "Êtes-vous sûr de vouloir supprimer cette adresse ?",
+            "close": "Fermer",
+            "confirm": "Supprimer"
+        }
+    },
+    "paymentMethod": {
+        "noPaymentMethod": "Aucun moyen de paiement",
+        "add": "Ajouter une carte",
+        "expirationDate": "expire en ",
+        "createSuccess": "Votre carte a été ajoutée avec succès.",
+        "addCard": "Ajouter la carte",
+        "backToPreviousPage": "Retour à la page précédente",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard."
+        },
+        "modal": {
+            "title": "Supprimer la carte",
+            "body": "Êtes-vous sûr de vouloir supprimer cette carte ?",
+            "close": "Fermer",
+            "confirm": "Supprimer"
         }
     }
 }
