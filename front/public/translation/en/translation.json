@@ -38,9 +38,15 @@
     "noCategories": "No categories"
   },
   "product": {
+    "noStock": "Out of stock",
     "quantity": "Quantity",
     "buyNow": "Subscribe now",
-    "similaryServices": "Similar services"
+    "similaryServices": "Similar services",
+    "modal": {
+      "title": "Service Unavailable",
+      "body": "This service is currently out of stock. Please try again later.",
+      "close": "Close"
+    }
   },
   "product-grid": {
     "show": "Show",
@@ -48,8 +54,13 @@
     "categories": "Categories",
     "sortByPrice": "Sort By Price",
     "only": "Only",
-    "promotions": "Promotions",
-    "available": "Available"
+    "allCategories": "All",
+    "disponibility": "Available",
+    "new": "New",
+    "priceAsc": "Price ascending",
+    "priceDesc": "Price descending",
+    "noProduct": "No product found",
+    "promotion": "Promotion"
   },
   "cart": {
     "product": "Service Name",
@@ -62,7 +73,7 @@
     "codePromotion": "Promotion Code",
     "apply": "Apply",
     "subTotal": "Excl tax",
-    "promotion": "Promotion",
+    "promotion": "Promotion code",
     "noProduct": "No services in the cart",
     "tax": "Tax",
     "totalCart": "Total",
@@ -210,7 +221,7 @@
     "month": "month",
     "quantity": "Quantity",
     "subTotal": "Subtotal",
-    "promotion": "Promotion",
+    "promotion": "Promotion code",
     "tax": "Tax",
     "total": "Total",
     "payment": "Proceed to Payment"

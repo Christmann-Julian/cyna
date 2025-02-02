@@ -25,33 +25,34 @@
   display: block;
   margin-top: 20px;
 }
-.shop .range #slider-range {
-  box-shadow: none;
-  border: none;
-  height: 4px;
-  background: var(--main-color);
-  color: var(--main-color);
-  border-radius: 0px;
+.shop .price-filter .horizontal-slider {
+  width: 100%;
+  height: 25px;
+  margin: 10px 0;
 }
-.shop .range .label-input {
-  margin-top: 15px;
+.shop .price-filter .example-track {
+  background: #ddd;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.shop .range .label-input span {
-  margin-right: 5px;
-  color: #282828;
-}
-.shop .range .ui-slider-handle.ui-state-default.ui-corner-all {
-  background: var(--main-color);
-  color: var(--main-color);
+.shop .price-filter .example-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  border-radius: 50%;
   cursor: pointer;
-}
-.shop .range .label-input input {
-  border: none;
-  margin: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-top: 3px;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 14px;
-  color: #222;
-  background: transparent;
+}
+.shop .price-filter .example-track.example-track-1 {
+  background: #000;
 }
 .shop .check-box-list {
   margin-top: 15px;
@@ -79,23 +80,23 @@
   margin-left: 5px;
   color: #666;
 }
-.shop-sidebar .categor-list {
+.shop-sidebar .category-list {
   margin-top: 10px;
 }
-.shop-sidebar .categor-list li {
+.shop-sidebar .category-list li {
   margin-bottom: 10px;
-}
-.shop-sidebar .categor-list li:last-child {
-  margin-bottom: 0px;
-}
-.shop-sidebar .categor-list li a {
-  display: inline-block;
   color: #666;
   font-weight: 400;
   font-size: 14px;
-  text-decoration: none;
 }
-.shop-sidebar .categor-list li a:hover {
+.shop-sidebar .category-list li:last-child {
+  margin-bottom: 0px;
+}
+.shop-sidebar .category-list li:hover {
+  color: var(--main-color);
+  cursor: pointer;
+}
+.shop-sidebar .category-list li a:hover {
   color: var(--main-color);
 }
 .shop .shop-top {

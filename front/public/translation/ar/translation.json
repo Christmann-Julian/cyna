@@ -41,9 +41,15 @@
     "noCategories": "لا توجد فئات"
   },
   "product": {
+    "noStock": "نفذت الكمية",
     "quantity": "الكمية",
     "buyNow": "اشترك الآن",
-    "similaryServices": "خدمات مشابهة"
+    "similaryServices": "خدمات مشابهة",
+    "modal": {
+      "title": "الخدمة غير متوفرة",
+      "body": "هذه الخدمة غير متوفرة حالياً. يرجى المحاولة مرة أخرى لاحقاً.",
+      "close": "إغلاق"
+    }
   },
   "product-grid": {
     "show": "عرض",
@@ -51,8 +57,13 @@
     "categories": "الفئات",
     "sortByPrice": "فرز حسب السعر",
     "only": "فقط",
-    "promotions": "عروض الترويجية",
-    "available": "التوفر"
+    "allCategories": "الكل",
+    "disponibility": "متاح",
+    "new": "جديد",
+    "priceAsc": "السعر تصاعدي",
+    "priceDesc": "السعر تنازلي",
+    "noProduct": "لم يتم العثور على منتج",
+    "promotion": "ترويج"
   },
   "cart": {
     "product": "منتج",

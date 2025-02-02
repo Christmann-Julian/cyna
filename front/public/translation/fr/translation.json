@@ -38,9 +38,15 @@
         "noCategories": "Aucune catégorie"
     },
     "product":{
+        "noStock": "En rupture de stock",
         "quantity": "Quantité",
         "buyNow": "S'abonner maintenant",
-        "similaryServices" : "Services Similaires"
+        "similaryServices" : "Services Similaires",
+        "modal": {
+            "title": "Service indisponible",
+            "body": "Ce service est actuellement en rupture de stock. Veuillez réessayer plus tard.",
+            "close": "Fermer"
+        }
     },
     "product-grid":{
         "show": "Montrer",
@@ -48,8 +54,13 @@
         "categories" : "Catégories",
         "sortByPrice": "Trier Par Prix",
         "only": "Uniquement",
-        "promotions": "Promotions",
-        "available": "Disponible"
+        "allCategories": "Toutes",
+        "disponibility": "Disponible",
+        "new": "Nouveau",
+        "priceAsc": "Prix croissant",
+        "priceDesc": "Prix décroissant",
+        "noProduct": "Aucun service trouvé",
+        "promotion": "Promotion"
     },
     "cart":{
         "product": "Nom du service",
@@ -63,7 +74,7 @@
         "noProduct": "Aucun service dans le panier",
         "apply": "Appliquer",
         "subTotal": "Total HT",
-        "promotion": "Promotion",
+        "promotion": "Code promo",
         "tax": "Taxe",
         "totalCart": "Total",
         "order": "Passer à la caisse",
@@ -210,7 +221,7 @@
         "month": "mois",
         "quantity": "Quantité",
         "subTotal": "Total HT",
-        "promotion": "Promotion",
+        "promotion": "Code promo",
         "tax": "Taxe",
         "total": "Total",
         "payment": "Passer au paiement"

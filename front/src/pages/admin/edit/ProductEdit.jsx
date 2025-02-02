@@ -33,7 +33,10 @@ export const ProductEdit = () => (
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
-      <NumberInput source="position" defaultValue={0} />
+      <NumberInput source="position" defaultValue={0} label="Top product position"/>
+      <BooleanInput source="promotionActive" />
+      <TextInput source="promotionLabel"/>
+      <NumberInput source="promotionPrice" />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility', 'top_product', 'position'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility', 'top_product', 'position', 'promotionActive', 'promotionLabel', 'promotionPrice'])]
 #[ApiFilter(SearchFilter::class, properties: ['productTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -94,6 +94,24 @@ class Product
     ])]
     #[ORM\ManyToOne(targetEntity: MediaObject::class)]
     private ?MediaObject $image = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\Column]
+    private ?bool $promotionActive = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\Column(length: 25, nullable: true)]
+    private ?string $promotionLabel = null;
+
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\Column(nullable: true)]
+    private ?float $promotionPrice = null;
 
     public function __construct()
     {
@@ -224,5 +242,41 @@ class Product
     public function getImageUrl(): ?string
     {
         return $this->image?->getContentUrl();
+    }
+
+    public function isPromotionActive(): ?bool
+    {
+        return $this->promotionActive;
+    }
+
+    public function setPromotionActive(bool $promotionActive): static
+    {
+        $this->promotionActive = $promotionActive;
+
+        return $this;
+    }
+
+    public function getPromotionLabel(): ?string
+    {
+        return $this->promotionLabel;
+    }
+
+    public function setPromotionLabel(?string $promotionLabel): static
+    {
+        $this->promotionLabel = $promotionLabel;
+
+        return $this;
+    }
+
+    public function getPromotionPrice(): ?float
+    {
+        return $this->promotionPrice;
+    }
+
+    public function setPromotionPrice(?float $promotionPrice): static
+    {
+        $this->promotionPrice = $promotionPrice;
+
+        return $this;
     }
 }

@@ -29,7 +29,10 @@ export const ProductCreate = () => (
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
-      <NumberInput source="position" defaultValue={0} />
+      <NumberInput source="position" defaultValue={0} label="Top product position" />
+      <BooleanInput source="promotionActive" label="Promotion is active" />
+      <TextInput source="promotionLabel" label="Promotion label" />
+      <NumberInput source="promotionPrice" label="Promotion price"/>
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

@@ -32,6 +32,10 @@ class HomepageController extends AbstractController
 
         $categories = $this->categoryTranslationRepository->findBy(['locale' => $locale]);
 
+        usort($categories, function ($a, $b) {
+            return $a->getCategory()->getPriority() <=> $b->getCategory()->getPriority();
+        });
+
         $categories = array_map(function ($category) use ($imagePath) {
             return [
                 'id' => $category->getId(),
@@ -51,6 +55,10 @@ class HomepageController extends AbstractController
                 'name' => $product->getName(),
                 'price' => $product->getProduct()->getPrice(),
                 'url_image' => $product->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $product->getProduct()->getImage()->getFilePath(),
+                'disponibility' => $product->getProduct()->isDisponibility(),
+                'promotionActive' => $product->getProduct()->isPromotionActive(),
+                'promotionLabel' => $product->getProduct()->getPromotionLabel(),
+                'promotionPrice' => $product->getProduct()->getPromotionPrice()
             ];
         }, $topProducts);
 

@@ -44,6 +44,10 @@ class CategoryTranslationController extends AbstractController
                     'description' => $product->getDescription(),
                     'price' => $product->getProduct()->getPrice(),
                     'url_image' => $product->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $product->getProduct()->getImage()->getFilePath(),
+                    'disponibility' => $product->getProduct()->isDisponibility(),
+                    'promotionActive' => $product->getProduct()->isPromotionActive(),
+                    'promotionLabel' => $product->getProduct()->getPromotionLabel(),
+                    'promotionPrice' => $product->getProduct()->getPromotionPrice()
                 ];
             }, $products)
         ]);
@@ -57,6 +61,10 @@ class CategoryTranslationController extends AbstractController
         if (!$categories) {
             return new JsonResponse(['error' => 'No categories found for this locale'], 404);
         }
+
+        usort($categories, function ($a, $b) {
+            return $a->getCategory()->getPriority() <=> $b->getCategory()->getPriority();
+        });
 
         $categories = array_map(function ($category) {
             return [

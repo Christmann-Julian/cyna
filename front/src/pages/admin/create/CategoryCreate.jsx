@@ -1,6 +1,7 @@
 import React from "react";
 import {
   TextInput,
+  NumberInput,
   SimpleFormIterator,
   SelectInput,
   ArrayInput,
@@ -21,6 +22,7 @@ const CategoryCreate = () => (
         required
       />
     </ReferenceInput>
+    <NumberInput source="priority" required/>
     <ArrayInput source="categoryTranslations">
       <SimpleFormIterator>
         <TextInput source="name" label="Name" required />

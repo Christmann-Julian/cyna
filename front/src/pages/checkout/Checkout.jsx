@@ -91,7 +91,7 @@ const Checkout = () => {
               <div className="order-summary">
                 <form className="mb-3">
                   <h3>{t("checkout.summaryAddress")}</h3>
-                  {fetchPaymentMethodLoading ? (
+                  {fetchAddressesLoading ? (
                     <LoadingSpinner height={"100px"} />
                   ) : (
                     <>

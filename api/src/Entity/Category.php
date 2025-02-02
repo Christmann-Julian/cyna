@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'priority', 'image.contentUrl'])]
 #[ApiFilter(SearchFilter::class, properties: ['categoryTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -63,6 +63,12 @@ class Category
     ])]
     #[ORM\ManyToOne(targetEntity: MediaObject::class)]
     private ?MediaObject $image = null;
+
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]
+    #[ORM\Column(nullable: true)]
+    private ?int $priority = null;
 
     public function __construct()
     {
@@ -151,5 +157,17 @@ class Category
     public function getImageUrl(): ?string
     {
         return $this->image?->getContentUrl();
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): static
+    {
+        $this->priority = $priority;
+
+        return $this;
     }
 }

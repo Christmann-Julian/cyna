@@ -90,7 +90,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/products",
+    path: "/search",
     element: <ProductGrid />,
     errorElement: <ErrorPage />,
   },

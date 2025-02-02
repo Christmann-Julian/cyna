@@ -3,6 +3,7 @@ import {
   Edit,
   SimpleForm,
   TextInput,
+  NumberInput,
   ReferenceInput,
   SimpleFormIterator,
   ArrayInput,
@@ -28,6 +29,7 @@ const CategoryEdit = () => (
           optionValue="@id"
         />
       </ReferenceInput>
+      <NumberInput source="priority" />
       <ArrayInput source="categoryTranslations">
         <SimpleFormIterator>
           <TextInput source="name" label="Name" required />

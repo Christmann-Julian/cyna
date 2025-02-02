@@ -11,9 +11,10 @@ import Loading from "./Loading";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getCurrentLocale } from "../utils/language";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addToCart } from '../redux/cartSlice';
+import { addToCart } from "../redux/cartSlice";
+import { Modal, Button } from "react-bootstrap";
 
 const Product = () => {
   const { t } = useTranslation();
@@ -23,33 +24,52 @@ const Product = () => {
   const [product, setProduct] = useState(null);
   const [productCart, setProductCart] = useState(null);
   const [error, setError] = useState(null);
+  const [show, setShow] = useState(false);
+
 
   const dispatch = useDispatch();
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-
-    navigate("/cart");
+  const handleAddToCart = (productCart) => {
+    if (productCart == null) {
+      handleShow();
+    }else {
+      dispatch(addToCart(productCart));
+      navigate("/cart");
+    }
   };
+
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     setProduct(null);
     const fetchItems = async () => {
-      const { data: product, error: errorCode } = await apiRequest(`/product/${currentLocale}/${id}`, "GET", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { data: product, error: errorCode } = await apiRequest(
+        `/product/${currentLocale}/${id}`,
+        "GET",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setProduct(product);
-      setProductCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: 1,
-        duration: 1,
-        total: product.price,
-      })
-      setError(errorCode);
+
+      if (!product) {
+        setError(errorCode);
+      } else if (product.disponibility) {
+        setProductCart({
+          id: product.id,
+          name: product.name,
+          price: product.promotionActive && product.promotionPrice != null ? product.promotionPrice : product.price,
+          quantity: 1,
+          duration: 1,
+          total: product.promotionActive && product.promotionPrice != null ? product.promotionPrice : product.price,
+        });
+      }
     };
 
     fetchItems();
@@ -59,7 +79,7 @@ const Product = () => {
     return <ErrorPage />;
   }
 
-  if (!product) {
+  if (!product && error !== 404) {
     return <Loading />;
   }
 
@@ -77,8 +97,14 @@ const Product = () => {
                       <ul className="slides">
                         <li>
                           <img
-                            src={product.url_image ?? "https://via.placeholder.com/570x520"}
-                            alt={product.url_image ?? "https://via.placeholder.com/570x520"}
+                            src={
+                              product.url_image ??
+                              "https://via.placeholder.com/570x520"
+                            }
+                            alt={
+                              product.url_image ??
+                              "https://via.placeholder.com/570x520"
+                            }
                           />
                         </li>
                       </ul>
@@ -89,21 +115,41 @@ const Product = () => {
                   <div className="product-des">
                     <div className="short">
                       <h2>{product.name}</h2>
+                      {product.disponibility == false && <span className="badge text-bg-danger mt-2">{t('product.noStock')}</span>}
                       <p className="price">
-                        <span className="discount">{product.price.toString().replace('.', ',')}€</span>
-                        {/* <s>80,00€</s> */}
+                        {product.promotionActive &&
+                        product.promotionPrice != null ? (
+                          <>
+                            <span className="discount">
+                              {product.promotionPrice
+                                .toString()
+                                .replace(".", ",")}
+                              €
+                            </span>
+                            <s>{product.price.toString().replace(".", ",")}€</s>
+                          </>
+                        ) : (
+                          <span className="discount">
+                            {product.price.toString().replace(".", ",")}€
+                          </span>
+                        )}
                       </p>
-                      <p className="description">
-                        {product.description}
-                      </p>
+                      <p className="description">{product.description}</p>
                     </div>
                     <div className="product-buy">
                       <div className="add-to-cart">
-                        <button className="btn"  onClick={() => handleAddToCart(productCart)}>
+                        <button
+                          className="btn"
+                          onClick={() => handleAddToCart(productCart)}
+                        >
                           {t("product.buyNow")}
                         </button>
                       </div>
-                      <p dangerouslySetInnerHTML={{ __html: product.caracteristic }}></p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: product.caracteristic,
+                        }}
+                      ></p>
                     </div>
                   </div>
                 </div>
@@ -137,6 +183,17 @@ const Product = () => {
           </div>
         </div>
       </section>
+      <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">{t('product.modal.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{t('product.modal.body')}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            {t('product.modal.close')}
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Footer />
     </>
   );

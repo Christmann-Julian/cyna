@@ -76,6 +76,12 @@ const Navbar = () => {
     document.documentElement.dir = currentLanguage.dir || "ltr";
   }, [currentLanguage, t]);
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const searchQuery = event.target.elements.search.value;
+    navigate(`/search?q=${searchQuery}&page=1&limit=8`);
+  };
+
   const handleLogout = () => {
     authProvider.logout();
     setIsAuth(false);
@@ -137,13 +143,14 @@ const Navbar = () => {
           <div className="navbar-mobile-top d-flex d-lg-none w-100">
             <BoostrapNavbar.Toggle aria-controls="navbarMain" />
             <div className="mobile-search-container">
-              <Form className="d-flex">
+              <Form className="d-flex" onSubmit={handleSearch}>
                 <InputGroup>
                   <Form.Control
                     type="search"
+                    name="search"
                     placeholder={t("navbar.input-search")}
                   />
-                  <Button variant="light">
+                  <Button type="submit" variant="light">
                     <FontAwesomeIcon icon={faSearch} />
                   </Button>
                 </InputGroup>
@@ -218,13 +225,15 @@ const Navbar = () => {
             <Form
               className="d-none d-lg-flex mx-auto"
               style={{ minWidth: "40%" }}
+              onSubmit={handleSearch}
             >
               <InputGroup>
                 <Form.Control
                   type="search"
+                  name="search"
                   placeholder={t("navbar.input-search")}
                 />
-                <Button variant="light">
+                <Button type="submit" variant="light">
                   <FontAwesomeIcon icon={faSearch} />
                 </Button>
               </InputGroup>

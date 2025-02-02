@@ -22,6 +22,7 @@ export const CategoryList = () => (
         )
       }
     />
-    <TextField source="imageUrl" />
+    <TextField source="image.contentUrl" label="Image Url"/>
+    <FieldGuesser source="priority" />
   </ListGuesser>
 );

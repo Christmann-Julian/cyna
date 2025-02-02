@@ -20,7 +20,7 @@ class ProductTranslationController extends AbstractController
         $imagePath = $request->getSchemeAndHttpHost() . '/media/';
 
         $productTranslation = $this->productTranslationRepository->findOneBy([
-            'product' => $id,
+            'id' => $id,
             'locale' => $locale
         ]);
 
@@ -32,7 +32,7 @@ class ProductTranslationController extends AbstractController
 
         if (!$categoryId) {
             $products = $this->productTranslationRepository->findByLocale($locale, $productTranslation->getId(), 6);
-        }else{
+        } else {
             $products = $this->productTranslationRepository->findByLocaleAndCategory($locale, $categoryId, $productTranslation->getId(), 6);
         }
 
@@ -44,7 +44,10 @@ class ProductTranslationController extends AbstractController
                 'name' => $similarProduct->getName(),
                 'price' => $similarProduct->getProduct()->getPrice(),
                 'url_image' => $similarProduct->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $similarProduct->getProduct()->getImage()->getFilePath(),
-                'disponibility' => $similarProduct->getProduct()->isDisponibility()
+                'disponibility' => $similarProduct->getProduct()->isDisponibility(),
+                'promotionActive' => $similarProduct->getProduct()->isPromotionActive(),
+                'promotionLabel' => $similarProduct->getProduct()->getPromotionLabel(),
+                'promotionPrice' => $similarProduct->getProduct()->getPromotionPrice()
             ];
         }
 
@@ -58,6 +61,9 @@ class ProductTranslationController extends AbstractController
             'url_image' => $productTranslation->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $productTranslation->getProduct()->getImage()->getFilePath(),
             'priority' => $productTranslation->getProduct()->getPriority(),
             'disponibility' => $productTranslation->getProduct()->isDisponibility(),
+            'promotionActive' => $productTranslation->getProduct()->isPromotionActive(),
+            'promotionLabel' => $productTranslation->getProduct()->getPromotionLabel(),
+            'promotionPrice' => $productTranslation->getProduct()->getPromotionPrice(),
             'similarProduct' => $similarProducts
         ]);
     }

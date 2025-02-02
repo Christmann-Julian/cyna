@@ -29,5 +29,6 @@ export const ProductList = () => (
     <FieldGuesser source="priority" />
     <FieldGuesser source="disponibility" />
     <FieldGuesser source="top_product" />
+    <FieldGuesser source="promotionActive" />
   </ListGuesser>
 );
