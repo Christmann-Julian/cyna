@@ -16,7 +16,9 @@ const Login = () => {
   const location = useLocation();
   const [errorLogin, setErrorLogin] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [isTwoFA, setIsTwoFA] = useState(false);
+  const [userId, setUserId] = useState("");
+
   const queryParams = new URLSearchParams(location.search);
 
   useEffect(() => {
@@ -38,20 +40,39 @@ const Login = () => {
 
     const tryLogin = async () => {
       try {
-        await authProvider.login({
-          username: formData.email,
-          password: formData.password,
-          rememberMe: formData.rememberMe,
-          locale: getCurrentLocale(),
-        });
-        const from = location.state?.from?.pathname || "/account";
-        navigate(from);
+        if (isTwoFA) {
+          await authProvider.verifyTwoFA({
+            userId,
+            code: formData.twofaCode,
+          });
+          const from = location.state?.from?.pathname || "/account";
+          navigate(from);
+        } else {
+          const response = await authProvider.login({
+            username: formData.email,
+            password: formData.password,
+            rememberMe: formData.rememberMe,
+            locale: getCurrentLocale(),
+          });
+          if (response.twofa_required) {
+            setIsTwoFA(true);
+            setUserId(response.user_id);
+          } else {
+            const from = location.state?.from?.pathname || "/account";
+            navigate(from);
+          }
+        }
       } catch (error) {
         if (error.status == 401) {
           const errorMessage = JSON.parse(error.message).message;
           if (errorMessage == "Email is not verified.") {
             setErrorLogin({
               message: t("login.errors.emailNotVerified"),
+              type: "danger",
+            });
+          } else if (errorMessage == "Invalid or expired OTP") {
+            setErrorLogin({
+              message: t("login.errors.invalid2facode"),
               type: "danger",
             });
           } else {
@@ -99,70 +120,101 @@ const Login = () => {
                       message={errorLogin.message}
                       type={errorLogin.type}
                     />
-                    <div className="col-12">
-                      <div className="form-group">
-                        <label>
-                          {t("login.email")}
-                          <span>*</span>
-                        </label>
-                        <input
-                          {...register("email", {
-                            required: t("login.errors.emailRequired"),
-                            pattern: {
-                              value:
-                                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/,
-                              message: t("login.errors.emailPattern"),
-                            },
-                          })}
-                        />
-                        {errors.email && (
-                          <span className="text-danger">
-                            {errors.email.message}
-                          </span>
-                        )}
+                    {!isTwoFA && (
+                      <>
+                        <div className="col-12">
+                          <div className="form-group">
+                            <label>
+                              {t("login.email")}
+                              <span>*</span>
+                            </label>
+                            <input
+                              {...register("email", {
+                                required: t("login.errors.emailRequired"),
+                                pattern: {
+                                  value:
+                                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/,
+                                  message: t("login.errors.emailPattern"),
+                                },
+                              })}
+                            />
+                            {errors.email && (
+                              <span className="text-danger">
+                                {errors.email.message}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group">
+                            <label>
+                              {t("login.password")}
+                              <span>*</span>
+                            </label>
+                            <input
+                              type="password"
+                              {...register("password", {
+                                required: t("login.errors.passwordRequired"),
+                              })}
+                            />
+                            {errors.password && (
+                              <span className="text-danger">
+                                {errors.password.message}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {isTwoFA && (
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label>
+                            {t("login.twofaCode")}
+                            <span>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            {...register("twofaCode", {
+                              required: t("login.errors.twofaCodeRequired"),
+                            })}
+                          />
+                          {errors.twofaCode && (
+                            <span className="text-danger">
+                              {errors.twofaCode.message}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group">
-                        <label>
-                          {t("login.password")}
-                          <span>*</span>
-                        </label>
-                        <input
-                          type="password"
-                          {...register("password", {
-                            required: t("login.errors.passwordRequired"),
-                          })}
-                        />
-                        {errors.password && (
-                          <span className="text-danger">
-                            {errors.password.message}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                    )}
                     <div className="col-12">
                       <div className="form-group login-btn">
                         <button className="btn" type="submit">
-                          {t("login.btnLogin")}
+                          {isTwoFA ? t("login.btnVerify") : t("login.btnLogin")}
                         </button>
-                        <button className="btn">
-                          <Link to="/register">{t("login.btnRegister")}</Link>
-                        </button>
+                        {!isTwoFA && (
+                          <button className="btn">
+                            <Link to="/register">{t("login.btnRegister")}</Link>
+                          </button>
+                        )}
                       </div>
-                      <div className="checkbox">
-                        <label className="checkbox-inline">
-                          <input
-                            id="checkbox"
-                            type="checkbox"
-                            {...register("rememberMe")}
-                          />
-                          {t("login.rememberMe")}
-                        </label>
-                      </div>
-                      <Link to="/forgot-password" className="lost-pass">
-                        {t("login.forgotPassword")}
-                      </Link>
+                      {!isTwoFA && (
+                        <div className="checkbox">
+                          <label className="checkbox-inline">
+                            <input
+                              id="checkbox"
+                              type="checkbox"
+                              {...register("rememberMe")}
+                            />
+                            {t("login.rememberMe")}
+                          </label>
+                        </div>
+                      )}
+                      {!isTwoFA && (
+                        <Link to="/forgot-password" className="lost-pass">
+                          {t("login.forgotPassword")}
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </form>

@@ -103,6 +103,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $stripeCustomerId = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $twoFaCode = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $twoFaExpiresAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updated_at = null;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
@@ -277,6 +289,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStripeCustomerId(?string $stripeCustomerId): self
     {
         $this->stripeCustomerId = $stripeCustomerId;
+
+        return $this;
+    }
+
+    public function getTwoFaCode(): ?string
+    {
+        return $this->twoFaCode;
+    }
+
+    public function setTwoFaCode(?string $twoFaCode): static
+    {
+        $this->twoFaCode = $twoFaCode;
+
+        return $this;
+    }
+
+    public function getTwoFaExpiresAt(): ?\DateTimeImmutable
+    {
+        return $this->twoFaExpiresAt;
+    }
+
+    public function setTwoFaExpiresAt(?\DateTimeImmutable $twoFaExpiresAt): static
+    {
+        $this->twoFaExpiresAt = $twoFaExpiresAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): static
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -2,7 +2,7 @@ import { jwtDecode } from "jwt-decode";
 
 const authProvider = {
   login: async ({ username, password, rememberMe, locale }) => {
-    const request = new Request("http://localhost:8000/api/login_check", {
+    const request = new Request("http://localhost:8000/api/login", {
       method: "POST",
       body: JSON.stringify({ username, password, locale }),
       headers: new Headers({ "Content-Type": "application/json" }),
@@ -18,13 +18,46 @@ const authProvider = {
         }
         return response.json();
       })
-      .then(({ token, refresh_token }) => {
+      .then((data) => {
+        if (data.twofa_required) {
+          return { twofa_required: true, user_id: data.user_id };
+        }
+        const { token, refresh_token } = data;
         if (rememberMe) {
           localStorage.setItem("refresh_token", refresh_token);
         }
         localStorage.setItem("token", token);
         const decodedToken = jwtDecode(token);
         localStorage.setItem("roles", JSON.stringify(decodedToken.roles));
+        return { twofa_required: false };
+      });
+  },
+  verifyTwoFA: async ({ userId, code }) => {
+    const request = new Request("http://localhost:8000/api/two-fa", {
+      method: "POST",
+      body: JSON.stringify({ user_id: parseInt(userId, 10), code }),
+      headers: new Headers({ "Content-Type": "application/json" }),
+    });
+    return fetch(request)
+      .then((response) => {
+        if (response.status < 200 || response.status >= 300) {
+          return response.text().then((responseMessage) => {
+            const error = new Error(responseMessage);
+            error.status = response.status;
+            throw error;
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const { token, refresh_token } = data;
+        localStorage.setItem("token", token);
+        if (refresh_token) {
+          localStorage.setItem("refresh_token", refresh_token);
+        }
+        const decodedToken = jwtDecode(token);
+        localStorage.setItem("roles", JSON.stringify(decodedToken.roles));
+        return Promise.resolve();
       });
   },
   logout: async () => {
