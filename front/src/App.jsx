@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './assets/css/style.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/style.css";
 import cookies from "js-cookie";
 import ErrorPage from "./pages/ErrorPage";
 import Homepage from "./pages/Homepage";
@@ -21,11 +21,12 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import Category from "./pages/Category";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Checkout from './pages/checkout/Checkout';
+import Checkout from "./pages/checkout/Checkout";
 import CreateAddress from "./pages/account/CreateAddress";
 import CreatePaymentMethod from "./pages/account/CreatePaymentMethod";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import OnlyPublicRoute from "./components/OnlyPublicRoute";
 
 const stripePromise = loadStripe(
   "pk_test_51Il6qJHdav6xRf1DJBGOrXYvW49czc6ATRvtf9oZyFKyZNDnjHwUEGHu9Xk4JgjfKFsQm0vfOfG3uBNAxK1XkU5200tiv5MIl2"
@@ -43,7 +44,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <OnlyPublicRoute>
+        <Login />
+      </OnlyPublicRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -63,7 +68,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <OnlyPublicRoute>
+        <Register />
+      </OnlyPublicRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -101,12 +110,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/contact",
-    element: <Contact/>,
-    errorElement: <ErrorPage/>,
+    element: <Contact />,
+    errorElement: <ErrorPage />,
   },
   {
-    path: '/category/:id',
-    element: <Category/>,
+    path: "/category/:id",
+    element: <Category />,
     errorElement: <ErrorPage />,
   },
   {
@@ -162,7 +171,7 @@ function App() {
     <>
       <RouterProvider router={router} />
     </>
-  ); 
+  );
 }
 
 export default App;

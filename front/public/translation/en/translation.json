@@ -97,6 +97,7 @@
     "btnLogin": "Login",
     "errors": {
       "serverError": "Server error! Please try again later.",
+      "emailExists": "This email is already in use.",
       "lastnameRequired": "Last name is required.",
       "maxLength": "The field must not exceed 50 characters.",
       "minLength": "The field must contain at least 3 characters.",

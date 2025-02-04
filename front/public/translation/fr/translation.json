@@ -97,6 +97,7 @@
         "btnLogin": "Se connecter",
         "errors": {
             "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailExists": "L'email est déjà relier à un compte.",
             "lastnameRequired": "Le nom est obligatoire.",
             "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
             "minLength": "Le champs doit contenir au moins 3 caractères.",
