@@ -20,10 +20,10 @@ use ApiPlatform\Metadata\GetCollection;
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
             routeName: 'get_user_addresses',
         ),
-        new Put(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Post(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Delete(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
+        new Patch(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
+        new Post(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
     ],
 )]
 #[ORM\Entity(repositoryClass: AddressRepository::class)]

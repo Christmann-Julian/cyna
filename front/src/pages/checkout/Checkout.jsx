@@ -15,12 +15,10 @@ const Checkout = () => {
   const [addresses, setAddresses] = useState([]);
   const [fetchAddressesLoading, setFetchAddressesLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] =
-    useState(false);
+  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] = useState(false);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     setFetchAddressesLoading(true);
 
     const fetchAddresses = async () => {

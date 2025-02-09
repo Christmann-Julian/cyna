@@ -7,6 +7,7 @@ use App\Entity\RefreshToken;
 use App\Service\EmailService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -83,7 +84,7 @@ class AuthController extends AbstractController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            
+
             $this->emailService->send2faCodeEmail($user, $otpCode);
 
             return new JsonResponse([
@@ -108,10 +109,39 @@ class AuthController extends AbstractController
         $this->entityManager->persist($refreshTokenEntity);
         $this->entityManager->flush();
 
-        return new JsonResponse([
+        $response  = new JsonResponse([
             'token' => $token,
-            'refresh_token' => $refreshToken->getRefreshToken(),
         ]);
+
+        $response->headers->setCookie(
+            Cookie::create('refresh_token')
+                ->withValue($refreshToken->getRefreshToken())
+                ->withExpires(strtotime('+1 days'))
+                ->withPath('/')
+                ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
+                ->withHttpOnly(true)
+                ->withSameSite(Cookie::SAMESITE_LAX)
+        );
+
+        return $response;
+    }
+
+    #[Route('/api/logout', name: 'api_auth_logout', methods: ['POST'])]
+    public function logout(Request $request, RefreshTokenManagerInterface $refreshTokenManager): JsonResponse
+    {
+        $refreshTokenStr = $request->cookies->get('refresh_token');
+
+        if ($refreshTokenStr) {
+            $refreshToken = $refreshTokenManager->get($refreshTokenStr);
+            if ($refreshToken) {
+                $refreshTokenManager->delete($refreshToken);
+            }
+        }
+
+        $response = new JsonResponse(['message' => 'Logged out successfully']);
+        $response->headers->clearCookie('refresh_token', '/', '', false, true);
+
+        return $response;
     }
 
     #[Route('/api/token/refresh', name: 'api_auth_refresh_token', methods: ['POST'])]
@@ -119,11 +149,10 @@ class AuthController extends AbstractController
         Request $request,
         RefreshTokenManagerInterface $refreshTokenManager,
     ): JsonResponse {
-        $data = json_decode($request->getContent(), true);
-        $refreshTokenStr = $data['refresh_token'] ?? null;
+        $refreshTokenStr = $request->cookies->get('refresh_token');
 
         if (!$refreshTokenStr) {
-            return new JsonResponse(['message' => 'Missing refresh token'], JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse(['token' => null,'message' => 'Missing refresh token']);
         }
 
         $refreshToken = $refreshTokenManager->get($refreshTokenStr);
@@ -145,10 +174,19 @@ class AuthController extends AbstractController
         $refreshTokenManager->delete($refreshToken);
         $refreshTokenManager->save($newRefreshToken);
 
-        return new JsonResponse([
-            'token' => $newToken,
-            'refresh_token' => $newRefreshToken->getRefreshToken(),
-        ]);
+        $response = new JsonResponse(['token' => $newToken]);
+
+        $response->headers->setCookie(
+            Cookie::create('refresh_token')
+            ->withValue($newRefreshToken->getRefreshToken())
+            ->withExpires(strtotime('+1 days'))
+            ->withPath('/')
+            ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
+            ->withHttpOnly(true)
+            ->withSameSite(Cookie::SAMESITE_LAX)
+        );
+
+        return $response;
     }
 
     #[Route('/api/two-fa', name: 'api_auth_2fa', methods: ['POST'])]
@@ -157,6 +195,7 @@ class AuthController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $userId = $data['user_id'] ?? null;
         $otpCode = $data['code'] ?? null;
+
 
         if (!$userId || !$otpCode) {
             return new JsonResponse(['message' => 'Missing parameters'], JsonResponse::HTTP_BAD_REQUEST);
@@ -182,15 +221,24 @@ class AuthController extends AbstractController
 
         $refreshTokenEntity = new RefreshToken();
         $refreshTokenEntity->setRefreshToken($refreshToken->getRefreshToken())
-            ->setUsername($user->getEmail())
-            ->setValid($refreshToken->getValid());
+        ->setUsername($user->getEmail())
+        ->setValid($refreshToken->getValid());
 
         $this->entityManager->persist($refreshTokenEntity);
         $this->entityManager->flush();
 
-        return new JsonResponse([
-            'token' => $token,
-            'refresh_token' => $refreshToken->getRefreshToken(),
-        ]);
+        $response = new JsonResponse(['token' => $token]);
+
+        $response->headers->setCookie(
+            Cookie::create('refresh_token')
+            ->withValue($refreshToken->getRefreshToken())
+            ->withExpires(strtotime('+1 days'))
+            ->withPath('/')
+            ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
+            ->withHttpOnly(true)
+            ->withSameSite(Cookie::SAMESITE_LAX)
+        );
+
+        return $response;
     }
 }

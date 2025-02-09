@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 import authProvider from "../../utils/authProvider";
 import Alert from "../Alert";
 import LoadingSpinner from "../LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const InfoAccount = () => {
   const [loading, setLoading] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState({ message: "", type: "" });
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.token);
 
   const {
     register,
@@ -25,8 +27,6 @@ const InfoAccount = () => {
   const password = watch("password");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     let userId;
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -59,7 +59,6 @@ const InfoAccount = () => {
 
   const onSubmit = async (formData) => {
     setLoading(true);
-    const token = localStorage.getItem("token");
     let userId;
     let userEmail;
 

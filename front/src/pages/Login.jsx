@@ -9,6 +9,8 @@ import authProvider from "../utils/authProvider";
 import Alert from "../components/Alert";
 import Loading from "../pages/Loading";
 import { getCurrentLocale } from "../utils/language";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/authSlice";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -18,6 +20,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTwoFA, setIsTwoFA] = useState(false);
   const [userId, setUserId] = useState("");
+  const dispatch = useDispatch();
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -41,10 +44,11 @@ const Login = () => {
     const tryLogin = async () => {
       try {
         if (isTwoFA) {
-          await authProvider.verifyTwoFA({
+          const response = await authProvider.verifyTwoFA({
             userId,
             code: formData.twofaCode,
           });
+          dispatch(setToken(response.token));
           const from = location.state?.from?.pathname || "/account";
           navigate(from);
         } else {
@@ -58,6 +62,7 @@ const Login = () => {
             setIsTwoFA(true);
             setUserId(response.user_id);
           } else {
+            dispatch(setToken(response.token));
             const from = location.state?.from?.pathname || "/account";
             navigate(from);
           }
