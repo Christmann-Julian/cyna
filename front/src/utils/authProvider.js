@@ -1,10 +1,42 @@
 import { jwtDecode } from "jwt-decode";
+import store from "../redux/store";
+import { logout } from "../redux/authSlice";
+
+let refreshPromise = null;
 
 const authProvider = {
-  login: async ({ username, password, rememberMe, locale }) => {
-    const request = new Request("http://localhost:8000/api/login_check", {
+  login: async ({ username, password, locale }) => {
+    const request = new Request("http://localhost:8000/api/login", {
       method: "POST",
       body: JSON.stringify({ username, password, locale }),
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: "include",
+    });
+    return fetch(request)
+      .then((response) => {
+        if (response.status < 200 || response.status >= 300) {
+          return response.text().then((responseMessage) => {
+            const error = new Error(responseMessage);
+            error.status = response.status;
+            throw error;
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.twofa_required) {
+          return { twofa_required: true, user_id: data.user_id };
+        }
+
+        const { token } = data;
+        return { token, twofa_required: false };
+      });
+  },
+
+  verifyTwoFA: async ({ userId, code }) => {
+    const request = new Request("http://localhost:8000/api/two-fa", {
+      method: "POST",
+      body: JSON.stringify({ user_id: parseInt(userId, 10), code }),
       headers: new Headers({ "Content-Type": "application/json" }),
     });
     return fetch(request)
@@ -18,115 +50,120 @@ const authProvider = {
         }
         return response.json();
       })
-      .then(({ token, refresh_token }) => {
-        if (rememberMe) {
-          localStorage.setItem("refresh_token", refresh_token);
-        }
-        localStorage.setItem("token", token);
-        const decodedToken = jwtDecode(token);
-        localStorage.setItem("roles", JSON.stringify(decodedToken.roles));
+      .then((data) => {
+        const { token } = data;
+        return { token };
       });
   },
+
   logout: async () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("roles");
-    return "/login";
-  },
-  refreshToken: async function() {
-    const refresh_token = localStorage.getItem("refresh_token");
-    if (!refresh_token) {
-      return false;
-    }
-
     try {
-      const response = await fetch('http://localhost:8000/api/token/refresh', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ refresh_token: refresh_token }),
-      });
+      store.dispatch(logout());
 
+      const response = await fetch("http://localhost:8000/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+  
       if (!response.ok) {
-        return false;
+        throw new Error("Failed to logout");
       }
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("refresh_token", data.refresh_token);
-      return true;
+      return '/login';
     } catch (error) {
-      localStorage.removeItem("refresh_token");
-      return false;
+      console.error(error);
+      return '/login';
     }
   },
-  checkAuth: () => {
-    const token = localStorage.getItem("token");
-    const roles = JSON.parse(localStorage.getItem("roles") || "[]");
 
-    if (token && roles.includes("ROLE_ADMIN")) {
-      return Promise.resolve();
+  refreshToken: async () => {
+    if (!refreshPromise) {
+      refreshPromise = fetch("http://localhost:8000/api/token/refresh", {
+        method: "POST",
+        credentials: "include",
+      })
+        .then(async (response) => {
+          if (!response.ok) throw new Error("Failed to refresh token");
+
+          const data = await response.json();
+          return data.token;
+        })
+        .catch((error) => {
+          return null;
+        })
+        .finally(() => {
+          refreshPromise = null;
+        });
     }
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("roles");
-
-    return Promise.reject();
+    return refreshPromise;
   },
+
+  checkAuth: async () => {
+    const state = store.getState();
+    let token = state.auth.token;
+    
+    if (!token) {
+      const refreshed = await authProvider.refreshToken();
+      if (!refreshed) return Promise.reject();
+      token = refreshed.token;
+    }
+
+    const decodedToken = jwtDecode(token);
+    if (!decodedToken.roles.includes("ROLE_ADMIN")) {
+      return Promise.reject();
+    }
+
+    return Promise.resolve();
+  },
+
   checkError: async ({ status }) => {
     if (status === 403) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("roles");
       return Promise.reject();
     }
     if (status === 401) {
-      const refreshToken = localStorage.getItem("refresh_token");
-      if (refreshToken) {
-        const success = await this.refreshToken();
-        if (success) {
-          return Promise.resolve();
-        }
+      const refreshed = await this.refreshToken();
+      if (refreshed) {
+        return Promise.resolve();
       }
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("roles");
       return Promise.reject();
     }
     return Promise.resolve();
   },
-  getPermissions: () => {
-    const roles = JSON.parse(localStorage.getItem("roles") || "[]");
-    return Promise.resolve(roles);
-  },
-  isAuthenticated: async () => {
-    const token = localStorage.getItem("token");
 
+  isAuthenticated: async (token) => {
     if (!token) {
-      return false;
+      try {
+        const refreshed = await authProvider.refreshToken();
+        if (!refreshed) {
+          return false;
+        }
+        return refreshed;
+      } catch {
+        return false;
+      }
     }
 
     try {
       const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      if (decodedToken.exp < currentTime) {
-        const refreshed = await this.refreshToken();
-        return refreshed;
+      if (decodedToken.exp < Date.now() / 1000) {
+        try {
+          const refreshed = await authProvider.refreshToken();
+          if (!refreshed) {
+            return false;
+          }
+          return refreshed;
+        } catch {
+          return false;
+        }
       }
-
       return true;
-    } catch (error) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("roles");
+    } catch {
       return false;
     }
   },
-  getUserInfo: async () => {
-    const token = localStorage.getItem("token");
+
+  getUserInfo: async (token) => {
     if (!token) {
       return null;
     }

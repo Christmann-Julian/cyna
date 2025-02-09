@@ -9,6 +9,7 @@ import "../../assets/css/forms.css";
 import { jwtDecode } from "jwt-decode";
 import apiRequest from "../../utils/apiRequest";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CreateAddress = () => {
   const {
@@ -21,10 +22,10 @@ const CreateAddress = () => {
   const [createLoading, setCreateLoading] = useState(false);
   const [alertCreate, setAlertCreate] = useState({ message: "", type: "" });
   const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.token);
 
   const onSubmit = async (formData) => {
     setCreateLoading(true);
-    const token = localStorage.getItem("token");
 
     let userId;
     if (token) {

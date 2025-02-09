@@ -9,6 +9,7 @@ import Loading from "../Loading";
 import { useNavigate } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import "../../assets/css/payment-method.css";
+import { useSelector } from "react-redux";
 
 const CreatePaymentMethod = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const CreatePaymentMethod = () => {
   const elements = useElements();
   const [alertCreate, setAlertCreate] = useState({ message: "", type: "" });
   const [createLoading, setCreateLoading] = useState(false);
+  const token = useSelector((state) => state.auth.token);
 
   const backToPreviousPage = () => {
     navigate(-1);
@@ -35,7 +37,6 @@ const CreatePaymentMethod = () => {
     });
 
     if (!error) {
-      const token = localStorage.getItem("token");
 
       let userId;
       if (token) {

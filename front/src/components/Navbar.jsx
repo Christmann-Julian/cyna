@@ -29,7 +29,8 @@ import { useTranslation } from "react-i18next";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import authProvider from "../utils/authProvider";
 import apiRequest from "../utils/apiRequest";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../redux/authSlice";
 
 const Navbar = () => {
   const [isAuth, setIsAuth] = useState(null);
@@ -40,6 +41,8 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
 
   const fetchCategories = async () => {
     const { data, error: errorCode } = await apiRequest(
@@ -60,7 +63,11 @@ const Navbar = () => {
 
   useEffect(() => {
     const isAuth = async () => {
-      const authStatus = await authProvider.isAuthenticated();
+      const authStatus = await authProvider.isAuthenticated(token);
+      if (typeof authStatus === 'string') {
+        dispatch(setToken(authStatus));
+        return;
+      }
       setIsAuth(authStatus);
     };
 

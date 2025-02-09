@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const ListPaymentMethod = () => {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ const ListPaymentMethod = () => {
   const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [paymentMethodId, setPaymentMethodId] = useState(null);
+  const token = useSelector((state) => state.auth.token);
   
   const handleShow = (event, id) => {
       event.preventDefault();
@@ -23,8 +25,6 @@ const ListPaymentMethod = () => {
   const handleClose = () => setShow(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     setFetchPaymentMethodLoading(true);
 
     const fetchPaymentMethod = async () => {
@@ -54,7 +54,6 @@ const ListPaymentMethod = () => {
 
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem("token");
       const { error } = await apiRequest(`/payment_methods/${paymentMethodId}`, "DELETE", {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -5,6 +5,7 @@ import apiRequest from "../utils/apiRequest";
 import LoadingSpinner from "./LoadingSpinner";
 import Alert from "./Alert";
 import { Modal, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const AddressUpdateForm = ({ address }) => {
   const {
@@ -17,6 +18,7 @@ const AddressUpdateForm = ({ address }) => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [alertUpdate, setAlertUpdate] = useState({ message: "", type: "" });
   const [show, setShow] = useState(false);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     setValue("firstname", address.firstname);
@@ -32,7 +34,6 @@ const AddressUpdateForm = ({ address }) => {
 
   const onSubmit = async (formData, addressId) => {
     setUpdateLoading(true);
-    const token = localStorage.getItem("token");
 
     const body = {
       firstname: formData.firstname,
@@ -75,7 +76,6 @@ const AddressUpdateForm = ({ address }) => {
 
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem("token");
       const { error } = await apiRequest(`/addresses/${address.id}`, "DELETE", {
         headers: {
           Authorization: `Bearer ${token}`,

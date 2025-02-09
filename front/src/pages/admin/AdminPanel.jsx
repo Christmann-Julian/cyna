@@ -31,67 +31,74 @@ import { MediaObjectList } from "./list/MediaObjetcList";
 import { MediaObjectEdit } from "./edit/MediaObjectEdit";
 import { MediaObjectShow } from "./show/MediaObjectShow";
 import { ContactList } from "./list/ContactList";
+import { useSelector } from "react-redux";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
-const getHeaders = () =>
-  localStorage.getItem("token")
-    ? {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      }
-    : {};
-
-const fetchHydra = (url, options = {}) =>
-  baseFetchHydra(url, {
-    ...options,
-    headers: getHeaders,
-  });
-
-const RedirectToLogin = () => {
-  const introspect = useIntrospection();
-
-  if (localStorage.getItem("token")) {
-    introspect();
-    return <></>;
-  }
-  return <Navigate to="/login" />;
-};
-
-const apiDocumentationParser = (setRedirectToLogin) => async () => {
-  try {
-    setRedirectToLogin(false);
-
-    return await parseHydraDocumentation(ENTRYPOINT, { headers: getHeaders });
-  } catch (result) {
-    const { api, response, status } = result;
-    if (status !== 401 || !response) {
-      throw result;
-    }
-
-    localStorage.removeItem("token");
-
-    setRedirectToLogin(true);
-
-    return {
-      api,
-      response,
-      status,
-    };
-  }
-};
-
-const dataProvider = (setRedirectToLogin) =>
-  baseHydraDataProvider({
-    entrypoint: ENTRYPOINT,
-    httpClient: fetchHydra,
-    apiDocumentationParser: apiDocumentationParser(setRedirectToLogin),
-  });
-
-const lightTheme = defaultTheme;
-const darkTheme = { ...defaultTheme, palette: { mode: "dark" } };
-
 const AdminPanel = () => {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
+  const token = useSelector((state) => state.auth.token);
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
+  const getHeaders = () => {
+    if (token) {
+      return {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    return {};
+  };
+    
+  
+  const fetchHydra = (url, options = {}) =>
+    baseFetchHydra(url, {
+      ...options,
+      headers: getHeaders,
+    });
+  
+  const RedirectToLogin = () => {
+    if (!token) {
+      return <Navigate to="/login" />;
+    }
+  
+    const introspect = useIntrospection();
+    introspect();
+    return <></>;
+  };
+  
+  const apiDocumentationParser = (setRedirectToLogin) => async () => {
+    try {
+      setRedirectToLogin(false);
+  
+      return await parseHydraDocumentation(ENTRYPOINT, { headers: getHeaders });
+    } catch (result) {
+      const { api, response, status } = result;
+      if (status !== 401 || !response) {
+        throw result;
+      }
+      authProvider.logout();
+      setRedirectToLogin(true);
+  
+      return {
+        api,
+        response,
+        status,
+      };
+    }
+  };
+  
+  const dataProvider = (setRedirectToLogin) =>
+    baseHydraDataProvider({
+      entrypoint: ENTRYPOINT,
+      httpClient: fetchHydra,
+      apiDocumentationParser: apiDocumentationParser(setRedirectToLogin),
+    });
+  
+  const lightTheme = defaultTheme;
+  const darkTheme = { ...defaultTheme, palette: { mode: "dark" } };
 
   return (
     <HydraAdmin

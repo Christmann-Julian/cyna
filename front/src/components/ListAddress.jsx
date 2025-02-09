@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 import apiRequest from "../utils/apiRequest";
 import LoadingSpinner from "./LoadingSpinner";
 import AddressUpdateForm from "./AddressUpdateForm";
+import { useSelector } from "react-redux";
 
 const ListAddress = () => {
   const { t } = useTranslation();
   const [addresses, setAddresses] = useState([]);
   const [fetchAddressesLoading, setFetchAddressesLoading] = useState(false);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
     setFetchAddressesLoading(true);
 
     const fetchAddresses = async () => {

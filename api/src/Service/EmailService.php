@@ -89,4 +89,26 @@ class EmailService
 
         $this->mailer->send($email);
     }
+
+    public function send2faCodeEmail(User $user, string $otpCode): void
+    {
+        $emailAdress = $user->getEmail();
+
+        if (!$emailAdress) {
+            return;
+        }
+
+        $subject = 'Cyna - Two-Factor Verification Code';
+
+        $email = (new TemplatedEmail())
+            ->from('noreply@cyna.com')
+            ->to($emailAdress)
+            ->subject($subject)
+            ->htmlTemplate('emails/en-GB/twoFaCode.html.twig')
+            ->context([
+                'optCode' => $otpCode
+            ]);
+
+        $this->mailer->send($email);
+    }
 }

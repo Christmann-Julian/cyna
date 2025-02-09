@@ -1,12 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('cart');
+    return serializedState ? JSON.parse(serializedState) : undefined;
+  } catch (e) {
+    console.warn('Erreur de chargement du localStorage', e);
+    return undefined;
+  }
+};
+
+const saveToLocalStorage = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('cart', serializedState);
+  } catch (e) {
+    console.warn('Erreur de sauvegarde dans le localStorage', e);
+  }
+};
+
+const initialState = loadFromLocalStorage() || {
+  items: [],
+  totalQuantity: 0,
+  totalPrice: 0,
+};
+
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    items: [],
-    totalQuantity: 0,
-    totalPrice: 0,
-  },
+  initialState,
   reducers: {
     addToCart: (state, action) => {
       const existingItem = state.items.find((item) => item.id === action.payload.id);
@@ -22,6 +43,7 @@ const cartSlice = createSlice({
       }
       state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
       state.totalQuantity += 1;
+      saveToLocalStorage(state);
     },
     removeFromCart: (state, action) => {
       const itemIndex = state.items.findIndex((item) => item.id === action.payload.id);
@@ -32,6 +54,7 @@ const cartSlice = createSlice({
         state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         state.items.splice(itemIndex, 1);
       }
+      saveToLocalStorage(state);
     },
     decreaseFromCart: (state, action) => {
       const existingItem = state.items.find((item) => item.id === action.payload.id);
@@ -46,6 +69,7 @@ const cartSlice = createSlice({
         state.totalPrice -= existingItem.price;
       }
       state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
+      saveToLocalStorage(state);
     },
     updateDuration: (state, action) => {
       const existingItem = state.items.find((item) => item.id === action.payload.id);
@@ -62,6 +86,7 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalQuantity = 0;
       state.totalPrice = 0;
+      saveToLocalStorage(state);
     },
   },
 });

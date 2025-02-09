@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../utils/apiRequest";
+import { getCurrentLocale } from "../utils/language";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -25,27 +26,33 @@ const Register = () => {
   const onSubmit = (formData) => {
     setLoading(true);
     const fetchItems = async () => {
-      const { error: errorRegister } = await apiRequest("/users", "POST", {
+      const { data, error } = await apiRequest("/users/register", "POST", {
         headers: {
-          "Content-Type": "application/ld+json",
+          "Content-Type": "application/json",
         },
         body: {
           email: formData.email,
-          roles: ["ROLE_USER"],
           plainPassword: formData.password,
           firstname: formData.firstname,
           lastname: formData.lastname,
-          isEmailVerified: false,
+          locale: getCurrentLocale(),
         },
       });
 
       setLoading(false);
 
-      if (errorRegister) {
-        setErrorRegister({
-          message: t("register.errors.serverError"),
-          type: "danger",
-        });
+      if (error) {
+        if (error == 400) {
+          setErrorRegister({
+            message: t("register.errors.emailExists"),
+            type: "danger",
+          });
+        } else {
+          setErrorRegister({
+            message: t("register.errors.serverError"),
+            type: "danger",
+          });
+        }
       } else {
         navigate("/login?message=login.registerSuccess");
       }

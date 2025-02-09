@@ -6,16 +6,22 @@ import "../../assets/css/account.css";
 import { Link, useLocation } from "react-router-dom";
 import authProvider from "../../utils/authProvider";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 const AccountLayout = ({ children }) => {
   const { t } = useTranslation();
   const [roles, setRoles] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const location = useLocation();
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    authProvider.getPermissions().then(setRoles).catch(console.error);
-    authProvider.getUserInfo().then(setUserInfo).catch(console.error);
+    if (token !== null) {
+      const decodedToken = jwtDecode(token);
+      setRoles(decodedToken.roles);
+    }
+    authProvider.getUserInfo(token).then(setUserInfo).catch(console.error);
   }, []);
 
   const isActive = (path) => location.pathname === path;

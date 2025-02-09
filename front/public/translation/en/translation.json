@@ -97,6 +97,7 @@
     "btnLogin": "Login",
     "errors": {
       "serverError": "Server error! Please try again later.",
+      "emailExists": "This email is already in use.",
       "lastnameRequired": "Last name is required.",
       "maxLength": "The field must not exceed 50 characters.",
       "minLength": "The field must contain at least 3 characters.",
@@ -121,13 +122,17 @@
     "forgotPassword": "Forgot Password?",
     "registerSuccess": "Your account has been successfully created. Please check your inbox to verify your email.",
     "resetPasswordSuccess": "Your password has been successfully reset.",
+    "twofaCode": "Two-factor authentication code",
+    "btnVerify": "Verify code",
     "errors": {
       "serverError": "Server error! Please try again later.",
       "emailNotVerified": "Your email is not verified. Please check your inbox.",
       "invalidCredentials": "Invalid email or password.",
       "emailRequired": "Email is required.",
       "emailPattern": "The email address is not valid.",
-      "passwordRequired": "Password is required."
+      "passwordRequired": "Password is required.",
+      "twofaCodeRequired": "Two-factor authentication code is required.",
+      "invalid2facode": "Invalid two-factor authentication code."
     }
   },
   "infoAccount": {

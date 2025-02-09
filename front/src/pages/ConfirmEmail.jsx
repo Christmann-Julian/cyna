@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import apiRequest from "../utils/apiRequest";
 import Loading from "./Loading";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/authSlice";
 
 const ConfirmEmail = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
@@ -32,7 +35,7 @@ const ConfirmEmail = () => {
       if (errorConfirm) {
         navigate("/login");
       } else {
-        localStorage.setItem("token", data.token);
+        dispatch(setToken(data.token));
         navigate("/account");
       }
     };
