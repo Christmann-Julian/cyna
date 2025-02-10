@@ -32,6 +32,7 @@ import { MediaObjectEdit } from "./edit/MediaObjectEdit";
 import { MediaObjectShow } from "./show/MediaObjectShow";
 import { ContactList } from "./list/ContactList";
 import { useSelector } from "react-redux";
+import CustomLayout from "./CustomLayout"
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -109,6 +110,7 @@ const AdminPanel = () => {
       entrypoint={ENTRYPOINT}
       theme={lightTheme}
       darkTheme={darkTheme}
+      layout={CustomLayout}
     >
       {redirectToLogin ? (
         <CustomRoutes>
