@@ -60,6 +60,7 @@ const UserEdit = () => (
           { id: "ROLE_USER", name: "User" },
           { id: "ROLE_ADMIN", name: "Admin" },
         ]}
+        validate={[required()]}
       />
     </SimpleForm>
   </Edit>

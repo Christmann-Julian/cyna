@@ -6,6 +6,9 @@ import {
   SelectInput,
   ArrayInput,
   ReferenceInput,
+  required, 
+  minLength,
+  maxLength
 } from "react-admin";
 import { CreateGuesser } from "@api-platform/admin";
 
@@ -19,23 +22,23 @@ const CategoryCreate = () => (
       <SelectInput
         optionText="contentUrl"
         optionValue="@id"
-        required
+        validate={[required()]}
       />
     </ReferenceInput>
-    <NumberInput source="priority" required/>
+    <NumberInput source="priority" />
     <ArrayInput source="categoryTranslations">
       <SimpleFormIterator>
-        <TextInput source="name" label="Name" required />
+        <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]} />
         <TextInput
           source="description"
           label="Description"
           multiline
-          required
+          validate={[required(), minLength(2)]}
         />
         <SelectInput
           label="Locale"
           source="locale"
-          required
+          validate={[required()]}
           choices={[
             { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
             { id: "/api/locale_cynas/en-GB", name: "en-GB" },

@@ -57,7 +57,7 @@ const UserCreate = () => (
           { id: "ROLE_USER", name: "User" },
           { id: "ROLE_ADMIN", name: "Admin" },
         ]}
-        required
+        validate={[required()]}
       />
     </SimpleForm>
   </Create>

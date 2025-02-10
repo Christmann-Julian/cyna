@@ -8,6 +8,8 @@ import {
   SimpleFormIterator,
   ArrayInput,
   SelectInput,
+  required,
+  minLength
 } from "react-admin";
 
 const transform = (data) => ({
@@ -32,12 +34,12 @@ const CategoryEdit = () => (
       <NumberInput source="priority" />
       <ArrayInput source="categoryTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" required />
+          <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]} />
           <TextInput
             source="description"
             label="Description"
             multiline
-            required
+            validate={[required(), minLength(2)]}
           />
           <SelectInput
             label="Locale"
