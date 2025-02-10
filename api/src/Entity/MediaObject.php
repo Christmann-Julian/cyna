@@ -101,8 +101,6 @@ class MediaObject
     public ?File $file = null;
 
     #[ApiProperty(writable: false)]
-    #[Assert\NotBlank]
-    #[Assert\Length(max: 255)]
     #[ORM\Column(nullable: true)]
     public ?string $filePath = null;
 
