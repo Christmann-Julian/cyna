@@ -29,6 +29,13 @@ export const ProductCreate = () => (
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
+      <ReferenceInput
+        source="category"
+        reference="categories"
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput optionText="categoryTranslations[0].name" optionValue="id" required />
+      </ReferenceInput>
       <NumberInput source="position" defaultValue={0} label="Top product position" />
       <BooleanInput source="promotionActive" label="Promotion is active" />
       <TextInput source="promotionLabel" label="Promotion label" />

@@ -14,6 +14,7 @@ import { RichTextInput } from "ra-input-rich-text";
 const transform = (data) => ({
   ...data,
   image: data.image?.['@id'], // Transforme en IRI
+  category: data.category?.['id'],
 });
 
 export const ProductEdit = () => (
@@ -34,6 +35,16 @@ export const ProductEdit = () => (
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
       <NumberInput source="position" defaultValue={0} label="Top product position"/>
+      <ReferenceInput 
+        source="category.id" 
+        reference="categories" 
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput 
+          optionText="categoryTranslations[0].name"
+          optionValue="id"
+        />
+      </ReferenceInput>
       <BooleanInput source="promotionActive" />
       <TextInput source="promotionLabel"/>
       <NumberInput source="promotionPrice" />

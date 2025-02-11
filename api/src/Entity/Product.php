@@ -73,7 +73,7 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[Groups([
-        'product:read',
+        'product:read', 'product:create', 'product:update'
     ])]
     private ?Category $category = null;
 
