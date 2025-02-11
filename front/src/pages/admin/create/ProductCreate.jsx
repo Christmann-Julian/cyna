@@ -8,6 +8,9 @@ import {
   BooleanInput,
   NumberInput,
   ReferenceInput,
+  required,
+  minLength,
+  maxLength
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 
@@ -25,7 +28,7 @@ export const ProductCreate = () => (
           required
         />
       </ReferenceInput>
-      <NumberInput source="price" required/>
+      <NumberInput source="price"  validate={[required()]}/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
@@ -42,22 +45,22 @@ export const ProductCreate = () => (
       <NumberInput source="promotionPrice" label="Promotion price"/>
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" required />
+          <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]}/>
           <TextInput
             source="description"
             label="Description"
             multiline
-            required
+            validate={[required(), minLength(2)]}
           />
           <RichTextInput
             source="caracteristic"
             label="Characteristic"
-            required
+            validate={[required(), minLength(2)]}
           />
           <SelectInput
             label="Locale"
             source="locale"
-            required
+            validate={[required()]}
             choices={[
               { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
               { id: "/api/locale_cynas/en-GB", name: "en-GB" },

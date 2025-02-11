@@ -6,16 +6,19 @@ import {
   Create,
   SelectInput,
   ReferenceInput,
+  required, 
+  minLength,
+  maxLength
 } from "react-admin";
 
 export const HomepageCreate = () => (
   <Create>
     <SimpleForm>
-      <TextInput source="text" label="Homepage Description" multiline required />
+      <TextInput source="text" label="Homepage Description" multiline validate={[required(), minLength(2)]} />
       <SelectInput
         label="Locale"
         source="locale"
-        required
+        validate={[required()]}
         choices={[
           { id: "fr-FR", name: "fr-FR" },
           { id: "en-GB", name: "en-GB" },
@@ -32,10 +35,10 @@ export const HomepageCreate = () => (
             <SelectInput
               optionText="contentUrl"
               optionValue="@id"
-              required
+              validate={[required()]}
             />
           </ReferenceInput>
-          <TextInput source="title" label="Title" required />
+          <TextInput source="title" label="Title" validate={[required(), minLength(2), maxLength(255)]} />
         </SimpleFormIterator>
       </ArrayInput>
     </SimpleForm>
