@@ -47,6 +47,7 @@ const Login = () => {
           const response = await authProvider.verifyTwoFA({
             userId,
             code: formData.twofaCode,
+            rememberMe: formData.rememberMe,
           });
           dispatch(setToken(response.token));
           const from = location.state?.from?.pathname || "/account";

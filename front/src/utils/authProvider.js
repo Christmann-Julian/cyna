@@ -5,10 +5,10 @@ import { logout } from "../redux/authSlice";
 let refreshPromise = null;
 
 const authProvider = {
-  login: async ({ username, password, locale }) => {
+  login: async ({ username, password, locale, rememberMe }) => {
     const request = new Request("http://localhost:8000/api/login", {
       method: "POST",
-      body: JSON.stringify({ username, password, locale }),
+      body: JSON.stringify({ username, password, locale, rememberMe }),
       headers: new Headers({ "Content-Type": "application/json" }),
       credentials: "include",
     });
@@ -33,11 +33,12 @@ const authProvider = {
       });
   },
 
-  verifyTwoFA: async ({ userId, code }) => {
+  verifyTwoFA: async ({ userId, code, rememberMe }) => {
     const request = new Request("http://localhost:8000/api/two-fa", {
       method: "POST",
-      body: JSON.stringify({ user_id: parseInt(userId, 10), code }),
+      body: JSON.stringify({ user_id: parseInt(userId, 10), code, rememberMe }),
       headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: "include",
     });
     return fetch(request)
       .then((response) => {
