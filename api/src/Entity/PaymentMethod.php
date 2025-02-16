@@ -15,21 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN')"),
         new Get(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'get_user_payment_methods',
         ),
-        new Put(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Post(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(security: "is_granted('ROLE_USER') and object == user"),
+        new Patch(security: "is_granted('ROLE_USER') and object == user"),
+        new Post(security: "is_granted('ROLE_USER') and object == user"),
         new Delete(
-            security: "is_granted('ROLE_ADMIN') or object == user",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'delete_payment_method',
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN') or object == user",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'add_payment_method',
         ),
     ],

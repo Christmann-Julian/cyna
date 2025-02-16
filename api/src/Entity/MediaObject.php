@@ -23,9 +23,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     operations: [
         new Get(),
         new GetCollection(),
-        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             inputFormats: ['multipart' => ['multipart/form-data']],
             validationContext: ['groups' => ['Default', 'media_object_create']],
             openapi: new Model\Operation(
@@ -47,7 +47,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             )
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             uriTemplate: '/media_objects/{id}',
             inputFormats: ['multipart' => ['multipart/form-data']],
             validationContext: ['groups' => ['Default', 'media_object_create']],

@@ -77,7 +77,7 @@ class AuthController extends AbstractController
             );
         }
 
-        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+        if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SUPER_ADMIN', $user->getRoles())) {
             $otpCode = random_int(100000, 999999);
 
             $user->setTwoFaCode($otpCode);

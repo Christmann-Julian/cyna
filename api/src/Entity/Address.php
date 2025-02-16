@@ -14,16 +14,16 @@ use ApiPlatform\Metadata\GetCollection;
 
 #[ApiResource(
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Get(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_USER')",
             routeName: 'get_user_addresses',
         ),
-        new Put(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
-        new Patch(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
-        new Post(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
-        new Delete(security: "is_granted('ROLE_ADMIN') or object.getUser() == user"),
+        new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
+        new Patch(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
     ],
 )]
 #[ORM\Entity(repositoryClass: AddressRepository::class)]

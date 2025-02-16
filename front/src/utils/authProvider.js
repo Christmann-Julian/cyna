@@ -111,13 +111,29 @@ const authProvider = {
     }
 
     const decodedToken = jwtDecode(token);
-    if (!decodedToken.roles.includes("ROLE_ADMIN")) {
+    if (!decodedToken.roles.includes("ROLE_ADMIN") && !decodedToken.roles.includes("ROLE_SUPER_ADMIN")) {
       return Promise.reject();
     }
 
     return Promise.resolve();
   },
+  getPermissions: async () => {
+    try {
+        const state = store.getState();
+        const token = state.auth.token;
 
+        if (!token) {
+            const refreshedToken = await authProvider.refreshToken();
+            if (!refreshedToken) return Promise.reject();
+        }
+
+        const decodedToken = jwtDecode(token);
+
+        return Promise.resolve(decodedToken.roles || []);
+    } catch (error) {
+        return Promise.reject();
+    }
+  },
   checkError: async ({ status }) => {
     if (status === 403) {
       return Promise.reject();
