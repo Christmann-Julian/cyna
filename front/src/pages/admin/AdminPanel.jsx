@@ -33,12 +33,16 @@ import { MediaObjectShow } from "./show/MediaObjectShow";
 import { ContactList } from "./list/ContactList";
 import { useSelector } from "react-redux";
 import CustomLayout from "./CustomLayout"
+import { LogActivityList } from "./list/LogActivityList";
+import { LogActivityShow } from "./show/LogActivityShow";
+import useUserPermissions from "../../hooks/useUserPermissions";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
 const AdminPanel = () => {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const token = useSelector((state) => state.auth.token);
+  const permissions = useUserPermissions();
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -158,6 +162,14 @@ const AdminPanel = () => {
             create={MediaObjectCreate}
             show={MediaObjectShow}
           />
+          {permissions.includes("ROLE_SUPER_ADMIN") && 
+            <ResourceGuesser 
+              name="log_activities"
+              list={LogActivityList}
+              create={null}
+              show={LogActivityShow}
+            />
+          }
         </>
       )}
     </HydraAdmin>

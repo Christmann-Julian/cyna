@@ -18,13 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['categoryTranslation:read']],
     denormalizationContext: ['groups' => ['categoryTranslation:create', 'categoryTranslation:update']],
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Get(routeName:"get_category_translation"),
         new Get(routeName:"get_all_category_translation"),
-        new Post(security: "is_granted('ROLE_ADMIN')"),
-        new Put(security: "is_granted('ROLE_ADMIN')"),
-        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
     ],
 )]
 #[ORM\Entity(repositoryClass: CategoryTranslationRepository::class)]

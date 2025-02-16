@@ -9,7 +9,8 @@ import {
   ArrayInput,
   SelectInput,
   required,
-  minLength
+  minLength,
+  maxLength
 } from "react-admin";
 
 const transform = (data) => ({
