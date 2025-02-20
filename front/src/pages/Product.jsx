@@ -13,8 +13,6 @@ import { getCurrentLocale } from "../utils/language";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { Modal, Button, Carousel } from "react-bootstrap";
-import bureau from "../assets/img/clock.jpg";
-import test from "../assets/img/bureau.jpg";
 
 const Product = () => {
   const { t } = useTranslation();
@@ -82,32 +80,44 @@ const Product = () => {
     return <Loading />;
   }
 
-  const images = [
-    { url: bureau },
-    { url: test },
-  ];
-
   return (
     <>
       <Navbar />
       <section className="shop single section">
         <div className="container">
           <div className="row">
-            <div className="col-lg-6 col-12">
-              <div className="product-gallery">
-                <Carousel>
-                  {images.map((img, index) => (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={img.url}
-                        alt={`Slide ${index + 1}`}
-                      />
-                    </Carousel.Item>
-                  ))}
-                </Carousel>
+            {product.slides.length > 0 ? (
+              <div className="col-lg-6 col-12">
+                <div className="product-gallery">
+                  <Carousel>
+                    {product.slides.map((img, index) => (
+                      <Carousel.Item key={index}>
+                        <img
+                          className="d-block w-100"
+                          src={img.url_image}
+                          alt={img.alt}
+                        />
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="col-lg-6 col-12">
+                  <div className="product-gallery">
+                    <div className="flexslider-thumbnails">
+                      <ul className="slides">
+                        <li>
+                          <img
+                            src={product.url_image ?? "https://via.placeholder.com/850x530"}
+                            alt="Service Image"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            )}
             <div className="col-lg-6 col-12">
               <div className="product-des">
                 <div className="short">
@@ -118,7 +128,8 @@ const Product = () => {
                     </span>
                   )}
                   <p className="price">
-                    {product.promotionActive && product.promotionPrice != null ? (
+                    {product.promotionActive &&
+                    product.promotionPrice != null ? (
                       <>
                         <span className="discount">
                           {product.promotionPrice.toString().replace(".", ",")}€
@@ -164,10 +175,7 @@ const Product = () => {
           </div>
           <div className="row">
             {product.similarProduct.map((prod) => (
-              <div
-                className="col-xl-4 col-lg-4 col-md-4 col-12"
-                key={prod.id}
-              >
+              <div className="col-xl-4 col-lg-4 col-md-4 col-12" key={prod.id}>
                 <SingleProduct product={prod} />
               </div>
             ))}
