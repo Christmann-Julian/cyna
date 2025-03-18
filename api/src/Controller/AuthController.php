@@ -37,6 +37,7 @@ class AuthController extends AbstractController
         $password = $data['password'] ?? null;
         $locale = $data['locale'] ?? null;
         $rememberMe = $data['rememberMe'] ?? false;
+        $isPhone = $data['isPhone'] ?? false;
 
         if (!$username || !$password) {
             return new JsonResponse(
@@ -111,6 +112,13 @@ class AuthController extends AbstractController
         $this->entityManager->persist($refreshTokenEntity);
         $this->entityManager->flush();
 
+        if ($isPhone) {
+            return new JsonResponse([
+                'token' => $token,
+                'refresh_token' => $refreshToken->getRefreshToken()
+            ]);
+        }
+
         $response  = new JsonResponse([
             'token' => $token,
         ]);
@@ -151,9 +159,13 @@ class AuthController extends AbstractController
         Request $request,
         RefreshTokenManagerInterface $refreshTokenManager,
     ): JsonResponse {
-        $refreshTokenStr = $request->cookies->get('refresh_token');
 
-        if (!$refreshTokenStr) {
+        $data = json_decode($request->getContent(), true);
+        $isPhone = $data['isPhone'] ?? false;
+
+        $refreshTokenStr = $isPhone ? $data['refresh_token'] : $request->cookies->get('refresh_token');
+
+        if (!$refreshTokenStr || empty($refreshTokenStr)) {
             return new JsonResponse(['token' => null,'message' => 'Missing refresh token']);
         }
 
@@ -178,6 +190,13 @@ class AuthController extends AbstractController
 
             $refreshTokenManager->delete($refreshToken);
             $refreshTokenManager->save($newRefreshToken);
+        }
+
+        if ($isPhone) {
+            return new JsonResponse([
+                'token' => $newToken,
+                'refresh_token' => $newRefreshToken->getRefreshToken()
+            ]);
         }
 
         $response = new JsonResponse(['token' => $newToken]);
