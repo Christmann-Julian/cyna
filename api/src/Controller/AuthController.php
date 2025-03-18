@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -25,7 +26,8 @@ class AuthController extends AbstractController
         private JWTTokenManagerInterface $jwtManager,
         private RefreshTokenGeneratorInterface $refreshTokenGenerator,
         private EntityManagerInterface $entityManager,
-        private EmailService $emailService
+        private EmailService $emailService,
+        private JWTEncoderInterface $jwtEncoder
     ) {
     }
 
@@ -212,6 +214,33 @@ class AuthController extends AbstractController
         );
 
         return $response;
+    }
+
+    #[Route('/api/token/verify', name: 'api_auth_verify_token', methods: ['POST'])]
+    public function verifyToken(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $token = $data['token'] ?? null;
+
+        if (!$token) {
+            return new JsonResponse(['error' => 'Token is required'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $payload = $this->jwtEncoder->decode($token);
+
+            if (!$payload || !isset($payload['exp'])) {
+                return new JsonResponse(['error' => 'Token is invalid'], JsonResponse::HTTP_UNAUTHORIZED);
+            }
+
+            if ($payload['exp'] < time()) {
+                return new JsonResponse(['error' => 'Token is expired'], JsonResponse::HTTP_UNAUTHORIZED);
+            }
+
+            return new JsonResponse(['message' => 'Token is valid'], JsonResponse::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Token is invalid'], JsonResponse::HTTP_UNAUTHORIZED);
+        }
     }
 
     #[Route('/api/two-fa', name: 'api_auth_2fa', methods: ['POST'])]
