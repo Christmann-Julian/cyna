@@ -22,7 +22,7 @@ use ApiPlatform\Metadata\GetCollection;
         ),
         new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
         new Patch(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
-        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or user !== null"),
         new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') or object.getUser() == user"),
     ],
 )]
