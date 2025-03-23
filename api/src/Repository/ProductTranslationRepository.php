@@ -53,6 +53,7 @@ class ProductTranslationRepository extends ServiceEntityRepository
     public function findByLocale(string $locale, int $id, int $limit = 10)
     {
         return $this->createQueryBuilder('pt')
+            ->innerJoin('pt.product', 'p')
             ->where('pt.locale = :locale')
             ->andWhere('pt.product != :id')
             ->setParameter('locale', $locale)
