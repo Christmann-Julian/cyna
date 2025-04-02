@@ -80,10 +80,22 @@
         "order": "Passer à la caisse",
         "continueShopping": "Continuer vos achats",
         "delete": "Supprimer",
+        "modalPromo": {
+            "title": "Code promo",
+            "body": "Le code promo \"{{name}}\" a été retiré du panier car il n'est pas applicable à votre panier.",
+            "close": "Fermer"
+        },
         "modal": {
             "title": "Panier Vide",
             "body": "Votre panier est vide. Veuillez ajouter des articles avant de passer à la caisse.",
             "close": "Fermer"
+        },
+        "errors": {
+            "codePromotionRequired": "Le code promo est obligatoire.",
+            "emptyCartPromo": "Le panier est vide.",
+            "invalidPromoCode": "Le code promo n'est pas valide.",
+            "promoCodeAlreadyApplied": "Le code promo a déjà été utilisé.",
+            "codePromotionNotApplicable": "Le code promo n'est pas applicable."
         }
     },
     "register": {
@@ -229,7 +241,14 @@
         "promotion": "Code promo",
         "tax": "Taxe",
         "total": "Total",
-        "payment": "Passer au paiement"
+        "payment": "Payer",
+        "errorPayment": "Erreur de paiement",
+        "paymentInProgress": "Paiement en cours...",
+        "modal": {
+            "title": "Paiement invalide",
+            "body": "Veuillez sélectionner une adresse et un moyen de paiement.",
+            "close": "Fermer"
+        }
     },
     "address": {
         "noAddress": "Aucune adresse",
@@ -297,5 +316,11 @@
             "close": "Fermer",
             "confirm": "Supprimer"
         }
+    },
+    "success": {
+        "title": "Achat réussi",
+        "message": "Votre commande a été passée avec succès. Vous recevrez un email de confirmation sous peu.",
+        "message2": "Merci pour votre achat ! En espérant vous revoir au plus vite.",
+        "goToHome": "Retourner à l'accueil"
     }
 }

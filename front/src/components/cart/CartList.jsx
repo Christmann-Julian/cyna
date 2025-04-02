@@ -16,7 +16,7 @@ const CartList = ()=> {
                     <thead>
                         <tr className="main-hading">
                             <th>{t("cart.product")}</th>
-                            <th>{t("cart.time")}</th>
+                            {/* <th>{t("cart.time")}</th> */}
                             <th>{t("cart.unitPrice")}</th>
                             <th>{t("cart.quantity")}</th>
                             <th>{t("cart.total")}</th> 
@@ -27,7 +27,7 @@ const CartList = ()=> {
                         {cart.items.length === 0 ? (
                             <tr>
                                 <td>{t("cart.noProduct")}</td>
-                                <td></td>
+                                {/* <td></td> */}
                                 <td></td>
                                 <td></td>
                                 <td></td>

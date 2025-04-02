@@ -36,6 +36,10 @@ import CustomLayout from "./CustomLayout"
 import { LogActivityList } from "./list/LogActivityList";
 import { LogActivityShow } from "./show/LogActivityShow";
 import useUserPermissions from "../../hooks/useUserPermissions";
+import { PromoList } from "./list/PromoList";
+import { OrderList } from "./list/OrderList";
+import { OrderShow } from "./show/OrderShow";
+import OrderEdit from "./edit/OrderEdit";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -143,12 +147,22 @@ const AdminPanel = () => {
             edit={CategoryEdit}
             create={CategoryCreate}
             show={CategoryShow}
-          /> 
+          />
+          <ResourceGuesser
+            name="promotional_codes"
+            list={PromoList}
+          />  
           <ResourceGuesser
             name="users"
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
+          />
+          <ResourceGuesser
+            name="orders"
+            list={OrderList}
+            edit={OrderEdit}
+            show={OrderShow}
           />
           <ResourceGuesser
             name="contacts"

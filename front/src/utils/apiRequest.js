@@ -1,3 +1,4 @@
+import authProvider from "./authProvider";
 
 async function apiRequest(path, method = "GET", options = {}) {
   try {
@@ -11,6 +12,10 @@ async function apiRequest(path, method = "GET", options = {}) {
     });
 
     if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        await authProvider.logout();
+        window.location.href = "/login";
+      }
       throw new Error(`${response.status}`);
     }
 

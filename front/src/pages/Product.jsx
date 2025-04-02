@@ -13,6 +13,7 @@ import { getCurrentLocale } from "../utils/language";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { Modal, Button, Carousel } from "react-bootstrap";
+import { formatPrice } from "../utils/utils";
 
 const Product = () => {
   const { t } = useTranslation();
@@ -134,11 +135,11 @@ const Product = () => {
                         <span className="discount">
                           {product.promotionPrice.toString().replace(".", ",")}€
                         </span>
-                        <s>{product.price.toString().replace(".", ",")}€</s>
+                        <s>{formatPrice(product.price)}</s>
                       </>
                     ) : (
                       <span className="discount">
-                        {product.price.toString().replace(".", ",")}€
+                        {formatPrice(product.price)}
                       </span>
                     )}
                   </p>

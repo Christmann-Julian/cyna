@@ -80,10 +80,22 @@
     "order": "Proceed to payment",
     "continueShopping": "Continue shopping",
     "delete": "Delete",
+    "modalPromo": {
+      "title": "Promo Code",
+      "body": "The promo code \"{{name}}\" has been removed from the cart as it is not applicable to your cart.",
+      "close": "Close"
+    },
     "modal": {
       "title": "Empty Cart",
       "body": "Your cart is empty. Please add items before proceeding to checkout.",
       "close": "Close"
+    },
+    "errors": {
+      "codePromotionRequired": "The promo code is required.",
+      "emptyCartPromo": "The cart is empty.",
+      "invalidPromoCode": "The promo code is invalid.",
+      "promoCodeAlreadyApplied": "The promo code has already been used.",
+      "codePromotionNotApplicable": "The promo code is not applicable."
     }
   },
   "register": {
@@ -229,7 +241,14 @@
     "promotion": "Promotion code",
     "tax": "Tax",
     "total": "Total",
-    "payment": "Proceed to Payment"
+    "payment": "Pay",
+    "errorPayment": "An error occurred while processing your payment.",
+    "paymentInProgress": "Payment in progress...",
+    "modal": {
+      "title": "Invalid Payment",
+      "body": "Please select an address and a payment method.",
+      "close": "Close"
+    }
   },
   "address": {
     "noAddress": "No Address",
@@ -297,5 +316,11 @@
       "close": "Close",
       "confirm": "Delete"
     }
+  },
+  "success": {
+    "title": "Purchase Successful",
+    "message": "Your order has been successfully placed. You will receive a confirmation email shortly.",
+    "message2": "Thank you for your purchase! We hope to see you again soon.",
+    "goToHome": "Return to Home"
   }
 }

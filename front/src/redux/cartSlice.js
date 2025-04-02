@@ -23,6 +23,7 @@ const initialState = loadFromLocalStorage() || {
   items: [],
   totalQuantity: 0,
   totalPrice: 0,
+  promotionalCodeItems: [],
 };
 
 const cartSlice = createSlice({
@@ -54,6 +55,9 @@ const cartSlice = createSlice({
         state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         state.items.splice(itemIndex, 1);
       }
+
+      recalculateTotalWithPromotions(state);
+
       saveToLocalStorage(state);
     },
     decreaseFromCart: (state, action) => {
@@ -68,6 +72,9 @@ const cartSlice = createSlice({
         state.totalQuantity -= 1;
         state.totalPrice -= existingItem.price;
       }
+
+      recalculateTotalWithPromotions(state);
+      
       state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
       saveToLocalStorage(state);
     },
@@ -82,14 +89,72 @@ const cartSlice = createSlice({
         state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
       }
     },
+    applyPromotionalCode: (state, action) => {
+      const { id, name, promotion, isPercent } = action.payload;
+
+      const existingCode = state.promotionalCodeItems.find((code) => code.id === id);
+      if (!existingCode) {
+        state.promotionalCodeItems.push({ id, name, promotion, isPercent });
+
+        if (isPercent) {
+          state.totalPrice -= (state.totalPrice * promotion) / 100;
+        } else {
+          state.totalPrice -= promotion;
+        }
+        state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
+      }
+      saveToLocalStorage(state);
+    },
+    removePromotionalCode: (state, action) => {
+      const { id } = action.payload;
+
+      const codeIndex = state.promotionalCodeItems.findIndex((code) => code.id === id);
+      if (codeIndex !== -1) {
+        const code = state.promotionalCodeItems[codeIndex];
+
+        if (code.isPercent) {
+          state.totalPrice /= 1 - code.promotion / 100;
+        } else {
+          state.totalPrice += code.promotion;
+        }
+        state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
+
+        state.promotionalCodeItems.splice(codeIndex, 1);
+      }
+      saveToLocalStorage(state);
+    },
     clearCart: (state) => {
       state.items = [];
       state.totalQuantity = 0;
       state.totalPrice = 0;
+      state.promotionalCodeItems = [];
       saveToLocalStorage(state);
     },
   },
 });
 
-export const { addToCart, removeFromCart, decreaseFromCart, updateDuration, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseFromCart, updateDuration, applyPromotionalCode, removePromotionalCode, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
+
+const recalculateTotalWithPromotions = (state) => {
+  let total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const validPromotions = [];
+  const removedPromotions = [];
+
+  state.promotionalCodeItems.forEach((code) => {
+    const discount = code.isPercent
+      ? (total * code.promotion) / 100
+      : code.promotion;
+
+    if (total - discount >= 0) {
+      total -= discount;
+      validPromotions.push(code);
+    } else {
+      removedPromotions.push(code);
+    }
+  });
+
+  state.totalPrice = parseFloat(total.toFixed(2));
+  state.promotionalCodeItems = validPromotions;
+};
