@@ -2,7 +2,9 @@ import { Layout } from 'react-admin';
 import { AppBar } from 'react-admin';
 import { Typography } from '@mui/material';
 import { Box, useMediaQuery } from '@mui/material';
+import { MyMenu } from './Menu';
 import Logo from '../../assets/img/cyna-logo-white.png';
+import { Children } from 'react';
 
 const CustomAppBar = (props) => {
     const isMobile = useMediaQuery('(max-width:600px)'); 
@@ -28,6 +30,14 @@ const CustomAppBar = (props) => {
     )
 }
 
-const CustomLayout = (props) => <Layout {...props} appBar={CustomAppBar} />;
+const CustomLayout = (props) => {
+    return (
+        <Layout {...props} appBar={CustomAppBar} menu={MyMenu}>
+            {props.children}
+            {console.log(props.children)}            
+        </Layout>    
+    )
+
+};
 
 export default CustomLayout;
