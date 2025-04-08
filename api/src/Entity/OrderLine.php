@@ -34,6 +34,7 @@ class OrderLine
     #[Groups([
         'promo:read', 'promo:create', 'promo:update',
         'orderline:read',
+        'order:read',
     ])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -41,6 +42,7 @@ class OrderLine
     #[Groups([
         'promo:read', 'promo:create', 'promo:update',
         'orderline:read',
+        'order:read',
     ])]
     #[ORM\Column]
     private ?int $quantity = null;
@@ -48,6 +50,7 @@ class OrderLine
     #[Groups([
         'promo:read', 'promo:create', 'promo:update',
         'orderline:read',
+        'order:read',
     ])]
     #[ORM\Column]
     private ?float $price = null;
@@ -55,6 +58,7 @@ class OrderLine
     #[Groups([
         'promo:read', 'promo:create', 'promo:update',
         'orderline:read',
+        'order:read',
     ])]
     #[ORM\Column(nullable: true)]
     private ?float $promotionPrice = null;

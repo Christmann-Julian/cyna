@@ -19,6 +19,11 @@ async function apiRequest(path, method = "GET", options = {}) {
       throw new Error(`${response.status}`);
     }
 
+    if (options.responseType === "blob") {
+      const data = await response.blob();
+      return { data, error: null };
+    }
+
     const data = await response.json();
     return { data, error: null };
   } catch (error) {

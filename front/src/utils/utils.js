@@ -18,3 +18,10 @@ export const calculettePromotions = (cart, subTotal) => {
 export const formatPrice = (price) => {
     return price.toFixed(2).toString().replace(".", ",") + "€";
 };
+
+export const formatDate = (date, locale = 'en-GB') => {
+  if (!(date instanceof Date)) {
+      throw new Error("Invalid date object");
+  }
+  return new Intl.DateTimeFormat(locale).format(date);
+};
