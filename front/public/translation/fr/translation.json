@@ -34,13 +34,19 @@
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
         "categoriesTitle" : "Catégories",
+        "subscriptionTitle" : "Nos abonnements",
+        "subscribe": "S'abonner",
+        "questions": "Des questions ?",
+        "contactUs": "Contactez-nous",
+        "year": "An",
+        "month": "Mois",
         "seeMore": "Voir Plus",
         "noCategories": "Aucune catégorie"
     },
     "product":{
         "noStock": "En rupture de stock",
         "quantity": "Quantité",
-        "buyNow": "S'abonner maintenant",
+        "buyNow": "Acheter maintenant",
         "similaryServices" : "Services Similaires",
         "modal": {
             "title": "Service indisponible",
@@ -80,10 +86,22 @@
         "order": "Passer à la caisse",
         "continueShopping": "Continuer vos achats",
         "delete": "Supprimer",
+        "modalPromo": {
+            "title": "Code promo",
+            "body": "Le code promo \"{{name}}\" a été retiré du panier car il n'est pas applicable à votre panier.",
+            "close": "Fermer"
+        },
         "modal": {
             "title": "Panier Vide",
             "body": "Votre panier est vide. Veuillez ajouter des articles avant de passer à la caisse.",
             "close": "Fermer"
+        },
+        "errors": {
+            "codePromotionRequired": "Le code promo est obligatoire.",
+            "emptyCartPromo": "Le panier est vide.",
+            "invalidPromoCode": "Le code promo n'est pas valide.",
+            "promoCodeAlreadyApplied": "Le code promo a déjà été utilisé.",
+            "codePromotionNotApplicable": "Le code promo n'est pas applicable."
         }
     },
     "register": {
@@ -229,7 +247,14 @@
         "promotion": "Code promo",
         "tax": "Taxe",
         "total": "Total",
-        "payment": "Passer au paiement"
+        "payment": "Payer",
+        "errorPayment": "Erreur de paiement",
+        "paymentInProgress": "Paiement en cours...",
+        "modal": {
+            "title": "Paiement invalide",
+            "body": "Veuillez sélectionner une adresse et un moyen de paiement.",
+            "close": "Fermer"
+        }
     },
     "address": {
         "noAddress": "Aucune adresse",
@@ -296,6 +321,66 @@
             "body": "Êtes-vous sûr de vouloir supprimer cette carte ?",
             "close": "Fermer",
             "confirm": "Supprimer"
+        }
+    },
+    "success": {
+        "title": "Achat réussi",
+        "message": "Votre commande a été passée avec succès. Vous recevrez un email de confirmation sous peu.",
+        "message2": "Merci pour votre achat ! En espérant vous revoir au plus vite.",
+        "goToHome": "Retourner à l'accueil"
+    },
+    "orderList": {
+        "year": "Année ",
+        "ponctual": "Ponctuel",
+        "reference": "commande",
+        "date": "Date d'achat",
+        "status": "Statut",
+        "total": "Total",
+        "duration": "Durée",
+        "noOrders": "Aucune commande trouvée",
+        "statusPaid": "Payé",
+        "statusActive": "Actif",
+        "statusTerminated": "Terminé",
+        "statusRenewed": "Renouvelé",
+        "allYears": "Toutes les années",
+        "allStatus": "Tous les statuts",
+        "searchPlaceholder": "Rechercher une commande",
+        "firstTab": "Historique",
+        "secondTab": "Recherche"
+    },
+    "orderDetails": {
+        "title": "Détails de la commande",
+        "reference": "Référence de la commande :",
+        "services": "Services commandés",
+        "date": "Date de la commande :",
+        "duration": "Durée",
+        "status": "Statut de la commande:",
+        "statusPaid": "Payé",
+        "statusActive": "Actif",
+        "statusTerminated": "Terminé",
+        "statusRenewed": "Renouvelé",
+        "address": "Adresse de facturation :",
+        "paymentMethod": "Moyen de paiement :",
+        "noPaymentMethod": "Non spécifié",
+        "total": "Total :",
+        "promotion": "Code promo :",
+        "noPromotion": "Aucun code promo",
+        "noServices": "Aucun service commandé",
+        "download": "Télécharger la facture (PDF)",
+        "downloadProgress": "Téléchargement...",
+        "lineProductName": "Nom du service",
+        "linePrice": "Prix unitaire",
+        "lineQuantity": "Quantité",
+        "linePromotionPrice": "Prix promotionnel",
+        "lineNoPromotion": "Aucune promotion",
+        "month": "mois",
+        "cancelSubscription": "Annuler l'abonnement",
+        "modal": {
+            "title": "Annuler l'abonnement",
+            "body": "Êtes-vous sûr de vouloir annuler cet abonnement ? Cette action est irréversible et à effet immédiat.",
+            "close": "Fermer",
+            "confirm": "Résilier l'abonnement",
+            "cancelling": "Résiliation..."
         }
     }
 }

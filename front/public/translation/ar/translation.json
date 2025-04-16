@@ -37,6 +37,12 @@
     "topServicesTitle": "خدماتنا العصرية",
     "descriptionTitle": "الوصف",
     "categoriesTitle": "الفئات",
+    "subscriptionTitle" : "اشتراكاتنا",
+    "subscribe": "اشترك",
+    "questions": "أي أسئلة؟",
+    "contactUs": "اتصل بنا",
+    "year": "سنة",
+    "month": "شهر",
     "seeMore": "عرض المزيد",
     "noCategories": "لا توجد فئات"
   },
@@ -83,10 +89,22 @@
     "order": "طلب",
     "continueShopping": "مواصلة التسوق",
     "delete": "حذف",
+    "modalPromo": {
+      "title": "رمز الترويج",
+      "body": "تمت إزالة رمز الترويج \"{{name}}\" من السلة لأنه غير قابل للتطبيق على سلتك.",
+      "close": "إغلاق"
+    },
     "modal": {
       "title": "سلة فارغة",
       "body": "سلتك فارغة. يرجى إضافة عناصر قبل المتابعة إلى الدفع.",
       "close": "إغلاق"
+    },
+    "errors": {
+      "codePromotionRequired": "رمز الترويج مطلوب.",
+      "emptyCartPromo": "السلة فارغة.",
+      "invalidPromoCode": "رمز الترويج غير صالح.",
+      "promoCodeAlreadyApplied": "تم استخدام رمز الترويج بالفعل.",
+      "codePromotionNotApplicable": "رمز الترويج غير قابل للتطبيق."
     }
   },
   "register": {
@@ -233,7 +251,14 @@
     "promotion": "ترقية",
     "tax": "ضريبة",
     "total": "المجموع",
-    "payment": "الانتقال إلى الدفع"
+    "payment": "الانتقال إلى الدفع",
+    "errorPayment": "خطأ في معالجة الدفع. يرجى التحقق من معلومات الدفع الخاصة بك.",
+    "paymentInProgress": "جارٍ معالجة الدفع...",
+    "modal": {
+      "title": "دفع غير صالح",
+      "body": "يرجى اختيار عنوان وطريقة دفع.",
+      "close": "إغلاق"
+    }
   },
   "address": {
     "noAddress": "لا يوجد عنوان",
@@ -300,6 +325,66 @@
       "body": "هل أنت متأكد أنك تريد حذف هذه البطاقة؟",
       "close": "إغلاق",
       "confirm": "حذف"
+    }
+  },
+  "success": {
+    "title": "تم الشراء بنجاح",
+    "message": "تم تقديم طلبك بنجاح. ستتلقى بريدًا إلكترونيًا للتأكيد قريبًا.",
+    "message2": "شكرًا لشرائك! نأمل أن نراك مرة أخرى قريبًا.",
+    "goToHome": "العودة إلى الصفحة الرئيسية"
+  },
+  "orderList": {
+    "year": "السنة",
+    "ponctual": "مرة واحدة",
+    "reference": "الطلب",
+    "date": "تاريخ الشراء",
+    "status": "الحالة",
+    "total": "الإجمالي",
+    "duration": "المدة",
+    "noOrders": "لم يتم العثور على طلبات",
+    "statusPaid": "مدفوع",
+    "statusActive": "نشط",
+    "statusTerminated": "منتهي",
+    "statusRenewed": "مجدد",
+    "allYears": "كل السنوات",
+    "allStatus": "كل الحالات",
+    "searchPlaceholder": "ابحث عن طلب",
+    "firstTab": "السجل",
+    "secondTab": "بحث"
+  },
+  "orderDetails": {
+    "title": "تفاصيل الطلب",
+    "reference": "رقم الطلب:",
+    "services": "الخدمات المطلوبة",
+    "date": "تاريخ الطلب:",
+    "duration": "المدة:",
+    "status": "حالة الطلب:",
+    "statusPaid": "مدفوع",
+    "statusActive": "نشط",
+    "statusTerminated": "منتهي",
+    "statusRenewed": "مجدد",
+    "address": "عنوان الفاتورة:",
+    "paymentMethod": "طريقة الدفع:",
+    "noPaymentMethod": "غير محدد",
+    "total": "الإجمالي:",
+    "promotion": "رمز الترويج:",
+    "noPromotion": "لا يوجد رمز ترويجي",
+    "noServices": "لا توجد خدمات مطلوبة",
+    "download": "تحميل الفاتورة (PDF)",
+    "downloadProgress": "جاري التحميل...",
+    "lineProductName": "اسم الخدمة",
+    "linePrice": "السعر الفردي",
+    "lineQuantity": "الكمية",
+    "linePromotionPrice": "السعر الترويجي",
+    "lineNoPromotion": "لا توجد عروض",
+    "month": "شهر",
+    "cancelSubscription": "إلغاء الاشتراك",
+    "modal": {
+        "title": "إلغاء الاشتراك",
+        "body": "هل أنت متأكد أنك تريد إلغاء هذا الاشتراك؟ هذا الإجراء لا رجعة فيه وسيدخل حيز التنفيذ فورًا.",
+        "close": "إغلاق",
+        "confirm": "إلغاء الاشتراك",
+        "cancelling": "جارٍ الإلغاء..."
     }
   }
 }

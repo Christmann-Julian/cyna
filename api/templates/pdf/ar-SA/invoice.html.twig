@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            direction: rtl;
+        }
+        
+        .invoice-header {
+            margin-bottom: 30px;
+        }
+        
+        .invoice-title {
+            border: 2px solid #000;
+            display: inline-block;
+            padding: 5px 15px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+        
+        .payment-info, .bill-to {
+            width: 48%;
+        }
+        
+        .info-row {
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+            margin-left: 10px;
+        }
+        
+        .receipt-date {
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        thead tr {
+            background-color: #302082;
+            color: white;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .sl {
+            width: 5%;
+        }
+        
+        .description {
+            width: 50%;
+        }
+        
+        .qty, .price {
+            width: 15%;
+        }
+        
+        .amount {
+            width: 15%;
+        }
+        
+        .note {
+            width: 50%;
+            float: right;
+            color: #777;
+            font-size: 12px;
+        }
+        
+        .totals {
+            width: 35%;
+            float: left;
+        }
+        
+        .total-row {
+            padding: 5px 0;
+        }
+        
+        .discount, .grand-total {
+            background-color: #302082;
+            color: white;
+            padding: 5px;
+        }
+        
+        .footer {
+            clear: both;
+            margin-top: 100px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            color: #302082;
+        }
+        
+        .divider {
+            border-top: 1px solid #000;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-header">
+        <div class="invoice-title">فاتورة</div>
+    </div>
+    
+    <div class="info-container">
+        <table style="width: 100%; table-layout: fixed;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <h3>معلومات الشركة</h3>
+                    <div class="info-row">
+                        <span class="info-label">الاسم</span>: Cyna
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">العنوان</span>: 11 Av. Dubonnet, 92400 Courbevoie, France
+                    </div>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                    <h3>فاتورة إلى</h3>
+                    <div class="info-row">
+                        <span class="info-label">الاسم</span>: 
+                        {% if user.firstName and user.lastName %}
+                            {{ user.firstName }} {{ user.lastName }}
+                        {% else %}
+                            {{ order.customerName }}
+                        {% endif %}
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">البريد الإلكتروني</span>:
+                        {% if user.email %}
+                           {{ user.email }}
+                        {% else %}
+                            {{ order.customerEmail }}
+                        {% endif %}
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">العنوان</span>: {{ order.address }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="receipt-date">
+        <div><strong>المرجع</strong>: {{ order.reference }}</div>
+        <div><strong>التاريخ</strong>: {{ order.date|date('d/m/Y') }}</div>
+        {% if order.reference starts with 'sub' %}
+            <div><strong>صالح حتى</strong>: {{ order.date|date_modify('+' ~ order.orderLines[0].quantity ~ ' months')|date('d/m/Y') }}</div>
+        {% endif %}
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th class="sl">رقم</th>
+                <th class="description">اسم الخدمة</th>
+                <th class="qty">الكمية</th>
+                <th class="price">السعر</th>
+                <th class="amount">المبلغ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in order.orderLines %}
+                <tr>
+                    {% if order.reference starts with 'sub' %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}/شهر</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price)|number_format(2, '.', ',') }} €</td>
+                    {% else %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price * line.quantity)|number_format(2, '.', ',') }} €</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+    
+    <div class="note">
+        <h4>ملاحظة:</h4>
+        <p>شكرًا لدفعك. تم دفع هذه الفاتورة بالكامل ولا يوجد رصيد متبقٍ. إذا كانت لديك أي أسئلة بخصوص هذه الفاتورة، يرجى الاتصال بنا على contact@cyna.com. نشكرك على ثقتك ونتطلع إلى العمل معك مرة أخرى في المستقبل.</p>
+    </div>
+    
+    <div class="totals">
+        <div class="total-row">
+            <span>الإجمالي الفرعي: </span>
+            <span>{{ ((order.total + order.promotion|default(0)) * 0.8)|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row discount">
+            <span>الخصم: </span>
+            <span>{{ (order.promotion|default(0))|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row">
+            <span>الضريبة 20%: </span>
+            <span>{{ (order.total * 0.2)|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row grand-total">
+            <span>الإجمالي الكلي: </span>
+            <span>{{ order.total|number_format(2, '.', ',') }} €</span>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span class="company-name">حلول الأمن السيبراني</span> لنجاحك
+    </div>
+</body>
+</html>

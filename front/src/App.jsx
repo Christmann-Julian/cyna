@@ -27,6 +27,9 @@ import CreatePaymentMethod from "./pages/account/CreatePaymentMethod";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import OnlyPublicRoute from "./components/OnlyPublicRoute";
+import OrderSuccess from "./pages/OrderSuccess";
+import OrderDetails from "./pages/account/OrderDetails";
+import CheckoutSubscription from "./pages/checkout/CheckoutSubscription";
 
 const stripePromise = loadStripe(
   "pk_test_51Il6qJHdav6xRf1DJBGOrXYvW49czc6ATRvtf9oZyFKyZNDnjHwUEGHu9Xk4JgjfKFsQm0vfOfG3uBNAxK1XkU5200tiv5MIl2"
@@ -94,6 +97,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/account/order/:id",
+    element: (
+      <ProtectedRoute>
+        <OrderDetails />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/product/:id",
     element: <Product />,
     errorElement: <ErrorPage />,
@@ -138,6 +150,24 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute isRedirectToOrigin={true}>
         <Checkout />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/order/checkout/subscription",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <CheckoutSubscription />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/order/success",
+    element: (
+      <ProtectedRoute isRedirectToOrigin={true}>
+        <OrderSuccess />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,

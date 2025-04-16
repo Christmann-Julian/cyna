@@ -2,8 +2,9 @@
 
 namespace App\Service;
 
-use App\Entity\ConfirmEmail;
 use App\Entity\User;
+use App\Entity\Order;
+use App\Entity\ConfirmEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -108,6 +109,34 @@ class EmailService
             ->context([
                 'optCode' => $otpCode
             ]);
+
+        $this->mailer->send($email);
+    }
+
+    public function sendInvoiceEmail(User $user, Order $order, string $pdfFilePath, string $locale = 'en-GB'): void
+    {
+        switch ($locale) {
+            case 'fr-FR':
+                $subject = 'Cyna - Facture de votre commande - ';
+                break;
+            case 'ar-SA':
+                $subject = 'فاتورة طلبك من Cyna';
+                break;
+            default:
+                $subject = 'Cyna - Invoice for your order- ';
+                break;
+        }
+
+        $email = (new TemplatedEmail())
+            ->from('noreply@cyna.com')
+            ->to($user->getEmail())
+            ->subject($subject . $order->getReference())
+            ->htmlTemplate("emails/$locale/invoiceEmail.html.twig")
+            ->context([
+                'user' => $user,
+                'order' => $order,
+            ])
+            ->attachFromPath($pdfFilePath, 'invoice_' . $order->getReference() . '.pdf', 'application/pdf');
 
         $this->mailer->send($email);
     }

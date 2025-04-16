@@ -2,6 +2,7 @@ import React from "react";
 import "../assets/css/product-area.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { formatPrice } from "../utils/utils";
 
 const SingleProduct = ({ product }) => {
   const { t } = useTranslation();
@@ -36,13 +37,12 @@ const SingleProduct = ({ product }) => {
                 {product.price.toFixed(2).toString().replace(".", ",")}
               </span>
               <span>
-                {product.promotionPrice.toFixed(2).toString().replace(".", ",")}
-                €
+                {formatPrice(product.promotionPrice)}
               </span>
             </>
           ) : (
             <span>
-              {product.price.toFixed(2).toString().replace(".", ",")}€
+              {formatPrice(product.price)}
             </span>
           )}
         </div>

@@ -34,13 +34,19 @@
     "topServicesTitle": "Our Trending Services",
     "descriptionTitle": "Description",
     "categoriesTitle": "Categories",
+    "subscriptionTitle" : "Our Subscriptions",
+    "subscribe": "Subscribe",
+    "questions": "Any questions?",
+    "contactUs": "Contact us",
+    "year": "year",
+    "month": "month",
     "seeMore": "See More",
     "noCategories": "No categories"
   },
   "product": {
     "noStock": "Out of stock",
     "quantity": "Quantity",
-    "buyNow": "Subscribe now",
+    "buyNow": "Buy now",
     "similaryServices": "Similar services",
     "modal": {
       "title": "Service Unavailable",
@@ -80,10 +86,22 @@
     "order": "Proceed to payment",
     "continueShopping": "Continue shopping",
     "delete": "Delete",
+    "modalPromo": {
+      "title": "Promo Code",
+      "body": "The promo code \"{{name}}\" has been removed from the cart as it is not applicable to your cart.",
+      "close": "Close"
+    },
     "modal": {
       "title": "Empty Cart",
       "body": "Your cart is empty. Please add items before proceeding to checkout.",
       "close": "Close"
+    },
+    "errors": {
+      "codePromotionRequired": "The promo code is required.",
+      "emptyCartPromo": "The cart is empty.",
+      "invalidPromoCode": "The promo code is invalid.",
+      "promoCodeAlreadyApplied": "The promo code has already been used.",
+      "codePromotionNotApplicable": "The promo code is not applicable."
     }
   },
   "register": {
@@ -229,7 +247,14 @@
     "promotion": "Promotion code",
     "tax": "Tax",
     "total": "Total",
-    "payment": "Proceed to Payment"
+    "payment": "Pay",
+    "errorPayment": "An error occurred while processing your payment.",
+    "paymentInProgress": "Payment in progress...",
+    "modal": {
+      "title": "Invalid Payment",
+      "body": "Please select an address and a payment method.",
+      "close": "Close"
+    }
   },
   "address": {
     "noAddress": "No Address",
@@ -296,6 +321,66 @@
       "body": "Are you sure you want to delete this card?",
       "close": "Close",
       "confirm": "Delete"
+    }
+  },
+  "success": {
+    "title": "Purchase Successful",
+    "message": "Your order has been successfully placed. You will receive a confirmation email shortly.",
+    "message2": "Thank you for your purchase! We hope to see you again soon.",
+    "goToHome": "Return to Home"
+  },
+  "orderList": {
+    "year": "Year",
+    "ponctual": "One-time",
+    "reference": "Order",
+    "date": "Purchase Date",
+    "status": "Status",
+    "total": "Total",
+    "duration": "Duration",
+    "noOrders": "No orders found",
+    "statusPaid": "Paid",
+    "statusActive": "Active",
+    "statusTerminated": "Terminated",
+    "statusRenewed": "Renewed",
+    "allYears": "All years",
+    "allStatus": "All statuses",
+    "searchPlaceholder": "Search for an order",
+    "firstTab": "History",
+    "secondTab": "Search"
+  },
+  "orderDetails": {
+    "title": "Order Details",
+    "reference": "Order Reference:",
+    "services": "Ordered Services",
+    "date": "Order Date:",
+    "duration": "Duration:",
+    "status": "Order Status:",
+    "statusPaid": "Paid",
+    "statusActive": "Active",
+    "statusTerminated": "Terminated",
+    "statusRenewed": "Renewed",
+    "address": "Billing Address:",
+    "paymentMethod": "Payment Method:",
+    "noPaymentMethod": "Not specified",
+    "total": "Total:",
+    "promotion": "Promo Code:",
+    "noPromotion": "No promo code",
+    "noServices": "No services ordered",
+    "download": "Download Invoice (PDF)",
+    "downloadProgress": "Downloading...",
+    "lineProductName": "Service Name",
+    "linePrice": "Unit Price",
+    "lineQuantity": "Quantity",
+    "linePromotionPrice": "Promotional Price",
+    "lineNoPromotion": "No promotion",
+    "month": "month",
+    "cancelSubscription": "Cancel Subscription",
+    "modal": {
+        "title": "Cancel Subscription",
+        "body": "Are you sure you want to cancel this subscription? This action is irreversible and takes effect immediately.",
+        "close": "Close",
+        "confirm": "Cancel Subscription",
+        "cancelling": "Cancelling..."
     }
   }
 }

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -25,7 +26,8 @@ class AuthController extends AbstractController
         private JWTTokenManagerInterface $jwtManager,
         private RefreshTokenGeneratorInterface $refreshTokenGenerator,
         private EntityManagerInterface $entityManager,
-        private EmailService $emailService
+        private EmailService $emailService,
+        private JWTEncoderInterface $jwtEncoder
     ) {
     }
 
@@ -36,6 +38,8 @@ class AuthController extends AbstractController
         $username = $data['username'] ?? null;
         $password = $data['password'] ?? null;
         $locale = $data['locale'] ?? null;
+        $rememberMe = $data['rememberMe'] ?? false;
+        $isPhone = $data['isPhone'] ?? false;
 
         if (!$username || !$password) {
             return new JsonResponse(
@@ -76,7 +80,7 @@ class AuthController extends AbstractController
             );
         }
 
-        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+        if (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SUPER_ADMIN', $user->getRoles())) {
             $otpCode = random_int(100000, 999999);
 
             $user->setTwoFaCode($otpCode);
@@ -94,7 +98,8 @@ class AuthController extends AbstractController
         }
 
         $token = $this->jwtManager->create($user);
-        $refreshToken = $this->refreshTokenGenerator->createForUserWithTtl($user, 86400 * 7); // 7 days
+        $refreshTokenTtl = $rememberMe ? 86400 * 30 : 3600; // 30 days or 1 hour
+        $refreshToken = $this->refreshTokenGenerator->createForUserWithTtl($user, $refreshTokenTtl);
 
         $refreshTokenEntity = $this->entityManager->getRepository(RefreshToken::class)->findOneBy(['username' => $user->getEmail()]);
 
@@ -109,6 +114,13 @@ class AuthController extends AbstractController
         $this->entityManager->persist($refreshTokenEntity);
         $this->entityManager->flush();
 
+        if ($isPhone) {
+            return new JsonResponse([
+                'token' => $token,
+                'refresh_token' => $refreshToken->getRefreshToken()
+            ]);
+        }
+
         $response  = new JsonResponse([
             'token' => $token,
         ]);
@@ -116,7 +128,7 @@ class AuthController extends AbstractController
         $response->headers->setCookie(
             Cookie::create('refresh_token')
                 ->withValue($refreshToken->getRefreshToken())
-                ->withExpires(strtotime('+1 days'))
+                ->withExpires(strtotime($rememberMe ? '+30 days' : '+1 hour'))
                 ->withPath('/')
                 ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
                 ->withHttpOnly(true)
@@ -149,9 +161,13 @@ class AuthController extends AbstractController
         Request $request,
         RefreshTokenManagerInterface $refreshTokenManager,
     ): JsonResponse {
-        $refreshTokenStr = $request->cookies->get('refresh_token');
 
-        if (!$refreshTokenStr) {
+        $data = json_decode($request->getContent(), true);
+        $isPhone = $data['isPhone'] ?? false;
+
+        $refreshTokenStr = $isPhone ? $data['refresh_token'] : $request->cookies->get('refresh_token');
+
+        if (!$refreshTokenStr || empty($refreshTokenStr)) {
             return new JsonResponse(['token' => null,'message' => 'Missing refresh token']);
         }
 
@@ -166,13 +182,24 @@ class AuthController extends AbstractController
         }
 
         $newToken = $this->jwtManager->create($user);
-        $newRefreshToken = new RefreshToken();
-        $newRefreshToken->setRefreshToken()
-            ->setUsername($user->getEmail())
-            ->setValid((new \DateTime())->modify('+1 week'));
+        if ($refreshToken->getValid() > new \DateTime()) {
+            $newRefreshToken = $refreshToken;
+        } else {
+            $newRefreshToken = new RefreshToken();
+            $newRefreshToken->setRefreshToken()
+                ->setUsername($user->getEmail())
+                ->setValid((new \DateTime())->modify('+1 hour'));
 
-        $refreshTokenManager->delete($refreshToken);
-        $refreshTokenManager->save($newRefreshToken);
+            $refreshTokenManager->delete($refreshToken);
+            $refreshTokenManager->save($newRefreshToken);
+        }
+
+        if ($isPhone) {
+            return new JsonResponse([
+                'token' => $newToken,
+                'refresh_token' => $newRefreshToken->getRefreshToken()
+            ]);
+        }
 
         $response = new JsonResponse(['token' => $newToken]);
 
@@ -189,13 +216,40 @@ class AuthController extends AbstractController
         return $response;
     }
 
+    #[Route('/api/token/verify', name: 'api_auth_verify_token', methods: ['POST'])]
+    public function verifyToken(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $token = $data['token'] ?? null;
+
+        if (!$token) {
+            return new JsonResponse(['error' => 'Token is required'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $payload = $this->jwtEncoder->decode($token);
+
+            if (!$payload || !isset($payload['exp'])) {
+                return new JsonResponse(['error' => 'Token is invalid'], JsonResponse::HTTP_UNAUTHORIZED);
+            }
+
+            if ($payload['exp'] < time()) {
+                return new JsonResponse(['error' => 'Token is expired'], JsonResponse::HTTP_UNAUTHORIZED);
+            }
+
+            return new JsonResponse(['message' => 'Token is valid'], JsonResponse::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Token is invalid'], JsonResponse::HTTP_UNAUTHORIZED);
+        }
+    }
+
     #[Route('/api/two-fa', name: 'api_auth_2fa', methods: ['POST'])]
     public function verify2faAuthentication(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $userId = $data['user_id'] ?? null;
         $otpCode = $data['code'] ?? null;
-
+        $rememberMe = $data['rememberMe'] ?? false;
 
         if (!$userId || !$otpCode) {
             return new JsonResponse(['message' => 'Missing parameters'], JsonResponse::HTTP_BAD_REQUEST);
@@ -217,12 +271,18 @@ class AuthController extends AbstractController
         $this->entityManager->flush();
 
         $token = $this->jwtManager->create($user);
-        $refreshToken = $this->refreshTokenGenerator->createForUserWithTtl($user, 86400 * 7);
+        $refreshTokenTtl = $rememberMe ? 86400 * 30 : 3600; // 30 days or 1 hour
+        $refreshToken = $this->refreshTokenGenerator->createForUserWithTtl($user, $refreshTokenTtl);
 
-        $refreshTokenEntity = new RefreshToken();
+        $refreshTokenEntity = $this->entityManager->getRepository(RefreshToken::class)->findOneBy(['username' => $user->getEmail()]);
+
+        if (!$refreshTokenEntity) {
+            $refreshTokenEntity = new RefreshToken();
+        }
+
         $refreshTokenEntity->setRefreshToken($refreshToken->getRefreshToken())
-        ->setUsername($user->getEmail())
-        ->setValid($refreshToken->getValid());
+            ->setUsername($user->getEmail())
+            ->setValid($refreshToken->getValid());
 
         $this->entityManager->persist($refreshTokenEntity);
         $this->entityManager->flush();
@@ -232,7 +292,7 @@ class AuthController extends AbstractController
         $response->headers->setCookie(
             Cookie::create('refresh_token')
             ->withValue($refreshToken->getRefreshToken())
-            ->withExpires(strtotime('+1 days'))
+            ->withExpires(strtotime($rememberMe ? '+30 days' : '+1 hour'))
             ->withPath('/')
             ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
             ->withHttpOnly(true)

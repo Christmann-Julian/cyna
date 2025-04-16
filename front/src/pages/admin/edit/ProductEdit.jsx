@@ -14,10 +14,22 @@ import {
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 
-const transform = (data) => ({
-  ...data,
-  image: data.image?.['@id'], // Transforme en IRI
-});
+const transform = (data) => {
+  const transformedData = {
+    ...data,
+    image: data.image?.['@id'],
+    category: data.category?.['id'],
+  };
+
+  if (data.productImages) {
+    transformedData.productImages = data.productImages.map(productImage => ({
+      ...productImage,
+      image: productImage.image?.['@id'], // Transforme en IRI chaque image des slides
+    }));
+  }
+
+  return transformedData;
+};
 
 export const ProductEdit = () => (
   <Edit transform={transform}>
@@ -32,11 +44,37 @@ export const ProductEdit = () => (
           optionValue="@id"
         />
       </ReferenceInput>
+      <ArrayInput source="productImages">
+        <SimpleFormIterator>
+          <ReferenceInput 
+            source="image.@id" 
+            reference="media_objects"
+            sort={{ field: 'id', order: 'DESC' }}
+          >
+            <SelectInput
+              optionText="contentUrl"
+              optionValue="@id"
+              validate={[required()]}
+            />
+          </ReferenceInput>
+          <TextInput source="alt" label="Alternative text" validate={[required(), minLength(2), maxLength(255)]} />
+        </SimpleFormIterator>
+      </ArrayInput>
       <NumberInput source="price" validate={[required()]}/>
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
       <NumberInput source="position" defaultValue={0} label="Top product position"/>
+      <ReferenceInput 
+        source="category.id" 
+        reference="categories" 
+        sort={{ field: 'id', order: 'DESC' }}
+      >
+        <SelectInput 
+          optionText="categoryTranslations[0].name"
+          optionValue="id"
+        />
+      </ReferenceInput>
       <BooleanInput source="promotionActive" />
       <TextInput source="promotionLabel"/>
       <NumberInput source="promotionPrice" />

@@ -8,15 +8,28 @@ import ListPaymentMethod from "../../components/ListPaymentMethod";
 import { useSelector } from "react-redux";
 import apiRequest from "../../utils/apiRequest";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
+import { getCurrentLocale } from "../../utils/language";
+import { Modal, Button } from "react-bootstrap";
+import { calculettePromotions, formatPrice } from "../../utils/utils";
+import authProvider from "../../utils/authProvider";
 
 const Checkout = () => {
   const { t } = useTranslation();
   const cart = useSelector((state) => state.cart);
+  const [userInfo, setUserInfo] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [fetchAddressesLoading, setFetchAddressesLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] = useState(false);
+  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] =
+    useState(false);
   const token = useSelector((state) => state.auth.token);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const currentLocale = getCurrentLocale();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     setFetchAddressesLoading(true);
@@ -66,7 +79,68 @@ const Checkout = () => {
     };
 
     fetchPaymentMethod();
+
+    authProvider.getUserInfo(token).then(setUserInfo).catch(console.error);
+    console.log("userInfo", userInfo);
   }, []);
+
+  const handlePayment = async () => {
+    event.preventDefault();
+
+    let isComplete = true;
+    if (!selectedAddress || !selectedPaymentMethod) {
+      handleShow();
+      isComplete = false;
+    }
+
+    setIsLoading(true);
+
+    if (isComplete) {
+      try {
+        const response = await apiRequest("/payment/stripe", "POST", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            addressId: selectedAddress.id,
+            paymentMethodId: selectedPaymentMethod.id,
+            products: cart.items,
+            amount: cart.totalPrice * 100,
+            currency: "eur",
+            locale: currentLocale,
+            promotionalCodes: cart.promotionalCodeItems,
+          }),
+        });
+
+        if (response.error) {
+          throw new Error(response.error);
+        }
+
+        navigate("/order/success");
+      } catch (error) {
+        console.error("error payment :", error);
+        alert(t("checkout.errorPayment"));
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const handleClose = () => setShow(false);
+
+  const subTotal = cart.items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const prenium = (userInfo?.isPrenium ? subTotal * 0.05 : 0);
 
   return (
     <>
@@ -106,9 +180,15 @@ const Checkout = () => {
                                 type="radio"
                                 name="radioAddress"
                                 id={`radioAddress${index}`}
+                                onChange={() => setSelectedAddress(address)}
                               />
-                              <label htmlFor={`radioAddress${index}`} className="form-check-label">
-                                {t("address.name")} {index + 1} - {address.address} ({address.city}/{address.country})
+                              <label
+                                htmlFor={`radioAddress${index}`}
+                                className="form-check-label"
+                              >
+                                {t("address.name")} {index + 1} -{" "}
+                                {address.address} ({address.city}/
+                                {address.country})
                               </label>
                             </div>
                           ))}
@@ -134,9 +214,16 @@ const Checkout = () => {
                                 type="radio"
                                 name="radioPayment"
                                 id={`radioPayment${index}`}
+                                onChange={() =>
+                                  setSelectedPaymentMethod(paymentMethod)
+                                }
                               />
-                              <label htmlFor={`radioPayment${index}`} className="form-check-label">
-                                {paymentMethod.brand} **** **** **** {paymentMethod.last4}
+                              <label
+                                htmlFor={`radioPayment${index}`}
+                                className="form-check-label"
+                              >
+                                {paymentMethod.brand} **** **** ****{" "}
+                                {paymentMethod.last4}
                               </label>
                             </div>
                           ))}
@@ -148,7 +235,8 @@ const Checkout = () => {
                   <ul>
                     {cart.items.map((item, index) => (
                       <li key={index}>
-                        {item.name} - {item.duration} {t("checkout.month")} -{" "}
+                        {item.name}{" "}
+                        {/* - {item.duration} {t("checkout.month")} */} -{" "}
                         {t("checkout.quantity")} : {item.quantity}
                         <span>{item.total}€</span>
                       </li>
@@ -159,42 +247,40 @@ const Checkout = () => {
                     <li>
                       {t("checkout.subTotal")}
                       <span>
-                        {(cart.totalPrice * 0.8)
-                          .toFixed(2)
-                          .toString()
-                          .replace(".", ",")}
-                        €
+                        {formatPrice(subTotal * 0.8)}
                       </span>
                     </li>
                     <li>
                       {t("checkout.promotion")}
-                      <span>0,00€</span>
+                      <span>
+                      {formatPrice(
+                        calculettePromotions(cart, subTotal) + prenium
+                      )}
+                      </span>
                     </li>
                     <li>
                       {t("checkout.tax")}(20%)
                       <span>
-                        {(cart.totalPrice * 0.2)
-                          .toFixed(2)
-                          .toString()
-                          .replace(".", ",")}
-                        €
+                        {formatPrice(subTotal * 0.2)}
                       </span>
                     </li>
                     <li className="last">
                       {t("checkout.total")}
                       <span>
-                        {cart.totalPrice
-                          .toFixed(2)
-                          .toString()
-                          .replace(".", ",")}
-                        €
+                        {formatPrice(cart.totalPrice - prenium)}
                       </span>
                     </li>
                   </ul>
                   <div>
-                    <a href="" className="btn">
-                      {t("checkout.payment")}
-                    </a>
+                    <button
+                      className="btn"
+                      onClick={handlePayment}
+                      disabled={isLoading}
+                    >
+                      {isLoading
+                        ? t("checkout.paymentInProgress")
+                        : t("checkout.payment")}
+                    </button>
                   </div>
                 </form>
               </div>
@@ -203,6 +289,24 @@ const Checkout = () => {
         </div>
       </div>
       <Footer />
+      <Modal
+        show={show}
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {t("checkout.modal.title")}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{t("checkout.modal.body")}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            {t("checkout.modal.close")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

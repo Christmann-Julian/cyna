@@ -58,7 +58,7 @@ const AccountLayout = ({ children }) => {
                 <Link className={`list-group-item ${isActive("/account/order") ? "active" : ""}`} to="/account/order">
                   {t("navbar.orderAccount")}
                 </Link>
-                {roles.includes("ROLE_ADMIN") && (
+                {(roles.includes("ROLE_ADMIN") || roles.includes("ROLE_SUPER_ADMIN")) && (
                   <Link className="list-group-item" to="/admin">Admin Panel</Link>
                 )}
               </nav>

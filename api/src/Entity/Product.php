@@ -23,11 +23,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['product:read']],
     denormalizationContext: ['groups' => ['product:create', 'product:update']],
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN')"),
-        new Post(security: "is_granted('ROLE_ADMIN')"),
-        new Put(security: "is_granted('ROLE_ADMIN')"),
-        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
     ],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'price', 'priority', 'disponibility', 'top_product', 'position', 'promotionActive', 'promotionLabel', 'promotionPrice'])]
@@ -73,7 +73,7 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[Groups([
-        'product:read',
+        'product:read', 'product:create', 'product:update'
     ])]
     private ?Category $category = null;
 
@@ -113,9 +113,19 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?float $promotionPrice = null;
 
+    /**
+     * @var Collection<int, ProductImage>
+     */
+    #[Groups([
+        'product:read', 'product:create', 'product:update'
+    ])]
+    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $productImages;
+
     public function __construct()
     {
         $this->productTranslations = new ArrayCollection();
+        $this->productImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,7 +235,6 @@ class Product
         return $this;
     }
 
-
     public function getImage(): ?MediaObject
     {
         return $this->image;
@@ -276,6 +285,36 @@ class Product
     public function setPromotionPrice(?float $promotionPrice): static
     {
         $this->promotionPrice = $promotionPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductImage>
+     */
+    public function getProductImages(): Collection
+    {
+        return $this->productImages;
+    }
+
+    public function addProductImage(ProductImage $productImage): static
+    {
+        if (!$this->productImages->contains($productImage)) {
+            $this->productImages->add($productImage);
+            $productImage->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductImage(ProductImage $productImage): static
+    {
+        if ($this->productImages->removeElement($productImage)) {
+            // set the owning side to null (unless already changed)
+            if ($productImage->getProduct() === $this) {
+                $productImage->setProduct(null);
+            }
+        }
 
         return $this;
     }

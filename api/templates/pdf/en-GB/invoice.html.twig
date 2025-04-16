@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .invoice-header {
+            margin-bottom: 30px;
+        }
+        
+        .invoice-title {
+            border: 2px solid #000;
+            display: inline-block;
+            padding: 5px 15px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+        
+        .payment-info, .bill-to {
+            width: 48%;
+        }
+        
+        .info-row {
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        
+        .receipt-date {
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        thead tr {
+            background-color: #302082;
+            color: white;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .sl {
+            width: 5%;
+        }
+        
+        .description {
+            width: 50%;
+        }
+        
+        .qty, .price {
+            width: 15%;
+        }
+        
+        .amount {
+            width: 15%;
+        }
+        
+        .note {
+            width: 50%;
+            float: left;
+            color: #777;
+            font-size: 12px;
+        }
+        
+        .totals {
+            width: 35%;
+            float: right;
+        }
+        
+        .total-row {
+            padding: 5px 0;
+        }
+        
+        .discount, .grand-total {
+            background-color: #302082;
+            color: white;
+            padding: 5px;
+        }
+        
+        .footer {
+            clear: both;
+            margin-top: 100px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            color: #302082;
+        }
+        
+        .divider {
+            border-top: 1px solid #000;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-header">
+        <div class="invoice-title">Invoice</div>
+    </div>
+    
+    <div class="info-container">
+        <table style="width: 100%; table-layout: fixed;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <h3>Company Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name</span>: Cyna
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Address</span>: 11 Av. Dubonnet, 92400 Courbevoie, France
+                    </div>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                    <h3>Bill to</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name</span>: 
+                        {% if user.firstName and user.lastName %}
+                            {{ user.firstName }} {{ user.lastName }}
+                        {% else %}
+                            {{ order.customerName }}
+                        {% endif %}
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>:
+                        {% if user.email %}
+                           {{ user.email }}
+                        {% else %}
+                            {{ order.customerEmail }}
+                        {% endif %}
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Address</span>: {{ order.address }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="receipt-date">
+        <div><strong>Reference</strong>: {{ order.reference }}</div>
+        <div><strong>Date</strong>: {{ order.date|date('d/m/Y') }}</div>
+        {% if order.reference starts with 'sub' %}
+            <div><strong>Valid Until</strong>: {{ order.date|date_modify('+' ~ order.orderLines[0].quantity ~ ' months')|date('d/m/Y') }}</div>
+        {% endif %}
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th class="sl">N</th>
+                <th class="description">Service Name</th>
+                <th class="qty">Qty</th>
+                <th class="price">Price</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in order.orderLines %}
+                <tr>
+                    {% if order.reference starts with 'sub' %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}/month</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price)|number_format(2, '.', ',') }} €</td>
+                    {% else %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price * line.quantity)|number_format(2, '.', ',') }} €</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+    
+    <div class="note">
+        <h4>Note:</h4>
+        <p>Thank you for your payment. This invoice has been paid in full and there is no remaining balance. If you have any questions regarding this invoice, please contact us at contact@cyna.com. We thank you for your business and look forward to working with you again in the future.</p>
+    </div>
+    
+    <div class="totals">
+        <div class="total-row">
+            <span>Sub Total: </span>
+            <span>{{ ((order.total + order.promotion|default(0)) * 0.8)|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row discount">
+            <span>Discount: </span>
+            <span>{{ (order.promotion|default(0))|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row">
+            <span>Tax 20%: </span>
+            <span>{{ (order.total * 0.2)|number_format(2, '.', ',') }} €</span>
+        </div>
+        <div class="total-row grand-total">
+            <span>Grand Total: </span>
+            <span>{{ order.total|number_format(2, '.', ',') }} €</span>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span class="company-name">Cybersecurity Solution</span> For Your Success
+    </div>
+</body>
+</html>

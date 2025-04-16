@@ -59,6 +59,13 @@ class ProductTranslationController extends AbstractController
             'caracteristic' => $productTranslation->getCaracteristic(),
             'price' => $productTranslation->getProduct()->getPrice(),
             'url_image' => $productTranslation->getProduct()->getImage()?->getFilePath() == null ? null : $imagePath . $productTranslation->getProduct()->getImage()->getFilePath(),
+            'slides' => array_map(function ($slide) use ($imagePath) {
+                return [
+                    'id' => $slide->getId(),
+                    'alt' => $slide->getAlt(),
+                    'url_image' => $slide->getImage()->getFilePath() == null ? null : $imagePath . $slide->getImage()->getFilePath(),
+                ];
+            }, $productTranslation->getProduct()->getProductImages()->toArray()),
             'priority' => $productTranslation->getProduct()->getPriority(),
             'disponibility' => $productTranslation->getProduct()->isDisponibility(),
             'promotionActive' => $productTranslation->getProduct()->isPromotionActive(),

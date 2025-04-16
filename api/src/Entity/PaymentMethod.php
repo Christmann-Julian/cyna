@@ -11,25 +11,26 @@ use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
-        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_ADMIN')"),
         new Get(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'get_user_payment_methods',
         ),
-        new Put(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Post(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Put(security: "is_granted('ROLE_USER') and object == user"),
+        new Patch(security: "is_granted('ROLE_USER') and object == user"),
+        new Post(security: "is_granted('ROLE_USER') and object == user"),
         new Delete(
-            security: "is_granted('ROLE_ADMIN') or object == user",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'delete_payment_method',
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN') or object == user",
+            security: "is_granted('ROLE_USER') and object == user",
             routeName: 'add_payment_method',
         ),
     ],
@@ -46,6 +47,9 @@ class PaymentMethod
     #[Assert\NotBlank]
     private ?string $stripePaymentMethodId = null;
 
+    #[Groups([
+        'order:read',
+    ])]
     #[ORM\Column(type: 'string', length: 4)]
     #[Assert\NotBlank]
     private ?string $last4 = null;
@@ -65,6 +69,17 @@ class PaymentMethod
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'paymentMethods')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'paymentMethod')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +149,36 @@ class PaymentMethod
     public function setUser(?User $user): self
     {
         $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPaymentMethod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getPaymentMethod() === $this) {
+                $order->setPaymentMethod(null);
+            }
+        }
+
         return $this;
     }
 }

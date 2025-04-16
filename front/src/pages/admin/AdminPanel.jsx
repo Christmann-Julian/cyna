@@ -38,12 +38,24 @@ import ContactsIcon from '@mui/icons-material/Contacts';
 import HomeIcon from '@mui/icons-material/Home';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import Dashboard from './Dashboard'
+import { LogActivityList } from "./list/LogActivityList";
+import { LogActivityShow } from "./show/LogActivityShow";
+import useUserPermissions from "../../hooks/useUserPermissions";
+import { PromoList } from "./list/PromoList";
+import { OrderList } from "./list/OrderList";
+import { OrderShow } from "./show/OrderShow";
+import OrderEdit from "./edit/OrderEdit";
+import { SubscriptionList } from "./list/SubscriptionList";
+import { SubscriptionShow } from "./show/SubscriptionShow";
+import { SubscriptionCreate } from "./create/SubscriptionCreate";
+import { SubscriptionEdit } from "./edit/SubscriptionEdit";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
 const AdminPanel = () => {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const token = useSelector((state) => state.auth.token);
+  const permissions = useUserPermissions();
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -144,19 +156,36 @@ const AdminPanel = () => {
             show={ProductShow}
           />
           <ResourceGuesser
+            name="subscriptions"
+            list={SubscriptionList}
+            edit={SubscriptionEdit}
+            create={SubscriptionCreate}
+            show={SubscriptionShow}
+          />
+          <ResourceGuesser
             name="categories"
             icon={CategoryIcon}
             list={CategoryList}
             edit={CategoryEdit}
             create={CategoryCreate}
             show={CategoryShow}
-          /> 
+          />
+          <ResourceGuesser
+            name="promotional_codes"
+            list={PromoList}
+          />  
           <ResourceGuesser
             name="users"
             icon={PeopleIcon}
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
+          />
+          <ResourceGuesser
+            name="orders"
+            list={OrderList}
+            edit={OrderEdit}
+            show={OrderShow}
           />
           <ResourceGuesser
             name="contacts"
@@ -171,8 +200,15 @@ const AdminPanel = () => {
             edit={MediaObjectEdit}
             create={MediaObjectCreate}
             show={MediaObjectShow}
-          />        
-
+          />
+          {permissions.includes("ROLE_SUPER_ADMIN") && 
+            <ResourceGuesser 
+              name="log_activities"
+              list={LogActivityList}
+              create={null}
+              show={LogActivityShow}
+            />
+          }
         </>
       )}
     </HydraAdmin>
