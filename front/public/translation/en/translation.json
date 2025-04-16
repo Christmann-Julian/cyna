@@ -34,13 +34,19 @@
     "topServicesTitle": "Our Trending Services",
     "descriptionTitle": "Description",
     "categoriesTitle": "Categories",
+    "subscriptionTitle" : "Our Subscriptions",
+    "subscribe": "Subscribe",
+    "questions": "Any questions?",
+    "contactUs": "Contact us",
+    "year": "year",
+    "month": "month",
     "seeMore": "See More",
     "noCategories": "No categories"
   },
   "product": {
     "noStock": "Out of stock",
     "quantity": "Quantity",
-    "buyNow": "Subscribe now",
+    "buyNow": "Buy now",
     "similaryServices": "Similar services",
     "modal": {
       "title": "Service Unavailable",
@@ -347,6 +353,7 @@
     "reference": "Order Reference:",
     "services": "Ordered Services",
     "date": "Order Date:",
+    "duration": "Duration:",
     "status": "Order Status:",
     "statusPaid": "Paid",
     "statusActive": "Active",
@@ -365,6 +372,15 @@
     "linePrice": "Unit Price",
     "lineQuantity": "Quantity",
     "linePromotionPrice": "Promotional Price",
-    "lineNoPromotion": "No promotion"
+    "lineNoPromotion": "No promotion",
+    "month": "month",
+    "cancelSubscription": "Cancel Subscription",
+    "modal": {
+        "title": "Cancel Subscription",
+        "body": "Are you sure you want to cancel this subscription? This action is irreversible and takes effect immediately.",
+        "close": "Close",
+        "confirm": "Cancel Subscription",
+        "cancelling": "Cancelling..."
+    }
   }
 }

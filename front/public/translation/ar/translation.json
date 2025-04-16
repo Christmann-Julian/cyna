@@ -37,6 +37,12 @@
     "topServicesTitle": "خدماتنا العصرية",
     "descriptionTitle": "الوصف",
     "categoriesTitle": "الفئات",
+    "subscriptionTitle" : "اشتراكاتنا",
+    "subscribe": "اشترك",
+    "questions": "أي أسئلة؟",
+    "contactUs": "اتصل بنا",
+    "year": "سنة",
+    "month": "شهر",
     "seeMore": "عرض المزيد",
     "noCategories": "لا توجد فئات"
   },
@@ -351,6 +357,7 @@
     "reference": "رقم الطلب:",
     "services": "الخدمات المطلوبة",
     "date": "تاريخ الطلب:",
+    "duration": "المدة:",
     "status": "حالة الطلب:",
     "statusPaid": "مدفوع",
     "statusActive": "نشط",
@@ -369,6 +376,15 @@
     "linePrice": "السعر الفردي",
     "lineQuantity": "الكمية",
     "linePromotionPrice": "السعر الترويجي",
-    "lineNoPromotion": "لا توجد عروض"
+    "lineNoPromotion": "لا توجد عروض",
+    "month": "شهر",
+    "cancelSubscription": "إلغاء الاشتراك",
+    "modal": {
+        "title": "إلغاء الاشتراك",
+        "body": "هل أنت متأكد أنك تريد إلغاء هذا الاشتراك؟ هذا الإجراء لا رجعة فيه وسيدخل حيز التنفيذ فورًا.",
+        "close": "إغلاق",
+        "confirm": "إلغاء الاشتراك",
+        "cancelling": "جارٍ الإلغاء..."
+    }
   }
 }

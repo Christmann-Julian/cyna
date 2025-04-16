@@ -34,13 +34,19 @@
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
         "categoriesTitle" : "Catégories",
+        "subscriptionTitle" : "Nos abonnements",
+        "subscribe": "S'abonner",
+        "questions": "Des questions ?",
+        "contactUs": "Contactez-nous",
+        "year": "An",
+        "month": "Mois",
         "seeMore": "Voir Plus",
         "noCategories": "Aucune catégorie"
     },
     "product":{
         "noStock": "En rupture de stock",
         "quantity": "Quantité",
-        "buyNow": "S'abonner maintenant",
+        "buyNow": "Acheter maintenant",
         "similaryServices" : "Services Similaires",
         "modal": {
             "title": "Service indisponible",
@@ -347,6 +353,7 @@
         "reference": "Référence de la commande :",
         "services": "Services commandés",
         "date": "Date de la commande :",
+        "duration": "Durée",
         "status": "Statut de la commande:",
         "statusPaid": "Payé",
         "statusActive": "Actif",
@@ -365,6 +372,15 @@
         "linePrice": "Prix unitaire",
         "lineQuantity": "Quantité",
         "linePromotionPrice": "Prix promotionnel",
-        "lineNoPromotion": "Aucune promotion"
+        "lineNoPromotion": "Aucune promotion",
+        "month": "mois",
+        "cancelSubscription": "Annuler l'abonnement",
+        "modal": {
+            "title": "Annuler l'abonnement",
+            "body": "Êtes-vous sûr de vouloir annuler cet abonnement ? Cette action est irréversible et à effet immédiat.",
+            "close": "Fermer",
+            "confirm": "Résilier l'abonnement",
+            "cancelling": "Résiliation..."
+        }
     }
 }

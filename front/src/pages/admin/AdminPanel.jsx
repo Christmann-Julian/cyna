@@ -40,6 +40,10 @@ import { PromoList } from "./list/PromoList";
 import { OrderList } from "./list/OrderList";
 import { OrderShow } from "./show/OrderShow";
 import OrderEdit from "./edit/OrderEdit";
+import { SubscriptionList } from "./list/SubscriptionList";
+import { SubscriptionShow } from "./show/SubscriptionShow";
+import { SubscriptionCreate } from "./create/SubscriptionCreate";
+import { SubscriptionEdit } from "./edit/SubscriptionEdit";
 
 const ENTRYPOINT = "http://127.0.0.1:8000/api";
 
@@ -140,6 +144,13 @@ const AdminPanel = () => {
             edit={ProductEdit}
             create={ProductCreate}
             show={ProductShow}
+          />
+          <ResourceGuesser
+            name="subscriptions"
+            list={SubscriptionList}
+            edit={SubscriptionEdit}
+            create={SubscriptionCreate}
+            show={SubscriptionShow}
           />
           <ResourceGuesser
             name="categories"

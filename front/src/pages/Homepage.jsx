@@ -10,6 +10,7 @@ import apiRequest from "../utils/apiRequest";
 import Loading from "./Loading";
 import ErrorPage from "./ErrorPage";
 import { Link } from "react-router-dom";
+import Subscription from "../components/Subscription";
 
 const Homepage = () => {
   const { t } = useTranslation();
@@ -84,7 +85,11 @@ const Homepage = () => {
                   alt="category image"
                 />
                 <div className="inner">
-                  <h4 className={homepage.categories[0]?.name === null ? "" : "title"}>
+                  <h4
+                    className={
+                      homepage.categories[0]?.name === null ? "" : "title"
+                    }
+                  >
                     {homepage.categories[0]?.name ?? t("homepage.noCategories")}
                   </h4>
                   <div className="button">
@@ -116,7 +121,10 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      {homepage.topProducts.length > 0 && <ProductList products={homepage.topProducts} />}
+      {homepage.topProducts.length > 0 && (
+        <ProductList products={homepage.topProducts} />
+      )}
+      <Subscription />
       <Footer />
     </>
   );

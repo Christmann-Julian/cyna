@@ -24,6 +24,7 @@ const initialState = loadFromLocalStorage() || {
   totalQuantity: 0,
   totalPrice: 0,
   promotionalCodeItems: [],
+  subscriptions: [],
 };
 
 const cartSlice = createSlice({
@@ -128,12 +129,21 @@ const cartSlice = createSlice({
       state.totalQuantity = 0;
       state.totalPrice = 0;
       state.promotionalCodeItems = [];
+      state.subscriptions = [];
+      saveToLocalStorage(state);
+    },
+    addSubscription: (state, action) => {
+      state.subscriptions = [action.payload];
+      saveToLocalStorage(state);
+    },
+    clearSubscriptions: (state) => {
+      state.subscriptions = [];
       saveToLocalStorage(state);
     },
   },
 });
 
-export const { addToCart, removeFromCart, decreaseFromCart, updateDuration, applyPromotionalCode, removePromotionalCode, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseFromCart, updateDuration, applyPromotionalCode, removePromotionalCode, clearCart, addSubscription, clearSubscriptions } = cartSlice.actions;
 export default cartSlice.reducer;
 
 const recalculateTotalWithPromotions = (state) => {

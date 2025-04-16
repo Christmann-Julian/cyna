@@ -113,7 +113,7 @@ const TotalCart = () => {
                   <li>
                     {t("cart.tax")} (20%)
                     <span>
-                      {formatPrice(cart.totalPrice * 0.2)}
+                      {formatPrice(subTotal * 0.2)}
                     </span>
                   </li>
                   <li className="last">

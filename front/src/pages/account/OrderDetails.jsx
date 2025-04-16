@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import "../../assets/css/order-details.css";
 import { formatPrice, formatDate } from "../../utils/utils";
 import { getCurrentLocale } from "../../utils/language";
+import { Modal, Button } from "react-bootstrap";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -18,6 +19,8 @@ const OrderDetails = () => {
   const token = useSelector((state) => state.auth.token);
   const { t } = useTranslation();
   const currentLocale = getCurrentLocale();
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
 
   const statusTranslations = {
     paid: t("orderDetails.statusPaid"),
@@ -73,6 +76,30 @@ const OrderDetails = () => {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    setIsCancelling(true);
+    try {
+      const response = await apiRequest(`/order/subscription/cancel`, "POST", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ orderId: id }),
+      });
+
+      if (response.error) {
+        throw new Error(response.error);
+      }
+
+      setOrder((prevOrder) => ({ ...prevOrder, status: "terminated" }));
+      setShowCancelModal(false);
+    } catch (error) {
+      console.error("Error cancelling subscription:", error);
+    } finally {
+      setIsCancelling(false);
+    }
+  };
+
   if (error) {
     return <div>Error : {error}</div>;
   }
@@ -97,7 +124,11 @@ const OrderDetails = () => {
             <thead>
               <tr>
                 <th>{t("orderDetails.lineProductName")}</th>
-                <th>{t("orderDetails.lineQuantity")}</th>
+                <th>
+                {order.reference.startsWith("sub")
+                  ? t("orderDetails.duration")
+                  : t("orderDetails.lineQuantity")}
+                </th>
                 <th>{t("orderDetails.linePrice")}</th>
                 <th>{t("orderDetails.linePromotionPrice")}</th>
               </tr>
@@ -106,7 +137,7 @@ const OrderDetails = () => {
               {order.orderLines.map((line, index) => (
                 <tr key={index}>
                   <td>{line.name}</td>
-                  <td>{line.quantity}</td>
+                  <td>{line.quantity}{order.reference.startsWith("sub") && " " + t('orderDetails.month')}</td>
                   <td>{formatPrice(line.price)}</td>
                   <td>{line.promotionPrice ? formatPrice(line.promotionPrice) : t("orderDetails.lineNoPromotion")}</td>
                 </tr>
@@ -121,11 +152,43 @@ const OrderDetails = () => {
 
           <button 
             onClick={handleDownloadInvoice} 
-            className="btn btn-primary mt-3 mb-2"
+            className="btn btn-primary mt-3 mb-2 me-2"
             disabled={isDownloading}
           >
             {isDownloading ? t("orderDetails.downloadProgress") : t("orderDetails.download")}
           </button>
+
+          {order.reference.startsWith("sub") && order.status === "active" && (
+            <>
+              <button
+                onClick={() => setShowCancelModal(true)}
+                className="btn btn-danger mt-3 mb-2"
+              >
+                {t("orderDetails.cancelSubscription")}
+              </button>
+
+              <Modal show={showCancelModal} onHide={() => setShowCancelModal(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>{t("orderDetails.modal.title")}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {t("orderDetails.modal.body")}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={() => setShowCancelModal(false)}>
+                    {t("orderDetails.modal.close")}
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={handleCancelSubscription}
+                    disabled={isCancelling}
+                  >
+                    {isCancelling ? t("orderDetails.modal.cancelling") : t("orderDetails.modal.confirm")}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </>
+          )}
         </div>
         <Footer />
     </>
