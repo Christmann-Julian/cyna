@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultTheme } from "react-admin";
+import { defaultTheme, CustomRoutes } from "react-admin";
 import { HydraAdmin, ResourceGuesser } from "@api-platform/admin";
 import { ProductList } from "./list/ProductList";
 import UserEdit from "./edit/UserEdit";
@@ -10,7 +10,6 @@ import { ProductShow } from "./show/ProductShow";
 import { UserList } from "./list/UserList";
 import { useState } from "react";
 import { Navigate, Route } from "react-router-dom";
-import { CustomRoutes } from "react-admin";
 import {
   fetchHydra as baseFetchHydra,
   hydraDataProvider as baseHydraDataProvider,
@@ -33,6 +32,12 @@ import { MediaObjectShow } from "./show/MediaObjectShow";
 import { ContactList } from "./list/ContactList";
 import { useSelector } from "react-redux";
 import CustomLayout from "./CustomLayout"
+import PeopleIcon from '@mui/icons-material/People'
+import CategoryIcon from '@mui/icons-material/Category';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import HomeIcon from '@mui/icons-material/Home';
+import PermMediaIcon from '@mui/icons-material/PermMedia';
+import Dashboard from './Dashboard'
 import { LogActivityList } from "./list/LogActivityList";
 import { LogActivityShow } from "./show/LogActivityShow";
 import useUserPermissions from "../../hooks/useUserPermissions";
@@ -131,8 +136,13 @@ const AdminPanel = () => {
         </CustomRoutes>
       ) : (
         <>
+          <CustomRoutes>
+              <Route  path="/dashboard"  element= {<Dashboard/>}/>
+          </CustomRoutes>
+
           <ResourceGuesser
             name="homepages"
+            icon={HomeIcon}
             list={HomepageList}
             edit={HomepageEdit}
             create={HomepageCreate}
@@ -154,6 +164,7 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="categories"
+            icon={CategoryIcon}
             list={CategoryList}
             edit={CategoryEdit}
             create={CategoryCreate}
@@ -165,6 +176,7 @@ const AdminPanel = () => {
           />  
           <ResourceGuesser
             name="users"
+            icon={PeopleIcon}
             list={UserList}
             edit={UserEdit}
             create={UserCreate}
@@ -177,11 +189,13 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="contacts"
+            icon={ContactsIcon}
             list={ContactList}
             create={null}
           />
           <ResourceGuesser 
-            name="media_objects" 
+            name="media_objects"
+            icon={PermMediaIcon} 
             list={MediaObjectList} 
             edit={MediaObjectEdit}
             create={MediaObjectCreate}
