@@ -122,6 +122,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+    #[Groups(['user:read'])]
+    #[ORM\Column]
+    private ?bool $isPrenium = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $subscriptionId = null;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
@@ -377,6 +384,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPrenium(): ?bool
+    {
+        return $this->isPrenium;
+    }
+
+    public function getIsPrenium(): ?bool
+    {
+        return $this->isPrenium;
+    }
+
+    public function setIsPrenium(bool $isPrenium): static
+    {
+        $this->isPrenium = $isPrenium;
+
+        return $this;
+    }
+
+    public function getSubscriptionId(): ?string
+    {
+        return $this->subscriptionId;
+    }
+
+    public function setSubscriptionId(?string $subscriptionId): static
+    {
+        $this->subscriptionId = $subscriptionId;
 
         return $this;
     }

@@ -11,13 +11,11 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { getCurrentLocale } from "../../utils/language";
 import { Modal, Button } from "react-bootstrap";
-import { calculettePromotions, formatPrice } from "../../utils/utils";
-import authProvider from "../../utils/authProvider";
+import { formatPrice } from "../../utils/utils";
 
-const Checkout = () => {
+const CheckoutSubscription = () => {
   const { t } = useTranslation();
   const cart = useSelector((state) => state.cart);
-  const [userInfo, setUserInfo] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [fetchAddressesLoading, setFetchAddressesLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
@@ -79,9 +77,6 @@ const Checkout = () => {
     };
 
     fetchPaymentMethod();
-
-    authProvider.getUserInfo(token).then(setUserInfo).catch(console.error);
-    console.log("userInfo", userInfo);
   }, []);
 
   const handlePayment = async () => {
@@ -97,7 +92,7 @@ const Checkout = () => {
 
     if (isComplete) {
       try {
-        const response = await apiRequest("/payment/stripe", "POST", {
+        const response = await apiRequest("/subscription/stripe", "POST", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -105,11 +100,10 @@ const Checkout = () => {
           body: JSON.stringify({
             addressId: selectedAddress.id,
             paymentMethodId: selectedPaymentMethod.id,
-            products: cart.items,
-            amount: cart.totalPrice * 100,
+            subscription: cart.subscriptions[0],
+            amount: cart.subscriptions[0]?.price,
             currency: "eur",
             locale: currentLocale,
-            promotionalCodes: cart.promotionalCodeItems,
           }),
         });
 
@@ -135,12 +129,7 @@ const Checkout = () => {
 
   const handleClose = () => setShow(false);
 
-  const subTotal = cart.items.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
-  const prenium = (userInfo?.isPrenium ? subTotal * 0.05 : 0);
+  const subscription = cart.subscriptions[0]; // Récupère la seule subscription
 
   return (
     <>
@@ -161,7 +150,7 @@ const Checkout = () => {
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="order-summary">
-                <form className="mb-3">
+              <form className="mb-3">
                   <h3>{t("checkout.summaryAddress")}</h3>
                   {fetchAddressesLoading ? (
                     <LoadingSpinner height={"100px"} />
@@ -233,41 +222,17 @@ const Checkout = () => {
                   )}
                   <h3 className="mt-3">{t("checkout.summary")}</h3>
                   <ul>
-                    {cart.items.map((item, index) => (
-                      <li key={index}>
-                        {item.name}{" "}
-                        {/* - {item.duration} {t("checkout.month")} */} -{" "}
-                        {t("checkout.quantity")} : {item.quantity}
-                        <span>{item.total}€</span>
+                      <li>
+                        {subscription.title}{" - "}
+                        {subscription.duration}/{t("checkout.month")}
+                        <span>{formatPrice(subscription.price)}</span>
                       </li>
-                    ))}
-                    <li className="last"></li>
                   </ul>
-                  <ul>
-                    <li>
-                      {t("checkout.subTotal")}
-                      <span>
-                        {formatPrice(subTotal * 0.8)}
-                      </span>
-                    </li>
-                    <li>
-                      {t("checkout.promotion")}
-                      <span>
-                      {formatPrice(
-                        calculettePromotions(cart, subTotal) + prenium
-                      )}
-                      </span>
-                    </li>
-                    <li>
-                      {t("checkout.tax")}(20%)
-                      <span>
-                        {formatPrice(subTotal * 0.2)}
-                      </span>
-                    </li>
+                    <ul>
                     <li className="last">
                       {t("checkout.total")}
                       <span>
-                        {formatPrice(cart.totalPrice - prenium)}
+                        {formatPrice(subscription.price)}
                       </span>
                     </li>
                   </ul>
@@ -311,4 +276,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckoutSubscription;

@@ -3,6 +3,11 @@
   color: var(--white-color);
 }
 
+.order-details-container .btn-danger {
+  background-color: #dc3545;
+  color: var(--white-color);
+}
+
 .tabs {
   display: flex;
   border-bottom: 2px solid #ddd;

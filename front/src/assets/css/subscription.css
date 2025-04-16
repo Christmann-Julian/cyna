@@ -1,0 +1,39 @@
+.subscription .pricing-card {
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.subscription .card-body {
+    margin-top: 20px;
+}
+.subscription .pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.subscription .btn-subscribe {
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.subscription .price {
+    font-size: 3rem;
+    font-weight: 700;
+}
+.subscription .period {
+    font-size: 1rem;
+    color: #6c757d;
+}
+.subscription .feature-list {
+    padding-left: 0;
+}
+.subscription .feature-list li {
+    padding: 8px 0;
+    list-style: none;
+}
+.subscription .feature-list li:before {
+    content: "✓";
+    color: #28a745;
+    margin-right: 8px;
+    font-weight: bold;
+}

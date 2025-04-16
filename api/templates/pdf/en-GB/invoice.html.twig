@@ -174,6 +174,9 @@
     <div class="receipt-date">
         <div><strong>Reference</strong>: {{ order.reference }}</div>
         <div><strong>Date</strong>: {{ order.date|date('d/m/Y') }}</div>
+        {% if order.reference starts with 'sub' %}
+            <div><strong>Valid Until</strong>: {{ order.date|date_modify('+' ~ order.orderLines[0].quantity ~ ' months')|date('d/m/Y') }}</div>
+        {% endif %}
     </div>
     
     <table>
@@ -189,11 +192,19 @@
         <tbody>
             {% for line in order.orderLines %}
                 <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ line.name }}</td>
-                    <td>{{ line.quantity }}</td>
-                    <td>{{ line.price|number_format(2, '.', ',') }} €</td>
-                    <td>{{ (line.price * line.quantity)|number_format(2, '.', ',') }} €</td>
+                    {% if order.reference starts with 'sub' %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}/month</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price)|number_format(2, '.', ',') }} €</td>
+                    {% else %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.quantity }}</td>
+                        <td>{{ line.price|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (line.price * line.quantity)|number_format(2, '.', ',') }} €</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

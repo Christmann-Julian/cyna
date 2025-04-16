@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use Dompdf\Dompdf;
+use Stripe\Stripe;
 use Dompdf\Options;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -82,5 +84,51 @@ class OrderController extends AbstractController
         krsort($groupedOrders);
 
         return new JsonResponse($groupedOrders, Response::HTTP_OK);
+    }
+
+    #[Route('/api/order/subscription/cancel', name: 'api_subscription_cancel', methods: ['POST'])]
+    public function cancelSubscription(Request $request): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $data = json_decode($request->getContent(), true);
+        $data = json_decode($data, true);
+
+        $orderId = $data['orderId'] ?? null;
+
+        if (!$orderId) {
+            return new JsonResponse(['error' => 'Order ID is required'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $order = $this->entityManager->getRepository(Order::class)->find($orderId);
+
+        if (!$order || $order->getUser() !== $user) {
+            return new JsonResponse(['error' => 'Order not found or access denied'], Response::HTTP_NOT_FOUND);
+        }
+
+        if (!$user->getSubscriptionId()) {
+            return new JsonResponse(['error' => 'No active subscription found'], Response::HTTP_BAD_REQUEST);
+        }
+
+        Stripe::setApiKey($this->getParameter('stripe_private_key'));
+
+        try {
+            $subscription = \Stripe\Subscription::retrieve($user->getSubscriptionId());
+            $subscription->cancel();
+
+            $user->setSubscriptionId(null);
+            $user->setIsPrenium(false);
+            $this->entityManager->persist($user);
+
+            $order->setStatus('terminated');
+            $this->entityManager->flush();
+
+            return new JsonResponse(['message' => 'Subscription canceled successfully'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
