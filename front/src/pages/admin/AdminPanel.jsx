@@ -37,6 +37,11 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import HomeIcon from '@mui/icons-material/Home';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import SellIcon from '@mui/icons-material/Sell';
+import MailIcon from '@mui/icons-material/Mail';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import HistoryIcon from '@mui/icons-material/History';
 import Dashboard from './Dashboard'
 import { LogActivityList } from "./list/LogActivityList";
 import { LogActivityShow } from "./show/LogActivityShow";
@@ -128,6 +133,7 @@ const AdminPanel = () => {
       theme={lightTheme}
       darkTheme={darkTheme}
       layout={CustomLayout}
+      dashboard={Dashboard}
     >
       {redirectToLogin ? (
         <CustomRoutes>
@@ -150,6 +156,7 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="products"
+            icon={BookmarkIcon}
             list={ProductList}
             edit={ProductEdit}
             create={ProductCreate}
@@ -157,6 +164,7 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="subscriptions"
+            icon={ContactsIcon}
             list={SubscriptionList}
             edit={SubscriptionEdit}
             create={SubscriptionCreate}
@@ -172,6 +180,7 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="promotional_codes"
+            icon={SellIcon}
             list={PromoList}
           />  
           <ResourceGuesser
@@ -183,13 +192,14 @@ const AdminPanel = () => {
           />
           <ResourceGuesser
             name="orders"
+            icon={ShoppingBagIcon}
             list={OrderList}
             edit={OrderEdit}
             show={OrderShow}
           />
           <ResourceGuesser
             name="contacts"
-            icon={ContactsIcon}
+            icon={MailIcon}
             list={ContactList}
             create={null}
           />
@@ -204,6 +214,7 @@ const AdminPanel = () => {
           {permissions.includes("ROLE_SUPER_ADMIN") && 
             <ResourceGuesser 
               name="log_activities"
+              icon={HistoryIcon}
               list={LogActivityList}
               create={null}
               show={LogActivityShow}

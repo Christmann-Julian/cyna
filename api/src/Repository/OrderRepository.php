@@ -16,28 +16,34 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    //    /**
-    //     * @return Order[] Returns an array of Order objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getSalesPerDay(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('DATE(o.date) as date, SUM(o.total) as sales')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC');
 
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAverageCart(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('DATE(o.date) as date, MIN(o.total) as cartMin, AVG(o.total) as cartAverage, MAX(o.total) as cartMax')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getCategorySales(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('ol.category as category, SUM(ol.quantity * ol.price) as value')
+            ->join('o.orderLines', 'ol')
+            ->groupBy('category')
+            ->orderBy('value', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

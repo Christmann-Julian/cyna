@@ -12,6 +12,13 @@
   object-fit: cover;
   z-index: -1;
 }
+.categories-grid .inner {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--black-color);
+  border-radius: .5rem;
+  padding: 12px;
+  text-align: center;
+}
 .categories-grid .big-content .inner {
   position: absolute;
   left: 50%;
@@ -20,7 +27,6 @@
 }
 .categories-grid .big-content .title {
   font-size: 28px;
-  margin-bottom: 20px;
   font-weight: 700;
   text-transform: capitalize;
   line-height: 37px;
@@ -34,15 +40,13 @@
   position: relative;
 }
 .categories-grid .small-content .inner {
-  padding: 30px;
-  text-align: right;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .categories-grid .small-content .title {
   font-size: 18px;
-  margin-bottom: 20px;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -55,9 +59,9 @@
 }
 .categories-grid .button .btn {
   background: transparent;
-  padding: 0;
+  padding: 5px;
   color: var(--black-color);
-  border-bottom: 2px solid var(--black-color);
+  border: 1.5px solid var(--black-color);
   font-size: 13px;
 }
 .categories-grid .button .btn:hover {

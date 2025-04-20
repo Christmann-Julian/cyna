@@ -67,6 +67,9 @@ class OrderLine
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $orderRef = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,6 +131,18 @@ class OrderLine
     public function setOrderRef(?Order $orderRef): static
     {
         $this->orderRef = $orderRef;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

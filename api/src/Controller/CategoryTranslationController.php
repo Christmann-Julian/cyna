@@ -21,7 +21,7 @@ class CategoryTranslationController extends AbstractController
         $imagePath = $request->getSchemeAndHttpHost() . '/media/';
 
         $categoryTranslation = $this->categoryTranslationRepository->findOneBy([
-            'category' => $id,
+            'id' => $id,
             'locale' => $locale
         ]);
 
