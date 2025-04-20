@@ -154,11 +154,23 @@ class PaymentController extends AbstractController
 
             foreach ($products as $product) {
                 $productTranslation = $productTranslationRepository->find($product['id']);
+                $category = $productTranslation->getProduct()->getCategory();
+
+                if (!$category) {
+                    $categoryName = 'no category';
+                } else {
+                    $categoryTranslation = $category->getCategoryTranslations()->filter(function ($translation) use ($locale) {
+                        return $translation->getLocale()->getCode() === $locale;
+                    })->first();
+
+                    $categoryName = $categoryTranslation ? $categoryTranslation->getName() : $category->getCategoryTranslations()->first()->getName();
+                }
 
                 $orderLine = new OrderLine();
                 $orderLine->setName($productTranslation->getName());
                 $orderLine->setQuantity($product['quantity']);
                 $orderLine->setPrice($productTranslation->getProduct()->getPrice());
+                $orderLine->setCategory($categoryName);
 
                 if ($productTranslation->getProduct()->isPromotionActive()) {
                     $orderLine->setPromotionPrice($productTranslation->getProduct()->getPromotionPrice());
@@ -314,6 +326,7 @@ class PaymentController extends AbstractController
 
             $orderLine = new OrderLine();
             $orderLine->setName($subscription['title']);
+            $orderLine->setCategory('Subscription');
             $orderLine->setQuantity($subscription['duration']);
             $orderLine->setPrice($subscription['price']);
             $orderLine->setOrderRef($order);
