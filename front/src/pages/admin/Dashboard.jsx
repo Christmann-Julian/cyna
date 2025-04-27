@@ -14,28 +14,49 @@ import {
   Cell,
 } from "recharts";
 import apiRequest from "../../utils/apiRequest";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const dataProvider = useDataProvider();
   const [salesData, setSalesData] = useState([]);
   const [averageCartData, setAverageCartData] = useState([]);
   const [categorySalesData, setCategorySalesData] = useState([]);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
         const { data: sales, error: salesError } = await apiRequest(
-          "/statistics/sales-per-day"
+          "/statistics/sales-per-day",
+          "GET",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (!salesError) setSalesData(sales);
 
         const { data: averageCart, error: averageCartError } = await apiRequest(
-          "/statistics/average-cart"
+          "/statistics/average-cart",
+          "GET",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (!averageCartError) setAverageCartData(averageCart);
 
         const { data: categorySales, error: categorySalesError } =
-          await apiRequest("/statistics/category-sales");
+          await apiRequest("/statistics/category-sales", "GET", {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
         if (!categorySalesError) setCategorySalesData(categorySales);
       } catch (error) {
         console.error("Error fetching statistics:", error);
@@ -58,9 +79,7 @@ const Dashboard = () => {
               <BarChart data={salesData}>
                 <XAxis dataKey="date" />
                 <YAxis />
-                <Tooltip
-                  formatter={(value) => `${value}€`}
-                />
+                <Tooltip formatter={(value) => `${value}€`} />
                 <Bar dataKey="sales" fill="#8884d8" />
               </BarChart>
             </ResponsiveContainer>
@@ -72,9 +91,7 @@ const Dashboard = () => {
               <BarChart data={averageCartData}>
                 <XAxis dataKey="date" />
                 <YAxis />
-                <Tooltip
-                  formatter={(value) => `${value}€`}
-                />
+                <Tooltip formatter={(value) => `${value}€`} />
                 <Legend />
                 <Bar dataKey="cartMin" name="Cart Min" fill="#FF8042" />
                 <Bar dataKey="cartAverage" name="Cart Average" fill="#00C49F" />
