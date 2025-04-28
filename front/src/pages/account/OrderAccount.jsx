@@ -166,7 +166,7 @@ const OrderAccount = () => {
 
       {activeTab === "secondPage" && (
         <div className="second-page">
-          <div className="filters">
+          <div className="filters" style={{ flexWrap: "wrap" }}>
             <select
               value={filterYearSecondPage}
               onChange={(e) => setFilterYearSecondPage(e.target.value)}

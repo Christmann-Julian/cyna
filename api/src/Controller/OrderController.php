@@ -5,6 +5,7 @@ namespace App\Controller;
 use Dompdf\Dompdf;
 use Stripe\Stripe;
 use Dompdf\Options;
+use App\Entity\User;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class OrderController extends AbstractController
 {
@@ -20,18 +23,39 @@ class OrderController extends AbstractController
     }
 
     #[Route('/api/order/{locale}/{id}/download', name: 'api_order_download', methods: ['GET'])]
-    public function downloadOrderPdf(int $id, string $locale): Response
+    public function downloadOrderPdf(int $id, string $locale, Request $request, JWTEncoderInterface $jwtEncoder): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        $token = $request->query->get('token');
+
+        if (!$token) {
+            $this->denyAccessUnlessGranted('ROLE_USER');
+        } else {
+            try {
+                $decodedToken = $jwtEncoder->decode($token);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
+            }
+
+            $userId = $decodedToken['id'] ?? null;
+            $user = $this->entityManager->getRepository(User::class)->find($userId);
+
+            if (!$user) {
+                return new JsonResponse(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
+            }
+        }
+
+        if (!$user) {
+            $user = $this->getUser();
+        }
 
         /** @var Order $order */
         $order = $this->entityManager->getRepository(Order::class)->find($id);
 
-        if (!$order || $order->getUser() !== $this->getUser()) {
+        if (!$order) {
             return new JsonResponse(['error' => 'Order not found'], Response::HTTP_NOT_FOUND);
         }
 
-        if ($order->getUser() !== $this->getUser()) {
+        if ($order->getUser() !== $user) {
             return new JsonResponse(['error' => 'Access denied'], Response::HTTP_FORBIDDEN);
         }
 
@@ -41,7 +65,7 @@ class OrderController extends AbstractController
 
         $html = $this->renderView('pdf/' . $locale . '/invoice.html.twig', [
             'order' => $order,
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
 
         $dompdf->loadHtml($html);

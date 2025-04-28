@@ -237,7 +237,7 @@ const ProductGrid = () => {
                     </div>
                   </div>
                 </div>
-                <div className="single-widget category">
+                {/* <div className="single-widget category">
                   <h3 className="title">Caractéristiques</h3>
                   <ul className="check-box-list">
                     <li>
@@ -259,7 +259,7 @@ const ProductGrid = () => {
                       </label>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-lg-9 col-md-8 col-12">
