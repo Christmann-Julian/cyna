@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../assets/css/product-area.css";
@@ -22,7 +22,7 @@ const ProductGrid = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(8);
   const [by, setBy] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 9999]);
+  const [priceRange, setPriceRange] = useState([0, 15000]);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const ProductGrid = () => {
     const by = searchParams.get("by") || "";
     const category = searchParams.get("category") || "";
     const priceMin = parseInt(searchParams.get("priceMin"), 10) || 0;
-    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 9999;
+    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 15000;
 
     const fetchProducts = async () => {
       let url = `/search?q=${searchTerm}&locale=${locale}&page=${page}&limit=${limit}`;
@@ -50,7 +50,7 @@ const ProductGrid = () => {
         url += `&priceMin=${priceMin}`;
       }
 
-      if (priceMax && priceMax !== 9999) {
+      if (priceMax && priceMax !== 15000) {
         url += `&priceMax=${priceMax}`;
       }
 
@@ -71,7 +71,7 @@ const ProductGrid = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const priceMin = parseInt(searchParams.get("priceMin"), 10) || 0;
-    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 9999;
+    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 15000;
 
     setPriceRange([Number(priceMin), Number(priceMax)]);
   }, []);
@@ -79,7 +79,7 @@ const ProductGrid = () => {
   const fetchCategories = async () => {
     setCategoriesLoading(true);
     const { data, error: errorCode } = await apiRequest(
-      `/${locale}/categories`,
+      `/${locale}/categories/filter`,
       "GET",
       {
         headers: {
@@ -142,25 +142,34 @@ const ProductGrid = () => {
     window.dispatchEvent(new PopStateEvent("popstate"));
   };
 
+  const debounceTimer = useRef(null);
+
   const handleSliderChange = (values) => {
     setPriceRange(values);
-    const searchParams = new URLSearchParams(location.search);
-    if (values[0] === 0 && values[1] === 9999) {
-      searchParams.delete("priceMin");
-      searchParams.delete("priceMax");
-    } else if (values[0] === 0) {
-      searchParams.delete("priceMin");
-      searchParams.set("priceMax", values[1]);
-    } else if (values[1] === 9999) {
-      searchParams.set("priceMin", values[0]);
-      searchParams.delete("priceMax");
-    } else {
-      searchParams.set("priceMin", values[0]);
-      searchParams.set("priceMax", values[1]);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
     }
-    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    debounceTimer.current = setTimeout(() => {
+      const searchParams = new URLSearchParams(location.search);
+      if (values[0] === 0 && values[1] === 15000) {
+        searchParams.delete("priceMin");
+        searchParams.delete("priceMax");
+      } else if (values[0] === 0) {
+        searchParams.delete("priceMin");
+        searchParams.set("priceMax", values[1]);
+      } else if (values[1] === 15000) {
+        searchParams.set("priceMin", values[0]);
+        searchParams.delete("priceMax");
+      } else {
+        searchParams.set("priceMin", values[0]);
+        searchParams.set("priceMax", values[1]);
+      }
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+      window.history.pushState({}, "", newUrl);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    }, 300);
   };
 
   return (
@@ -210,7 +219,8 @@ const ProductGrid = () => {
                         thumbClassName="example-thumb"
                         trackClassName="example-track"
                         min={0}
-                        max={9999}
+                        max={15000}
+                        step={100}
                         value={priceRange}
                         onChange={handleSliderChange}
                         renderTrack={(props, state) => {

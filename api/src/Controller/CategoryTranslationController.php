@@ -29,7 +29,7 @@ class CategoryTranslationController extends AbstractController
             return new JsonResponse(['error' => 'Category not found'], 404);
         }
 
-        $products = $this->productTranslationRepository->findProdyuctByLocaleAndCategory($locale, $categoryTranslation->getId());
+        $products = $this->productTranslationRepository->findProdyuctByLocaleAndCategory($locale, $categoryTranslation->getCategory()?->getId());
 
         return new JsonResponse([
             'id' => $categoryTranslation->getId(),
@@ -69,6 +69,32 @@ class CategoryTranslationController extends AbstractController
         $categories = array_map(function ($category) {
             return [
                 'id' => $category->getId(),
+                'locale' => $category->getLocale()->getCode(),
+                'name' => $category->getName(),
+                'description' => $category->getDescription(),
+                'url_image' => $category->getCategory()->getImage()?->getFilePath(),
+            ];
+        }, $categories);
+
+        return new JsonResponse($categories);
+    }
+
+    #[Route('api/{locale}/categories/filter', name: 'get_all_category_filter', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$'])]
+    public function getAllCategoryFilter(string $locale): JsonResponse
+    {
+        $categories = $this->categoryTranslationRepository->findBy(['locale' => $locale]);
+
+        if (!$categories) {
+            return new JsonResponse(['error' => 'No categories found for this locale'], 404);
+        }
+
+        usort($categories, function ($a, $b) {
+            return $a->getCategory()->getPriority() <=> $b->getCategory()->getPriority();
+        });
+
+        $categories = array_map(function ($category) {
+            return [
+                'id' => $category->getCategory()?->getId(),
                 'locale' => $category->getLocale()->getCode(),
                 'name' => $category->getName(),
                 'description' => $category->getDescription(),

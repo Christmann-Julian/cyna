@@ -39,7 +39,7 @@ class ProductTranslationController extends AbstractController
         $similarProducts = [];
         foreach ($products as $similarProduct) {
             $similarProducts[] = [
-                'id' => $similarProduct->getProduct()->getId(),
+                'id' => $similarProduct->getId(),
                 'locale' => $similarProduct->getLocale()->getCode(),
                 'name' => $similarProduct->getName(),
                 'price' => $similarProduct->getProduct()->getPrice(),

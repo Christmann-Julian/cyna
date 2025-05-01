@@ -61,7 +61,7 @@ class SearchController extends AbstractController
 
         $response = array_map(function ($product) use ($imagePath) {
             return [
-                'id' => $product->getProduct()->getId(),
+                'id' => $product->getId(),
                 'locale' => $product->getLocale()->getCode(),
                 'name' => $product->getName(),
                 'price' => $product->getProduct()->getPrice(),

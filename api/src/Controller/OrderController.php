@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class OrderController extends AbstractController
 {
@@ -26,6 +25,8 @@ class OrderController extends AbstractController
     public function downloadOrderPdf(int $id, string $locale, Request $request, JWTEncoderInterface $jwtEncoder): Response
     {
         $token = $request->query->get('token');
+
+        $user = null;
 
         if (!$token) {
             $this->denyAccessUnlessGranted('ROLE_USER');
