@@ -2,32 +2,129 @@
 
 namespace App\Entity;
 
-use App\Repository\HomepageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Image;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\HomepageRepository;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Parameter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['homepage:read']],
+    denormalizationContext: ['groups' => ['homepage:create', 'homepage:update']],
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(
+            routeName: 'get_homepage',
+            openapi: new Operation(
+                tags: ['Homepage'],
+                summary: 'Get a homepage by Locale',
+                parameters: [
+                    new Parameter(
+                        name: 'locale',
+                        in: 'path',
+                        required: true,
+                        schema: ['type' => 'string'],
+                        description: 'The code of the locale',
+                    ),
+                ],
+                responses: [
+                    '200' => [
+                        'description' => 'Product translation retrieved successfully',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => ['type' => 'object'],
+                                'example' => [
+                                    'id' => 0,
+                                    'description' => 'string',
+                                    'locale' => 'string',
+                                    'slides' => [
+                                        [
+                                            'id' => 0,
+                                            'title' => 'string',
+                                            'url_image' => 'string'
+                                        ]
+                                    ],
+                                    'categories' => [
+                                        [
+                                            'id' => 0,
+                                            'name' => 'string',
+                                            'url_image' => 'string',
+                                        ]
+                                    ],
+                                    'top_products' => [
+                                        [
+                                            'id' => 0,
+                                            'name' => 'string',
+                                            'url_image' => 'string',
+                                            'price' => 0.0,
+                                        ]
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ),
+        ),
+    ],
+)]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'text', 'locale'])]
 #[ORM\Entity(repositoryClass: HomepageRepository::class)]
 class Homepage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups([
+        'homepage:read'
+    ])]
     private ?int $id = null;
 
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2000)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 5)]
+    #[ORM\Column(length: 5)]
+    private ?string $locale = null;
+
     /**
-     * @var Collection<int, Image>
+     * @var Collection<int, Slide>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'homepage')]
-    private Collection $images;
+    #[Groups([
+        'homepage:read', 'homepage:create', 'homepage:update'
+    ])]
+    #[ORM\OneToMany(targetEntity: Slide::class, mappedBy: 'homepage', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $slides;
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
+        $this->slides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,30 +144,42 @@ class Homepage
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImages(): Collection
+    public function getLocale(): ?string
     {
-        return $this->images;
+        return $this->locale;
     }
 
-    public function addImage(Image $image): static
+    public function setLocale(string $locale): static
     {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setHomepage($this);
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slide>
+     */
+    public function getSlides(): Collection
+    {
+        return $this->slides;
+    }
+
+    public function addSlide(Slide $slide): static
+    {
+        if (!$this->slides->contains($slide)) {
+            $this->slides->add($slide);
+            $slide->setHomepage($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Image $image): static
+    public function removeSlide(Slide $slide): static
     {
-        if ($this->images->removeElement($image)) {
+        if ($this->slides->removeElement($slide)) {
             // set the owning side to null (unless already changed)
-            if ($image->getHomepage() === $this) {
-                $image->setHomepage(null);
+            if ($slide->getHomepage() === $this) {
+                $slide->setHomepage(null);
             }
         }
 

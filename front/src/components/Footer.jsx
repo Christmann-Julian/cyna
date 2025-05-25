@@ -30,13 +30,13 @@ const Footer = () => {
       </div>
       <ul className="list-inline">
         <li className="list-inline-item">
-          <Link to="/">{t("footer.terms-condition")}</Link>
+          <Link to="/cgu">{t("footer.terms-condition")}</Link>
         </li>
         <li className="list-inline-item">
-          <Link to="/mentions-legales">{t("footer.legal-notices")}</Link>
+          <Link to="/legal-notice">{t("footer.legal-notices")}</Link>
         </li>
         <li className="list-inline-item">
-          <Link to="/">{t("footer.contact")}</Link>
+          <Link to="/contact">{t("footer.contact")}</Link>
         </li>
       </ul>
       <p className="copyright">Copyright Cyna © 2024</p>

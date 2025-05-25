@@ -1,0 +1,49 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 350px);
+  width: 100%;
+}
+
+.loading-container .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+}
+
+.loading-container .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.loading-container .spinner {
+  --d: 35px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  color: var(--main-color);
+  box-shadow: calc(1 * var(--d)) calc(0 * var(--d)) 0 0,
+    calc(0.707 * var(--d)) calc(0.707 * var(--d)) 0 1.1px,
+    calc(0 * var(--d)) calc(1 * var(--d)) 0 2.2px,
+    calc(-0.707 * var(--d)) calc(0.707 * var(--d)) 0 3.4px,
+    calc(-1 * var(--d)) calc(0 * var(--d)) 0 4.5px,
+    calc(-0.707 * var(--d)) calc(-0.707 * var(--d)) 0 5.6px,
+    calc(0 * var(--d)) calc(-1 * var(--d)) 0 6.7px;
+  animation: spinner 1s infinite steps(8);
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(1turn);
+  }
+}

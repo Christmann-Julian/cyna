@@ -1,0 +1,119 @@
+.shop-sidebar .single-widget {
+  margin-top: 30px;
+  background: #f6f7fb;
+  padding: 30px;
+}
+.shop-sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.shop-sidebar .single-widget:first-child {
+  margin-top: 0;
+}
+.shop-sidebar .single-widget .title {
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-bottom: 25px;
+  display: block;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+.shop .range .price-filter {
+  display: block;
+  margin-top: 20px;
+}
+.shop .price-filter .horizontal-slider {
+  width: 100%;
+  height: 25px;
+  margin: 10px 0;
+}
+.shop .price-filter .example-track {
+  background: #ddd;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.shop .price-filter .example-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  border-radius: 50%;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-top: 3px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.shop .price-filter .example-track.example-track-1 {
+  background: #000;
+}
+.shop .check-box-list {
+  margin-top: 15px;
+}
+.shop .check-box-list li {
+  margin-bottom: 5px;
+}
+.shop .check-box-list li:last-child {
+  margin: 0;
+}
+.shop .check-box-list li label input {
+  display: inline-block;
+  margin-right: 6px;
+  position: relative;
+  top: 1px;
+}
+.shop .check-box-list li label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  cursor: pointer;
+}
+.shop .check-box-list .count {
+  margin-left: 5px;
+  color: #666;
+}
+.shop-sidebar .category-list {
+  margin-top: 10px;
+}
+.shop-sidebar .category-list li {
+  margin-bottom: 10px;
+  color: #666;
+  font-weight: 400;
+  font-size: 14px;
+}
+.shop-sidebar .category-list li:last-child {
+  margin-bottom: 0px;
+}
+.shop-sidebar .category-list li:hover {
+  color: var(--main-color);
+  cursor: pointer;
+}
+.shop-sidebar .category-list li a:hover {
+  color: var(--main-color);
+}
+.shop .shop-top {
+  clear: both;
+  background: #f6f7fb;
+  padding: 20px;
+}
+.shop .single-shorter {
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 10px 10px 0;
+}
+.shop .single-shorter label {
+  float: left;
+  margin: 5px 10px 0 0;
+  font-weight: 500;
+}
+.shop .single-shorter select {
+  width: 200px;
+}

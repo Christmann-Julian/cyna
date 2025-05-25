@@ -5,6 +5,9 @@ import { initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import App from './App.jsx'
+import Loading from './pages/Loading.jsx'
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 i18next
   .use(HttpApi)
@@ -24,15 +27,15 @@ i18next
 })
 
 const loadingMarkup = (
-  <div className="py-4 text-center">
-    <h3>Loading..</h3>
-  </div>
+  <Loading />
 )
 
 createRoot(document.getElementById('root')).render(
-  <Suspense fallback={loadingMarkup}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Suspense>,
+  <Provider store={store}>
+      <Suspense fallback={loadingMarkup}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Suspense>
+  </Provider>
 )

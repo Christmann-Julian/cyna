@@ -1,29 +1,390 @@
 {
-    "navbar": {
-        "input-search": "البحث",
-        "languages": "اللغات",
-        "home": "الصفحة الرئيسية",
-        "categories": "الفئات"
-    },
-    "footer": {
-        "terms-condition": "الشروط والأحكام",
-        "legal-notices": "الإشعارات القانونية",
-        "contact": "اتصل"
-    },
-    "error-page": {
-        "error-404": {
-            "title": "هذه الصفحة غير موجودة",
-            "message": "عذرًا! الصفحة التي تبحث عنها غير موجودة. قد تم نقلها أو حذفها.",
-            "button": "العودة إلى الصفحة الرئيسية"
-        }
-    },
-    "product-list":{
-        "topServices": "خدماتنا الشائعة"
-    },
-    "homepage":{
-        "topServicesTitle": "خدماتنا العصرية",
-        "descriptionTitle": "الوصف",
-        "categoriesTitle": "الفئات"
+  "navbar": {
+    "input-search": "البحث",
+    "languages": "اللغات",
+    "home": "الصفحة الرئيسية",
+    "categories": "الفئات",
+    "no-categories": "لا توجد فئات",
+    "account": "الحساب",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "infoAccount": "إعداداتي",
+    "orderAccount": "طلباتي",
+    "register": "تسجيل",
+    "cart": "عربة التسوق",
+    "about": "حول",
+    "terms-condition": "الشروط والأحكام",
+    "legal-notices": "الإشعارات القانونية",
+    "contact": "اتصل",
+    "cyna": "سينا"
+  },
+  "footer": {
+    "terms-condition": "الشروط والأحكام",
+    "legal-notices": "الإشعارات القانونية",
+    "contact": "اتصل"
+  },
+  "error-page": {
+    "error-404": {
+      "title": "هذه الصفحة غير موجودة",
+      "message": "عذرًا! الصفحة التي تبحث عنها غير موجودة. قد تم نقلها أو حذفها.",
+      "button": "العودة إلى الصفحة الرئيسية"
     }
-
+  },
+  "product-list": {
+    "topServices": "خدماتنا الشائعة"
+  },
+  "homepage": {
+    "topServicesTitle": "خدماتنا العصرية",
+    "descriptionTitle": "الوصف",
+    "categoriesTitle": "الفئات",
+    "subscriptionTitle" : "اشتراكاتنا",
+    "subscribe": "اشترك",
+    "questions": "أي أسئلة؟",
+    "contactUs": "اتصل بنا",
+    "year": "سنة",
+    "month": "شهر",
+    "seeMore": "عرض المزيد",
+    "noCategories": "لا توجد فئات"
+  },
+  "product": {
+    "noStock": "نفذت الكمية",
+    "quantity": "الكمية",
+    "buyNow": "اشترك الآن",
+    "similaryServices": "خدمات مشابهة",
+    "modal": {
+      "title": "الخدمة غير متوفرة",
+      "body": "هذه الخدمة غير متوفرة حالياً. يرجى المحاولة مرة أخرى لاحقاً.",
+      "close": "إغلاق"
+    }
+  },
+  "product-grid": {
+    "show": "عرض",
+    "sortBy": "فرز حسب",
+    "categories": "الفئات",
+    "sortByPrice": "فرز حسب السعر",
+    "only": "فقط",
+    "allCategories": "الكل",
+    "disponibility": "متاح",
+    "new": "جديد",
+    "priceAsc": "السعر تصاعدي",
+    "priceDesc": "السعر تنازلي",
+    "noProduct": "لم يتم العثور على منتج",
+    "promotion": "ترويج"
+  },
+  "cart": {
+    "product": "منتج",
+    "time": "وقت",
+    "month": "شهر",
+    "year": "سنة",
+    "unitPrice": "سعر الوحدة",
+    "quantity": "كمية",
+    "total": "إجمالي",
+    "codePromotion": "رمز الترويج",
+    "apply": "قدم طلبك",
+    "subTotal": "الإجمالي",
+    "promotion": "ترقية",
+    "noProduct": "لا توجد خدمات في العربة",
+    "tax": "ضريبة",
+    "totalCart": "إجمالي",
+    "order": "طلب",
+    "continueShopping": "مواصلة التسوق",
+    "delete": "حذف",
+    "modalPromo": {
+      "title": "رمز الترويج",
+      "body": "تمت إزالة رمز الترويج \"{{name}}\" من السلة لأنه غير قابل للتطبيق على سلتك.",
+      "close": "إغلاق"
+    },
+    "modal": {
+      "title": "سلة فارغة",
+      "body": "سلتك فارغة. يرجى إضافة عناصر قبل المتابعة إلى الدفع.",
+      "close": "إغلاق"
+    },
+    "errors": {
+      "codePromotionRequired": "رمز الترويج مطلوب.",
+      "emptyCartPromo": "السلة فارغة.",
+      "invalidPromoCode": "رمز الترويج غير صالح.",
+      "promoCodeAlreadyApplied": "تم استخدام رمز الترويج بالفعل.",
+      "codePromotionNotApplicable": "رمز الترويج غير قابل للتطبيق."
+    }
+  },
+  "register": {
+    "title": "تسجيل",
+    "firstname": "اسمك الأول",
+    "lastname": "اسمك الأخير",
+    "email": "بريدك الإلكتروني",
+    "password": "كلمة المرور الخاصة بك",
+    "confirmPassword": "تأكيد كلمة المرور الخاصة بك",
+    "btnRegister": "سجل",
+    "btnLogin": "تسجيل الدخول",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "lastnameRequired": "الاسم الأخير مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "passwordMinLength": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير، ورقم، وحرف خاص.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "email": "بريدك الإلكتروني",
+    "password": "كلمة المرور الخاصة بك",
+    "btnLogin": "تسجيل الدخول",
+    "btnRegister": "سجل",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "registerSuccess": "تم تسجيل الحساب بنجاح. يرجى تسجيل الدخول.",
+    "resetPasswordSuccess": "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول.",
+    "twofaCode": "رمز التحقق الثنائي",
+    "btnVerify": "تحقق",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "emailExists": "البريد الإلكتروني موجود بالفعل. يرجى تسجيل الدخول.",
+      "emailNotVerified": "لم يتم التحقق من عنوان البريد الإلكتروني الخاص بك. يرجى التحقق من بريدك الإلكتروني.",
+      "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "invalid2faCode": "رمز التحقق غير صحيح.",
+      "twofaCodeRequired": "رمز التحقق مطلوب."
+    }
+  },
+  "infoAccount": {
+    "title": "معلوماتي",
+    "addressTitle": "عناويني",
+    "paymentMethodTitle": "طرق الدفع الخاصة بي",
+    "firstname": "الاسم الأول",
+    "lastname": "الاسم الأخير",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور الجديدة (اختياري)",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "btnUpdate": "تحديث",
+    "success": "تم تحديث معلوماتك بنجاح.",
+    "errors": {
+      "fetchError": "خطأ في الحصول على معلومات الحساب! يرجى المحاولة لاحقًا.",
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا.",
+      "lastnameRequired": "الاسم الأخير مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 50 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "passwordMinLength": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  },
+  "forgotPassword": {
+    "title": "نسيت كلمة المرور",
+    "email": "البريد الإلكتروني لحسابك",
+    "btnSend": "تلقي بريد إلكتروني",
+    "btnLogin": "تسجيل الدخول",
+    "success": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور الخاصة بك.",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح."
+    }
+  },
+  "resetPassword": {
+    "title": "إعادة تعيين كلمة المرور",
+    "password": "كلمة مرور جديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "btnReset": "إعادة تعيين",
+    "btnLogin": "تسجيل الدخول",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة مرة أخرى لاحقًا.",
+      "linkExpired": "رابط إعادة التعيين منتهي الصلاحية.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "passwordMinLength": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل.",
+      "passwordMaxLength": "يجب ألا تتجاوز كلمة المرور 255 حرفًا.",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، وحرف خاص واحد.",
+      "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب.",
+      "passwordMustMatch": "كلمات المرور غير متطابقة."
+    }
+  },
+  "category": {
+    "description": "وصف",
+    "category": "فئة",
+    "services": "الخدمات"
+  },
+  "contact": {
+    "help": "هل تحتاج مساعدة أو معلومات ؟",
+    "writeUs": "اكتب لنا رسالة",
+    "email": "بريدك الإلكتروني",
+    "subject": "موضوعك",
+    "message": "رسالتك",
+    "send": "أرسل رسالتك",
+    "chatbot": "روبوت المحادثة",
+    "map": "كيف تجدنا",
+    "sendSuccess": "تم إرسال رسالتك بنجاح.",
+    "errors": {
+      "serverError": "خطأ في الخادم! حاول مرة أخرى لاحقًا.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailPattern": "عنوان البريد الإلكتروني غير صالح.",
+      "subjectRequired": "الموضوع مطلوب.",
+      "messageRequired": "الرسالة مطلوبة.",
+      "maxLength": "يجب ألا يتجاوز الحقل 255 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على 3 أحرف على الأقل.",
+      "messageMaxLength": "يجب ألا تتجاوز الرسالة 2000 حرف."
+    }
+  },
+  "checkout": {
+    "title": "ملخص الطلب",
+    "addressTitle": "عناويني",
+    "paymentMethodTitle": "طرق الدفع الخاصة بي",
+    "summary": "ملخص",
+    "summaryAddress": "عنوان الفاتورة",
+    "summaryPayment": "طريقة الدفع",
+    "month": "شهر",
+    "quantity": "الكمية",
+    "subTotal": "المجموع الفرعي",
+    "promotion": "ترقية",
+    "tax": "ضريبة",
+    "total": "المجموع",
+    "payment": "الانتقال إلى الدفع",
+    "errorPayment": "خطأ في معالجة الدفع. يرجى التحقق من معلومات الدفع الخاصة بك.",
+    "paymentInProgress": "جارٍ معالجة الدفع...",
+    "modal": {
+      "title": "دفع غير صالح",
+      "body": "يرجى اختيار عنوان وطريقة دفع.",
+      "close": "إغلاق"
+    }
+  },
+  "address": {
+    "noAddress": "لا يوجد عنوان",
+    "add": "إضافة عنوان",
+    "name": "عنوان",
+    "updateAddressSuccess": "تم تحديث عنوانك بنجاح.",
+    "firstname": "الاسم الأول",
+    "firstnameExample": "جان",
+    "lastname": "الكنية",
+    "lastnameExample": "دوبون",
+    "address1": "عنوان",
+    "address1Example": "1 شارع السلام",
+    "address2": "تكملة العنوان",
+    "address2Example": "شقة، مكتب، مبنى (اختياري)",
+    "city": "مدينة",
+    "cityExample": "باريس",
+    "county": "منطقة",
+    "countyExample": "باريس",
+    "postalCode": "الرمز البريدي",
+    "postalCodeExample": "75000",
+    "country": "بلد",
+    "countryExample": "فرنسا",
+    "phone": "هاتف",
+    "phoneExample": "0600000000",
+    "updateAddress": "تحديث العنوان",
+    "deleteAddress": "حذف العنوان",
+    "createAddressTitle": "إضافة عنوان",
+    "createAddress": "إنشاء العنوان",
+    "backToPreviousPage": "العودة إلى الصفحة السابقة",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا.",
+      "addressRequired": "العنوان مطلوب.",
+      "maxLength": "يجب ألا يتجاوز الحقل 250 حرفًا.",
+      "minLength": "يجب أن يحتوي الحقل على حرفين على الأقل.",
+      "firstnameRequired": "الاسم الأول مطلوب.",
+      "lastnameRequired": "الكنية مطلوبة.",
+      "address1Required": "العنوان مطلوب.",
+      "cityRequired": "المدينة مطلوبة.",
+      "countyRequired": "المنطقة مطلوبة.",
+      "postalCodeRequired": "الرمز البريدي مطلوب.",
+      "countryRequired": "البلد مطلوب.",
+      "phoneRequired": "الهاتف مطلوب.",
+      "phonePattern": "رقم الهاتف غير صالح."
+    },
+    "modal": {
+      "title": "حذف العنوان",
+      "body": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+      "close": "إغلاق",
+      "confirm": "حذف"
+    }
+  },
+  "paymentMethod": {
+    "noPaymentMethod": "لا توجد طريقة دفع",
+    "add": "إضافة بطاقة",
+    "expirationDate": "تنتهي في ",
+    "createSuccess": "تمت إضافة بطاقتك بنجاح.",
+    "addCard": "إضافة البطاقة",
+    "backToPreviousPage": "العودة إلى الصفحة السابقة",
+    "errors": {
+      "serverError": "خطأ في الخادم! يرجى المحاولة لاحقًا."
+    },
+    "modal": {
+      "title": "حذف البطاقة",
+      "body": "هل أنت متأكد أنك تريد حذف هذه البطاقة؟",
+      "close": "إغلاق",
+      "confirm": "حذف"
+    }
+  },
+  "success": {
+    "title": "تم الشراء بنجاح",
+    "message": "تم تقديم طلبك بنجاح. ستتلقى بريدًا إلكترونيًا للتأكيد قريبًا.",
+    "message2": "شكرًا لشرائك! نأمل أن نراك مرة أخرى قريبًا.",
+    "goToHome": "العودة إلى الصفحة الرئيسية"
+  },
+  "orderList": {
+    "year": "السنة",
+    "ponctual": "مرة واحدة",
+    "reference": "الطلب",
+    "date": "تاريخ الشراء",
+    "status": "الحالة",
+    "total": "الإجمالي",
+    "duration": "المدة",
+    "noOrders": "لم يتم العثور على طلبات",
+    "statusPaid": "مدفوع",
+    "statusActive": "نشط",
+    "statusTerminated": "منتهي",
+    "statusRenewed": "مجدد",
+    "allYears": "كل السنوات",
+    "allStatus": "كل الحالات",
+    "searchPlaceholder": "ابحث عن طلب",
+    "firstTab": "السجل",
+    "secondTab": "بحث"
+  },
+  "orderDetails": {
+    "title": "تفاصيل الطلب",
+    "reference": "رقم الطلب:",
+    "services": "الخدمات المطلوبة",
+    "date": "تاريخ الطلب:",
+    "duration": "المدة:",
+    "status": "حالة الطلب:",
+    "statusPaid": "مدفوع",
+    "statusActive": "نشط",
+    "statusTerminated": "منتهي",
+    "statusRenewed": "مجدد",
+    "address": "عنوان الفاتورة:",
+    "paymentMethod": "طريقة الدفع:",
+    "noPaymentMethod": "غير محدد",
+    "total": "الإجمالي:",
+    "promotion": "رمز الترويج:",
+    "noPromotion": "لا يوجد رمز ترويجي",
+    "noServices": "لا توجد خدمات مطلوبة",
+    "download": "تحميل الفاتورة (PDF)",
+    "downloadProgress": "جاري التحميل...",
+    "lineProductName": "اسم الخدمة",
+    "linePrice": "السعر الفردي",
+    "lineQuantity": "الكمية",
+    "linePromotionPrice": "السعر الترويجي",
+    "lineNoPromotion": "لا توجد عروض",
+    "month": "شهر",
+    "cancelSubscription": "إلغاء الاشتراك",
+    "modal": {
+        "title": "إلغاء الاشتراك",
+        "body": "هل أنت متأكد أنك تريد إلغاء هذا الاشتراك؟ هذا الإجراء لا رجعة فيه وسيدخل حيز التنفيذ فورًا.",
+        "close": "إغلاق",
+        "confirm": "إلغاء الاشتراك",
+        "cancelling": "جارٍ الإلغاء..."
+    }
+  }
 }

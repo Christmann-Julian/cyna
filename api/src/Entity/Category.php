@@ -2,21 +2,46 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Product;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
+use App\Entity\CategoryTranslation;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\CategoryRepository;
+use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['category:read']],
+    denormalizationContext: ['groups' => ['category:create', 'category:update']],
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
+    ],
+)]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'priority', 'image.contentUrl'])]
+#[ApiFilter(SearchFilter::class, properties: ['categoryTranslations.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
+    #[Groups([
+        'category:read'
+    ])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $url_image = null;
 
     /**
      * @var Collection<int, Product>
@@ -27,8 +52,23 @@ class Category
     /**
      * @var Collection<int, CategoryTranslation>
      */
-    #[ORM\OneToMany(targetEntity: CategoryTranslation::class, mappedBy: 'category', orphanRemoval: true)]
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]
+    #[ORM\OneToMany(targetEntity: CategoryTranslation::class, mappedBy: 'category', orphanRemoval: true, cascade: ['persist'])]
     private Collection $categoryTranslations;
+
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]
+    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
+    private ?MediaObject $image = null;
+
+    #[Groups([
+        'category:read', 'category:create', 'category:update'
+    ])]
+    #[ORM\Column(nullable: true)]
+    private ?int $priority = null;
 
     public function __construct()
     {
@@ -39,18 +79,6 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(string $url_image): static
-    {
-        $this->url_image = $url_image;
-
-        return $this;
     }
 
     /**
@@ -109,6 +137,36 @@ class Category
                 $categoryTranslation->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaObject $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    #[Groups(['category:read'])]
+    public function getImageUrl(): ?string
+    {
+        return $this->image?->getContentUrl();
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): static
+    {
+        $this->priority = $priority;
 
         return $this;
     }

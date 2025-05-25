@@ -1,0 +1,29 @@
+.page-success {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+}
+.page-success .page-inner {
+	text-align: center;
+	padding: 0px 30px;
+}
+.page-success .page-inner h2 {
+	margin-bottom: 10px;
+	display: block;
+	color: var(--main-color);
+	font-size: 35px;
+}
+.page-success .page-inner p {
+	font-size: 14;
+	color: var(black-color);
+	margin-bottom: 30px;
+	line-height: 22px;
+}
+.page-success .page-inner .btn {
+	color: var(--white-color);
+    background-color: var(--main-color);
+	padding: 10px 30px;
+}
+.page-success .page-inner .btn i{
+	margin-right:5px;
+}

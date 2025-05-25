@@ -3,7 +3,20 @@
         "input-search": "Rechercher",
         "languages": "Langues",
         "home": "Accueil",
-        "categories": "Catégories"
+        "categories": "Catégories",
+        "no-categories": "Aucune catégorie",
+        "account": "Compte",
+        "login": "Se connecter",
+        "logout": "Se déconnecter",
+        "infoAccount": "Mes paramètres",
+        "orderAccount": "Mes commandes",
+        "register": "S'inscrire",
+        "cart": "Panier",
+        "about": "À propos",
+        "terms-condition": "CGU",
+        "legal-notices": "Mentions légales",
+        "contact": "Contact",
+        "cyna": "Cyna"
     },
     "footer": {
         "terms-condition": "CGU",
@@ -20,7 +33,354 @@
     "homepage":{
         "topServicesTitle": "Nos Services Tendances",
         "descriptionTitle" : "Description",
-        "categoriesTitle" : "Catégories"
+        "categoriesTitle" : "Catégories",
+        "subscriptionTitle" : "Nos abonnements",
+        "subscribe": "S'abonner",
+        "questions": "Des questions ?",
+        "contactUs": "Contactez-nous",
+        "year": "An",
+        "month": "Mois",
+        "seeMore": "Voir Plus",
+        "noCategories": "Aucune catégorie"
+    },
+    "product":{
+        "noStock": "En rupture de stock",
+        "quantity": "Quantité",
+        "buyNow": "Acheter maintenant",
+        "similaryServices" : "Services Similaires",
+        "modal": {
+            "title": "Service indisponible",
+            "body": "Ce service est actuellement en rupture de stock. Veuillez réessayer plus tard.",
+            "close": "Fermer"
+        }
+    },
+    "product-grid":{
+        "show": "Montrer",
+        "sortBy": "Trier par",
+        "categories" : "Catégories",
+        "sortByPrice": "Trier Par Prix",
+        "only": "Uniquement",
+        "allCategories": "Toutes",
+        "disponibility": "Disponible",
+        "new": "Nouveau",
+        "priceAsc": "Prix croissant",
+        "priceDesc": "Prix décroissant",
+        "noProduct": "Aucun service trouvé",
+        "promotion": "Promotion"
+    },
+    "cart":{
+        "product": "Nom du service",
+        "time": "Durée",
+        "month": "mois",
+        "year": "année",
+        "unitPrice" : "Prix unitaire",
+        "quantity": "Quantité",
+        "total": "Total",
+        "codePromotion": "Code promo",
+        "noProduct": "Aucun service dans le panier",
+        "apply": "Appliquer",
+        "subTotal": "Total HT",
+        "promotion": "Code promo",
+        "tax": "Taxe",
+        "totalCart": "Total",
+        "order": "Passer à la caisse",
+        "continueShopping": "Continuer vos achats",
+        "delete": "Supprimer",
+        "modalPromo": {
+            "title": "Code promo",
+            "body": "Le code promo \"{{name}}\" a été retiré du panier car il n'est pas applicable à votre panier.",
+            "close": "Fermer"
+        },
+        "modal": {
+            "title": "Panier Vide",
+            "body": "Votre panier est vide. Veuillez ajouter des articles avant de passer à la caisse.",
+            "close": "Fermer"
+        },
+        "errors": {
+            "codePromotionRequired": "Le code promo est obligatoire.",
+            "emptyCartPromo": "Le panier est vide.",
+            "invalidPromoCode": "Le code promo n'est pas valide.",
+            "promoCodeAlreadyApplied": "Le code promo a déjà été utilisé.",
+            "codePromotionNotApplicable": "Le code promo n'est pas applicable."
+        }
+    },
+    "register": {
+        "title": "Inscription",
+        "firstname": "Votre Prénom",
+        "lastname": "Votre Nom",
+        "email": "Votre Email",
+        "password": "Votre Mot de passe",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnRegister": "S'inscrire",
+        "btnLogin": "Se connecter",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailExists": "L'email est déjà relier à un compte.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "login": {
+        "title": "Connexion",
+        "email": "Votre Email",
+        "password": "Votre Mot de passe",
+        "btnLogin": "Se connecter",
+        "btnRegister": "S'inscrire",
+        "rememberMe": "Se souvenir de moi",
+        "forgotPassword": "Mot de passe oublié ?",
+        "registerSuccess": "Votre compte a été créé avec succès. Veuillez vérifier votre boîte de réception pour activer votre compte.",
+        "resetPasswordSuccess": "Votre mot de passe a été réinitialisé avec succès.",
+        "twofaCode": "Code de vérification",
+        "btnVerify": "Valider le code",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailNotVerified": "Votre email n'a pas été vérifié. Veuillez vérifier votre boîte de réception.",
+            "invalidCredentials": "Identifiant ou mot de passe invalide.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "twofaCodeRequired": "Le code de vérification est obligatoire.",
+            "invalid2facode": "Le code de vérification est invalide."
+        }
+    },
+    "infoAccount": {
+        "title":  "Mes Informations",
+        "addressTitle": "Mes adresses",
+        "paymentMethodTitle": "Mes moyens de paiement",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "Email",
+        "password": "Nouveau mot de passe (optionnel)",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnUpdate": "Mettre à jour",
+        "success": "Vos informations ont été mises à jour avec succès.",
+        "errors": {
+            "fetchError": "Une erreur est survenue. Veuillez réessayer plus tard.",
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 50 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "forgotPassword": {
+        "title": "Mot de passe oublié",
+        "email": "L'email de votre compte",
+        "btnSend": "Recevoir un email",
+        "btnLogin": "Se connecter",
+        "success": "Un email vous a été envoyé pour réinitialiser votre mot de passe.",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide."
+        }
+    },
+    "resetPassword": {
+        "title": "Réinitialisation du mot de passe",
+        "password": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "btnReset": "Réinitialiser",
+        "btnLogin": "Se connecter",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "linkExpired": "Le lien de réinitialisation a expiré.",
+            "passwordRequired": "Le mot de passe est obligatoire.",
+            "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+            "passwordMaxLength": "Le mot de passe ne doit pas dépasser 255 caractères.",
+            "passwordPattern": "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+            "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+            "passwordMustMatch": "Les mots de passe ne correspondent pas."
+        }
+    },
+    "category": {
+        "description": "Description",
+        "category": "Catégorie",
+        "services": "Les services"        
+    },
+    "contact": {
+        "help": "Besoin d'aide ou d'informations ?",
+        "writeUs":"Écrivez-nous un message",
+        "email" : "Votre email", 
+        "subject": "Votre Sujet",
+        "message": "Votre message", 
+        "send": "Envoyer votre message",
+        "map": "Nous trouver",
+        "sendSuccess": "Votre message a été envoyé avec succès.",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "emailRequired": "L'email est obligatoire.",
+            "emailPattern": "L'adresse email n'est pas valide.",
+            "subjectRequired": "Le sujet est obligatoire.",
+            "messageRequired": "Le message est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 255 caractères.",
+            "minLength": "Le champs doit contenir au moins 3 caractères.",
+            "messageMaxLength": "Le message ne doit pas dépasser 2000 caractères."
+        }
+    },
+    "checkout": {
+        "title": "Récapitulatif de la commande",
+        "addressTitle": "Mes adresses",
+        "paymentMethodTitle": "Mes moyens de paiement",
+        "summary": "Récapitulatif",
+        "summaryAddress": "Adresse de facturation",
+        "summaryPayment": "Moyen de paiement",
+        "month": "mois",
+        "quantity": "Quantité",
+        "subTotal": "Total HT",
+        "promotion": "Code promo",
+        "tax": "Taxe",
+        "total": "Total",
+        "payment": "Payer",
+        "errorPayment": "Erreur de paiement",
+        "paymentInProgress": "Paiement en cours...",
+        "modal": {
+            "title": "Paiement invalide",
+            "body": "Veuillez sélectionner une adresse et un moyen de paiement.",
+            "close": "Fermer"
+        }
+    },
+    "address": {
+        "noAddress": "Aucune adresse",
+        "add": "Ajouter une adresse",
+        "name": "Adresse",
+        "updateAddressSuccess": "Votre adresse a été mise à jour avec succès.",
+        "firstname": "Prénom",
+        "firstnameExample": "Jean",
+        "lastname": "Nom",
+        "lastnameExample": "Dupont",
+        "address1": "Adresse",
+        "address1Example": "1 rue de la Paix",
+        "address2": "Complément d'adresse",
+        "address2Example": "Appartement, bureau, bâtiment (facultatif)",
+        "city": "Ville",
+        "cityExample": "Paris",
+        "county": "Région",
+        "countyExample": "Paris",
+        "postalCode": "Code postal",
+        "postalCodeExample": "75000",
+        "country": "Pays",
+        "countryExample": "France",
+        "phone": "Téléphone",
+        "phoneExample": "0600000000",
+        "updateAddress": "Mettre à jour l'adresse",
+        "deleteAddress": "Supprimer l'adresse",
+        "createAddressTitle": "Ajouter une adresse",
+        "createAddress": "Créer l'adresse",
+        "backToPreviousPage": "Retour à la page précédente",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard.",
+            "addressRequired": "L'adresse est obligatoire.",
+            "maxLength": "Le champs ne doit pas dépasser 250 caractères.",
+            "minLength": "Le champs doit contenir au moins 2 caractères.",
+            "firstnameRequired": "Le prénom est obligatoire.",
+            "lastnameRequired": "Le nom est obligatoire.",
+            "address1Required": "L'adresse est obligatoire.",
+            "cityRequired": "La ville est obligatoire.",
+            "countyRequired": "La région est obligatoire.",
+            "postalCodeRequired": "Le code postal est obligatoire.",
+            "countryRequired": "Le pays est obligatoire.",
+            "phoneRequired": "Le téléphone est obligatoire.",
+            "phonePattern": "Le téléphone n'est pas valide."
+        },
+        "modal": {
+            "title": "Supprimer l'adresse",
+            "body": "Êtes-vous sûr de vouloir supprimer cette adresse ?",
+            "close": "Fermer",
+            "confirm": "Supprimer"
+        }
+    },
+    "paymentMethod": {
+        "noPaymentMethod": "Aucun moyen de paiement",
+        "add": "Ajouter une carte",
+        "expirationDate": "expire en ",
+        "createSuccess": "Votre carte a été ajoutée avec succès.",
+        "addCard": "Ajouter la carte",
+        "backToPreviousPage": "Retour à la page précédente",
+        "errors": {
+            "serverError": "Erreur serveur ! Veuillez réessayer plus tard."
+        },
+        "modal": {
+            "title": "Supprimer la carte",
+            "body": "Êtes-vous sûr de vouloir supprimer cette carte ?",
+            "close": "Fermer",
+            "confirm": "Supprimer"
+        }
+    },
+    "success": {
+        "title": "Achat réussi",
+        "message": "Votre commande a été passée avec succès. Vous recevrez un email de confirmation sous peu.",
+        "message2": "Merci pour votre achat ! En espérant vous revoir au plus vite.",
+        "goToHome": "Retourner à l'accueil"
+    },
+    "orderList": {
+        "year": "Année ",
+        "ponctual": "Ponctuel",
+        "reference": "commande",
+        "date": "Date d'achat",
+        "status": "Statut",
+        "total": "Total",
+        "duration": "Durée",
+        "noOrders": "Aucune commande trouvée",
+        "statusPaid": "Payé",
+        "statusActive": "Actif",
+        "statusTerminated": "Terminé",
+        "statusRenewed": "Renouvelé",
+        "allYears": "Toutes les années",
+        "allStatus": "Tous les statuts",
+        "searchPlaceholder": "Rechercher une commande",
+        "firstTab": "Historique",
+        "secondTab": "Recherche"
+    },
+    "orderDetails": {
+        "title": "Détails de la commande",
+        "reference": "Référence de la commande :",
+        "services": "Services commandés",
+        "date": "Date de la commande :",
+        "duration": "Durée",
+        "status": "Statut de la commande:",
+        "statusPaid": "Payé",
+        "statusActive": "Actif",
+        "statusTerminated": "Terminé",
+        "statusRenewed": "Renouvelé",
+        "address": "Adresse de facturation :",
+        "paymentMethod": "Moyen de paiement :",
+        "noPaymentMethod": "Non spécifié",
+        "total": "Total :",
+        "promotion": "Code promo :",
+        "noPromotion": "Aucun code promo",
+        "noServices": "Aucun service commandé",
+        "download": "Télécharger la facture (PDF)",
+        "downloadProgress": "Téléchargement...",
+        "lineProductName": "Nom du service",
+        "linePrice": "Prix unitaire",
+        "lineQuantity": "Quantité",
+        "linePromotionPrice": "Prix promotionnel",
+        "lineNoPromotion": "Aucune promotion",
+        "month": "mois",
+        "cancelSubscription": "Annuler l'abonnement",
+        "modal": {
+            "title": "Annuler l'abonnement",
+            "body": "Êtes-vous sûr de vouloir annuler cet abonnement ? Cette action est irréversible et à effet immédiat.",
+            "close": "Fermer",
+            "confirm": "Résilier l'abonnement",
+            "cancelling": "Résiliation..."
+        }
     }
-
 }
