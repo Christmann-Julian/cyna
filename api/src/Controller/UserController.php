@@ -22,8 +22,7 @@ class UserController extends AbstractController
         private EmailService $emailService,
         private UserPasswordHasherInterface $passwordHasher,
         private ValidatorInterface $validator
-    ) {
-    }
+    ) {}
 
     #[Route('/api/users/register', name: 'api_auth_register', methods: ['POST'])]
     public function register(Request $request): JsonResponse

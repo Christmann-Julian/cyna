@@ -28,8 +28,7 @@ class AuthController extends AbstractController
         private EntityManagerInterface $entityManager,
         private EmailService $emailService,
         private JWTEncoderInterface $jwtEncoder
-    ) {
-    }
+    ) {}
 
     #[Route('/api/login', name: 'api_auth_login', methods: ['POST'])]
     public function authenticate(Request $request): JsonResponse
@@ -121,7 +120,7 @@ class AuthController extends AbstractController
             ]);
         }
 
-        $response  = new JsonResponse([
+        $response = new JsonResponse([
             'token' => $token,
         ]);
 
@@ -205,12 +204,12 @@ class AuthController extends AbstractController
 
         $response->headers->setCookie(
             Cookie::create('refresh_token')
-            ->withValue($newRefreshToken->getRefreshToken())
-            ->withExpires(strtotime('+1 days'))
-            ->withPath('/')
-            ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
-            ->withHttpOnly(true)
-            ->withSameSite(Cookie::SAMESITE_LAX)
+                ->withValue($newRefreshToken->getRefreshToken())
+                ->withExpires(strtotime('+1 days'))
+                ->withPath('/')
+                ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
+                ->withHttpOnly(true)
+                ->withSameSite(Cookie::SAMESITE_LAX)
         );
 
         return $response;
@@ -291,12 +290,12 @@ class AuthController extends AbstractController
 
         $response->headers->setCookie(
             Cookie::create('refresh_token')
-            ->withValue($refreshToken->getRefreshToken())
-            ->withExpires(strtotime($rememberMe ? '+30 days' : '+1 hour'))
-            ->withPath('/')
-            ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
-            ->withHttpOnly(true)
-            ->withSameSite(Cookie::SAMESITE_LAX)
+                ->withValue($refreshToken->getRefreshToken())
+                ->withExpires(strtotime($rememberMe ? '+30 days' : '+1 hour'))
+                ->withPath('/')
+                ->withSecure(false) // En local, Secure doit être désactivé (Activer en prod)
+                ->withHttpOnly(true)
+                ->withSameSite(Cookie::SAMESITE_LAX)
         );
 
         return $response;

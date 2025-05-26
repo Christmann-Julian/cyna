@@ -15,8 +15,7 @@ class MediaObjectNormalizer implements NormalizerInterface
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $normalizer,
         private readonly StorageInterface $storage
-    ) {
-    }
+    ) {}
 
     public function normalize($object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
@@ -40,7 +39,7 @@ class MediaObjectNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-          MediaObject::class => true,
+            MediaObject::class => true,
         ];
     }
 }

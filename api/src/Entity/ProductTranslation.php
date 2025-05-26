@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
-use App\Entity\Product;
-use App\Entity\LocaleCyna;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\Parameter;
 use App\Repository\ProductTranslationRepository;
@@ -117,7 +115,7 @@ class ProductTranslation
     private ?Product $product = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]
+    #[ORM\JoinColumn(referencedColumnName: "code", nullable: false)]
     #[Groups([
         'productTranslation:read', 'productTranslation:create', 'productTranslation:update',
         'product:read', 'product:create', 'product:update'

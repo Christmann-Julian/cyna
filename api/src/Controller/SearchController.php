@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use App\Entity\ProductTranslation;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;

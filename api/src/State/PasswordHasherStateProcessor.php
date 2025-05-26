@@ -15,8 +15,7 @@ final readonly class PasswordHasherStateProcessor implements ProcessorInterface
     public function __construct(
         private ProcessorInterface $processor,
         private UserPasswordHasherInterface $passwordHasher
-    ) {
-    }
+    ) {}
 
     /**
      * @param User $data

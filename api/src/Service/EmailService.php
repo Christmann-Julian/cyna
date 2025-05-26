@@ -11,9 +11,7 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class EmailService
 {
-    public function __construct(private MailerInterface $mailer, private EntityManagerInterface $em)
-    {
-    }
+    public function __construct(private MailerInterface $mailer, private EntityManagerInterface $em) {}
 
     public function sendResetPasswordEmail(string $locale, User $user, string $resetToken): void
     {
@@ -33,7 +31,7 @@ class EmailService
             ->from('noreply@cyna.com')
             ->to($user->getEmail())
             ->subject($subject)
-            ->htmlTemplate('emails/'. $locale .'/passwordReset.html.twig')
+            ->htmlTemplate('emails/' . $locale . '/passwordReset.html.twig')
             ->context([
                 'resetLink' => sprintf("http://localhost:5173/reset-password?token=%s", $resetToken)
             ]);
@@ -83,7 +81,7 @@ class EmailService
             ->from('noreply@cyna.com')
             ->to($emailAdress)
             ->subject($subject)
-            ->htmlTemplate('emails/'. $locale .'/confirmEmail.html.twig')
+            ->htmlTemplate('emails/' . $locale . '/confirmEmail.html.twig')
             ->context([
                 'verifiedEmailLink' => sprintf("http://localhost:5173/confirm-email?token=%s", $emailToken)
             ]);

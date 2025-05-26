@@ -2,17 +2,15 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ProductTranslationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class ProductTranslationController extends AbstractController
 {
-    public function __construct(private ProductTranslationRepository $productTranslationRepository)
-    {
-    }
+    public function __construct(private ProductTranslationRepository $productTranslationRepository) {}
 
     #[Route('api/product/{locale}/{id}', name: 'get_product_translation', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$', 'id' => '\d+'])]
     public function getProductTranslation(string $locale, int $id, Request $request): JsonResponse

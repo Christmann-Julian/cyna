@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Get(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
-        new Get(routeName:"get_category_translation"),
-        new Get(routeName:"get_all_category_translation"),
+        new Get(routeName: "get_category_translation"),
+        new Get(routeName: "get_all_category_translation"),
         new Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Put(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
         new Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"),
@@ -68,7 +68,7 @@ class CategoryTranslation
         'category:read', 'category:create', 'category:update'
     ])]
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(referencedColumnName:"code", nullable: false)]
+    #[ORM\JoinColumn(referencedColumnName: "code", nullable: false)]
     private ?LocaleCyna $locale = null;
 
     public function getId(): ?int
