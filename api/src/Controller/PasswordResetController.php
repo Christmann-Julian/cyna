@@ -14,9 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordResetController extends AbstractController
 {
-    public function __construct(private EmailService $emailService)
-    {
-    }
+    public function __construct(private EmailService $emailService) {}
 
     #[Route('/api/password-forgot', name: 'password_forgot_mail', methods: ['POST'])]
     public function passwordForgot(Request $request, EntityManagerInterface $em): JsonResponse

@@ -1,16 +1,16 @@
-import { jwtDecode } from "jwt-decode";
-import store from "../redux/store";
-import { logout } from "../redux/authSlice";
+import { jwtDecode } from 'jwt-decode';
+import store from '../redux/store';
+import { logout } from '../redux/authSlice';
 
 let refreshPromise = null;
 
 const authProvider = {
   login: async ({ username, password, locale, rememberMe }) => {
-    const request = new Request("http://localhost:8000/api/login", {
-      method: "POST",
+    const request = new Request('http://localhost:8000/api/login', {
+      method: 'POST',
       body: JSON.stringify({ username, password, locale, rememberMe }),
-      headers: new Headers({ "Content-Type": "application/json" }),
-      credentials: "include",
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      credentials: 'include',
     });
     return fetch(request)
       .then((response) => {
@@ -34,11 +34,11 @@ const authProvider = {
   },
 
   verifyTwoFA: async ({ userId, code, rememberMe }) => {
-    const request = new Request("http://localhost:8000/api/two-fa", {
-      method: "POST",
+    const request = new Request('http://localhost:8000/api/two-fa', {
+      method: 'POST',
       body: JSON.stringify({ user_id: parseInt(userId, 10), code, rememberMe }),
-      headers: new Headers({ "Content-Type": "application/json" }),
-      credentials: "include",
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      credentials: 'include',
     });
     return fetch(request)
       .then((response) => {
@@ -61,13 +61,13 @@ const authProvider = {
     try {
       store.dispatch(logout());
 
-      const response = await fetch("http://localhost:8000/api/logout", {
-        method: "POST",
-        credentials: "include",
+      const response = await fetch('http://localhost:8000/api/logout', {
+        method: 'POST',
+        credentials: 'include',
       });
-  
+
       if (!response.ok) {
-        throw new Error("Failed to logout");
+        throw new Error('Failed to logout');
       }
 
       return '/login';
@@ -79,12 +79,12 @@ const authProvider = {
 
   refreshToken: async () => {
     if (!refreshPromise) {
-      refreshPromise = fetch("http://localhost:8000/api/token/refresh", {
-        method: "POST",
-        credentials: "include",
+      refreshPromise = fetch('http://localhost:8000/api/token/refresh', {
+        method: 'POST',
+        credentials: 'include',
       })
         .then(async (response) => {
-          if (!response.ok) throw new Error("Failed to refresh token");
+          if (!response.ok) throw new Error('Failed to refresh token');
 
           const data = await response.json();
           return data.token;
@@ -103,7 +103,7 @@ const authProvider = {
   checkAuth: async () => {
     const state = store.getState();
     let token = state.auth.token;
-    
+
     if (!token) {
       const refreshed = await authProvider.refreshToken();
       if (!refreshed) return Promise.reject();
@@ -111,7 +111,10 @@ const authProvider = {
     }
 
     const decodedToken = jwtDecode(token);
-    if (!decodedToken.roles.includes("ROLE_ADMIN") && !decodedToken.roles.includes("ROLE_SUPER_ADMIN")) {
+    if (
+      !decodedToken.roles.includes('ROLE_ADMIN') &&
+      !decodedToken.roles.includes('ROLE_SUPER_ADMIN')
+    ) {
       return Promise.reject();
     }
 
@@ -119,19 +122,19 @@ const authProvider = {
   },
   getPermissions: async () => {
     try {
-        const state = store.getState();
-        const token = state.auth.token;
+      const state = store.getState();
+      const token = state.auth.token;
 
-        if (!token) {
-            const refreshedToken = await authProvider.refreshToken();
-            if (!refreshedToken) return Promise.reject();
-        }
+      if (!token) {
+        const refreshedToken = await authProvider.refreshToken();
+        if (!refreshedToken) return Promise.reject();
+      }
 
-        const decodedToken = jwtDecode(token);
+      const decodedToken = jwtDecode(token);
 
-        return Promise.resolve(decodedToken.roles || []);
+      return Promise.resolve(decodedToken.roles || []);
     } catch (error) {
-        return Promise.reject();
+      return Promise.reject();
     }
   },
   checkError: async ({ status }) => {
@@ -189,16 +192,13 @@ const authProvider = {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.id;
 
-      const response = await fetch(
-        `http://localhost:8000/api/users/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         return null;

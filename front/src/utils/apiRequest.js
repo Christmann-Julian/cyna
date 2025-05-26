@@ -1,25 +1,25 @@
-import authProvider from "./authProvider";
+import authProvider from './authProvider';
 
-async function apiRequest(path, method = "GET", options = {}) {
+async function apiRequest(path, method = 'GET', options = {}) {
   try {
-    let url = "http://localhost:8000/api" + path;
+    let url = 'http://localhost:8000/api' + path;
     const response = await fetch(url, {
       method,
       headers: {
         ...options.headers,
       },
-      body: method === "GET" || method === "DELETE" ? null : JSON.stringify(options.body),
+      body: method === 'GET' || method === 'DELETE' ? null : JSON.stringify(options.body),
     });
 
     if (!response.ok) {
       if (response.status === 401 || response.status === 403) {
         await authProvider.logout();
-        window.location.href = "/login";
+        window.location.href = '/login';
       }
       throw new Error(`${response.status}`);
     }
 
-    if (options.responseType === "blob") {
+    if (options.responseType === 'blob') {
       const data = await response.blob();
       return { data, error: null };
     }

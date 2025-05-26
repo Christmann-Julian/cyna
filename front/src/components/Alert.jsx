@@ -24,7 +24,12 @@ const Alert = ({ message, type }) => {
       {alert && (
         <div className={`alert alert-${alert.type} alert-dismissible`} role="alert">
           <div>{alert.message}</div>
-          <button type="button" className="btn-close" onClick={handleAlertClose} aria-label="Close"></button>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={handleAlertClose}
+            aria-label="Close"
+          ></button>
         </div>
       )}
     </>

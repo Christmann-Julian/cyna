@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, Typography, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDataProvider } from "react-admin";
+import { Card, CardContent, CardHeader, Typography, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDataProvider } from 'react-admin';
 import {
   BarChart,
   Bar,
@@ -12,9 +12,9 @@ import {
   PieChart,
   Pie,
   Cell,
-} from "recharts";
-import apiRequest from "../../utils/apiRequest";
-import { useSelector } from "react-redux";
+} from 'recharts';
+import apiRequest from '../../utils/apiRequest';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
   const dataProvider = useDataProvider();
@@ -27,11 +27,11 @@ const Dashboard = () => {
     const fetchStatistics = async () => {
       try {
         const { data: sales, error: salesError } = await apiRequest(
-          "/statistics/sales-per-day",
-          "GET",
+          '/statistics/sales-per-day',
+          'GET',
           {
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
           }
@@ -39,34 +39,37 @@ const Dashboard = () => {
         if (!salesError) setSalesData(sales);
 
         const { data: averageCart, error: averageCartError } = await apiRequest(
-          "/statistics/average-cart",
-          "GET",
+          '/statistics/average-cart',
+          'GET',
           {
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
           }
         );
         if (!averageCartError) setAverageCartData(averageCart);
 
-        const { data: categorySales, error: categorySalesError } =
-          await apiRequest("/statistics/category-sales", "GET", {
+        const { data: categorySales, error: categorySalesError } = await apiRequest(
+          '/statistics/category-sales',
+          'GET',
+          {
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
-          });
+          }
+        );
         if (!categorySalesError) setCategorySalesData(categorySales);
       } catch (error) {
-        console.error("Error fetching statistics:", error);
+        console.error('Error fetching statistics:', error);
       }
     };
 
     fetchStatistics();
   }, [dataProvider]);
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
   return (
     <Card>
@@ -114,10 +117,7 @@ const Dashboard = () => {
                   label={({ category }) => category}
                 >
                   {categorySalesData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip
@@ -126,9 +126,9 @@ const Dashboard = () => {
                       return (
                         <div
                           style={{
-                            backgroundColor: "#fff",
-                            padding: "5px",
-                            border: "1px solid #ccc",
+                            backgroundColor: '#fff',
+                            padding: '5px',
+                            border: '1px solid #ccc',
                           }}
                         >
                           <p>{payload[0].value}€</p>

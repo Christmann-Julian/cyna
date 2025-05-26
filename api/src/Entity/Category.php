@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use App\Entity\Product;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiFilter;
-use App\Entity\CategoryTranslation;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategoryRepository;
 use ApiPlatform\Metadata\GetCollection;

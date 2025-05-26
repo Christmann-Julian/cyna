@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Edit,
   SimpleForm,
@@ -10,8 +10,8 @@ import {
   SelectInput,
   required,
   minLength,
-  maxLength
-} from "react-admin";
+  maxLength,
+} from 'react-admin';
 
 const transform = (data) => ({
   ...data,
@@ -22,20 +22,21 @@ const CategoryEdit = () => (
   <Edit transform={transform}>
     <SimpleForm>
       <TextInput source="id" disabled />
-      <ReferenceInput 
-        source="image.@id" 
+      <ReferenceInput
+        source="image.@id"
         reference="media_objects"
         sort={{ field: 'id', order: 'DESC' }}
       >
-        <SelectInput
-          optionText="contentUrl"
-          optionValue="@id"
-        />
+        <SelectInput optionText="contentUrl" optionValue="@id" />
       </ReferenceInput>
       <NumberInput source="priority" />
       <ArrayInput source="categoryTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]} />
+          <TextInput
+            source="name"
+            label="Name"
+            validate={[required(), minLength(2), maxLength(255)]}
+          />
           <TextInput
             source="description"
             label="Description"
@@ -47,9 +48,9 @@ const CategoryEdit = () => (
             source="locale"
             required
             choices={[
-              { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
-              { id: "/api/locale_cynas/en-GB", name: "en-GB" },
-              { id: "/api/locale_cynas/ar-SA", name: "ar-SA" },
+              { id: '/api/locale_cynas/fr-FR', name: 'fr-FR' },
+              { id: '/api/locale_cynas/en-GB', name: 'en-GB' },
+              { id: '/api/locale_cynas/ar-SA', name: 'ar-SA' },
             ]}
           />
         </SimpleFormIterator>

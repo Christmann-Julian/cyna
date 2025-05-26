@@ -1,9 +1,5 @@
-import React from "react";
-import {
-  Edit,
-  SimpleForm,
-  TextInput,
-} from "react-admin";
+import React from 'react';
+import { Edit, SimpleForm, TextInput } from 'react-admin';
 
 const OrderEdit = () => (
   <Edit>

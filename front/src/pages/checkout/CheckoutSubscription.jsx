@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import "../../assets/css/checkout.css";
-import { useTranslation } from "react-i18next";
-import ListAddresss from "../../components/ListAddress";
-import ListPaymentMethod from "../../components/ListPaymentMethod";
-import { useSelector } from "react-redux";
-import apiRequest from "../../utils/apiRequest";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import { useNavigate } from "react-router-dom";
-import { getCurrentLocale } from "../../utils/language";
-import { Modal, Button } from "react-bootstrap";
-import { formatPrice } from "../../utils/utils";
+import React, { useState, useEffect } from 'react';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import '../../assets/css/checkout.css';
+import { useTranslation } from 'react-i18next';
+import ListAddresss from '../../components/ListAddress';
+import ListPaymentMethod from '../../components/ListPaymentMethod';
+import { useSelector } from 'react-redux';
+import apiRequest from '../../utils/apiRequest';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
+import { getCurrentLocale } from '../../utils/language';
+import { Modal, Button } from 'react-bootstrap';
+import { formatPrice } from '../../utils/utils';
 
 const CheckoutSubscription = () => {
   const { t } = useTranslation();
@@ -19,8 +19,7 @@ const CheckoutSubscription = () => {
   const [addresses, setAddresses] = useState([]);
   const [fetchAddressesLoading, setFetchAddressesLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] =
-    useState(false);
+  const [fetchPaymentMethodLoading, setFetchPaymentMethodLoading] = useState(false);
   const token = useSelector((state) => state.auth.token);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
@@ -34,7 +33,7 @@ const CheckoutSubscription = () => {
 
     const fetchAddresses = async () => {
       try {
-        const { data, error } = await apiRequest("/user/addresses", "GET", {
+        const { data, error } = await apiRequest('/user/addresses', 'GET', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +44,7 @@ const CheckoutSubscription = () => {
           setFetchAddressesLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching addresses:", error);
+        console.error('Error fetching addresses:', error);
         setFetchAddressesLoading(false);
       }
     };
@@ -56,22 +55,18 @@ const CheckoutSubscription = () => {
 
     const fetchPaymentMethod = async () => {
       try {
-        const { data, error } = await apiRequest(
-          `/user/payment_methods`,
-          "GET",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const { data, error } = await apiRequest(`/user/payment_methods`, 'GET', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (data !== null) {
           setPaymentMethods(data);
           setFetchPaymentMethodLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching :", error);
+        console.error('Error fetching :', error);
         setFetchPaymentMethodLoading(false);
       }
     };
@@ -92,17 +87,17 @@ const CheckoutSubscription = () => {
 
     if (isComplete) {
       try {
-        const response = await apiRequest("/subscription/stripe", "POST", {
+        const response = await apiRequest('/subscription/stripe', 'POST', {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             addressId: selectedAddress.id,
             paymentMethodId: selectedPaymentMethod.id,
             subscription: cart.subscriptions[0],
             amount: cart.subscriptions[0]?.price,
-            currency: "eur",
+            currency: 'eur',
             locale: currentLocale,
           }),
         });
@@ -111,10 +106,10 @@ const CheckoutSubscription = () => {
           throw new Error(response.error);
         }
 
-        navigate("/order/success");
+        navigate('/order/success');
       } catch (error) {
-        console.error("error payment :", error);
-        alert(t("checkout.errorPayment"));
+        console.error('error payment :', error);
+        alert(t('checkout.errorPayment'));
       } finally {
         setIsLoading(false);
       }
@@ -136,29 +131,29 @@ const CheckoutSubscription = () => {
       <Navbar />
       <div className="checkout section">
         <div className="container">
-          <h2 className="section-title">{t("checkout.title")}</h2>
+          <h2 className="section-title">{t('checkout.title')}</h2>
           <div className="row">
             <div className="col-lg-6 col-md-12">
               <div className="billing-details">
-                <h3>{t("checkout.addressTitle")}</h3>
+                <h3>{t('checkout.addressTitle')}</h3>
                 <ListAddresss />
               </div>
               <div className="billing-details">
-                <h3>{t("checkout.paymentMethodTitle")}</h3>
+                <h3>{t('checkout.paymentMethodTitle')}</h3>
                 <ListPaymentMethod />
               </div>
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="order-summary">
-              <form className="mb-3">
-                  <h3>{t("checkout.summaryAddress")}</h3>
+                <form className="mb-3">
+                  <h3>{t('checkout.summaryAddress')}</h3>
                   {fetchAddressesLoading ? (
-                    <LoadingSpinner height={"100px"} />
+                    <LoadingSpinner height={'100px'} />
                   ) : (
                     <>
                       {addresses.length === 0 ? (
                         <div className="d-flex justify-content-center">
-                          {t("address.noAddress")}
+                          {t('address.noAddress')}
                         </div>
                       ) : (
                         <>
@@ -171,12 +166,8 @@ const CheckoutSubscription = () => {
                                 id={`radioAddress${index}`}
                                 onChange={() => setSelectedAddress(address)}
                               />
-                              <label
-                                htmlFor={`radioAddress${index}`}
-                                className="form-check-label"
-                              >
-                                {t("address.name")} {index + 1} -{" "}
-                                {address.address} ({address.city}/
+                              <label htmlFor={`radioAddress${index}`} className="form-check-label">
+                                {t('address.name')} {index + 1} - {address.address} ({address.city}/
                                 {address.country})
                               </label>
                             </div>
@@ -185,14 +176,14 @@ const CheckoutSubscription = () => {
                       )}
                     </>
                   )}
-                  <h3 className="mt-3">{t("checkout.summaryPayment")}</h3>
+                  <h3 className="mt-3">{t('checkout.summaryPayment')}</h3>
                   {fetchPaymentMethodLoading ? (
-                    <LoadingSpinner height={"100px"} />
+                    <LoadingSpinner height={'100px'} />
                   ) : (
                     <>
                       {paymentMethods.length === 0 ? (
                         <div className="d-flex justify-content-center">
-                          {t("paymentMethod.noPaymentMethod")}
+                          {t('paymentMethod.noPaymentMethod')}
                         </div>
                       ) : (
                         <>
@@ -203,16 +194,10 @@ const CheckoutSubscription = () => {
                                 type="radio"
                                 name="radioPayment"
                                 id={`radioPayment${index}`}
-                                onChange={() =>
-                                  setSelectedPaymentMethod(paymentMethod)
-                                }
+                                onChange={() => setSelectedPaymentMethod(paymentMethod)}
                               />
-                              <label
-                                htmlFor={`radioPayment${index}`}
-                                className="form-check-label"
-                              >
-                                {paymentMethod.brand} **** **** ****{" "}
-                                {paymentMethod.last4}
+                              <label htmlFor={`radioPayment${index}`} className="form-check-label">
+                                {paymentMethod.brand} **** **** **** {paymentMethod.last4}
                               </label>
                             </div>
                           ))}
@@ -220,31 +205,24 @@ const CheckoutSubscription = () => {
                       )}
                     </>
                   )}
-                  <h3 className="mt-3">{t("checkout.summary")}</h3>
+                  <h3 className="mt-3">{t('checkout.summary')}</h3>
                   <ul>
-                      <li>
-                        {subscription.title}{" - "}
-                        {subscription.duration}/{t("checkout.month")}
-                        <span>{formatPrice(subscription.price)}</span>
-                      </li>
+                    <li>
+                      {subscription.title}
+                      {' - '}
+                      {subscription.duration}/{t('checkout.month')}
+                      <span>{formatPrice(subscription.price)}</span>
+                    </li>
                   </ul>
-                    <ul>
+                  <ul>
                     <li className="last">
-                      {t("checkout.total")}
-                      <span>
-                        {formatPrice(subscription.price)}
-                      </span>
+                      {t('checkout.total')}
+                      <span>{formatPrice(subscription.price)}</span>
                     </li>
                   </ul>
                   <div>
-                    <button
-                      className="btn"
-                      onClick={handlePayment}
-                      disabled={isLoading}
-                    >
-                      {isLoading
-                        ? t("checkout.paymentInProgress")
-                        : t("checkout.payment")}
+                    <button className="btn" onClick={handlePayment} disabled={isLoading}>
+                      {isLoading ? t('checkout.paymentInProgress') : t('checkout.payment')}
                     </button>
                   </div>
                 </form>
@@ -261,14 +239,12 @@ const CheckoutSubscription = () => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {t("checkout.modal.title")}
-          </Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">{t('checkout.modal.title')}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{t("checkout.modal.body")}</Modal.Body>
+        <Modal.Body>{t('checkout.modal.body')}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            {t("checkout.modal.close")}
+            {t('checkout.modal.close')}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Repository\HomepageRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ProductTranslationRepository;
 use App\Repository\CategoryTranslationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class HomepageController extends AbstractController
 {
@@ -16,8 +16,7 @@ class HomepageController extends AbstractController
         private HomepageRepository $homepageRepository,
         private CategoryTranslationRepository $categoryTranslationRepository,
         private ProductTranslationRepository $productTranslationRepository
-    ) {
-    }
+    ) {}
 
     #[Route('/api/homepage/{locale}', name: 'get_homepage', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$'])]
     public function getHomepage(string $locale, Request $request): JsonResponse

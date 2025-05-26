@@ -14,7 +14,7 @@
 .categories-grid .inner {
   background: rgba(255, 255, 255, 0.7);
   color: var(--black-color);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 12px;
   text-align: center;
 }

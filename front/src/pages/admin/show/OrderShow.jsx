@@ -6,7 +6,7 @@ import {
   NumberField,
   ArrayField,
   Datagrid,
-} from "react-admin";
+} from 'react-admin';
 
 export const OrderShow = () => (
   <Show>

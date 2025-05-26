@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Image;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;

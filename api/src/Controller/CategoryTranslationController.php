@@ -2,18 +2,16 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryTranslationRepository;
-use App\Repository\ProductTranslationRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ProductTranslationRepository;
+use App\Repository\CategoryTranslationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class CategoryTranslationController extends AbstractController
 {
-    public function __construct(private CategoryTranslationRepository $categoryTranslationRepository, private ProductTranslationRepository $productTranslationRepository)
-    {
-    }
+    public function __construct(private CategoryTranslationRepository $categoryTranslationRepository, private ProductTranslationRepository $productTranslationRepository) {}
 
     #[Route('api/category/{locale}/{id}', name: 'get_category_translation', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$', 'id' => '\d+'])]
     public function getCategoryTranslation(string $locale, int $id, Request $request): JsonResponse

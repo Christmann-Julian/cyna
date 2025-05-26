@@ -17,8 +17,7 @@ class PaymentMethodController extends AbstractController
     public function __construct(
         private StripeService $stripeService,
         private EntityManagerInterface $em
-    ) {
-    }
+    ) {}
 
     #[Route('/api/user/payment_methods', name: 'get_user_payment_methods', methods: ['GET'])]
     public function getUserAddresses(): Response

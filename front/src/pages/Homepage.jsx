@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import ProductList from "../components/ProductList";
-import HeroSlider from "../components/HeroSlider";
-import "../assets/css/category-section.css";
-import { useTranslation } from "react-i18next";
-import { getCurrentLocale } from "../utils/language";
-import apiRequest from "../utils/apiRequest";
-import Loading from "./Loading";
-import ErrorPage from "./ErrorPage";
-import { Link } from "react-router-dom";
-import Subscription from "../components/Subscription";
+import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import ProductList from '../components/ProductList';
+import HeroSlider from '../components/HeroSlider';
+import '../assets/css/category-section.css';
+import { useTranslation } from 'react-i18next';
+import { getCurrentLocale } from '../utils/language';
+import apiRequest from '../utils/apiRequest';
+import Loading from './Loading';
+import ErrorPage from './ErrorPage';
+import { Link } from 'react-router-dom';
+import Subscription from '../components/Subscription';
 
 const Homepage = () => {
   const { t } = useTranslation();
@@ -23,10 +23,10 @@ const Homepage = () => {
     const fetchItems = async () => {
       const { data: homepage, error: errorCode } = await apiRequest(
         `/homepage/${currentLocale}`,
-        "GET",
+        'GET',
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -54,7 +54,7 @@ const Homepage = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-title">
-                <h2>{t("homepage.descriptionTitle")}</h2>
+                <h2>{t('homepage.descriptionTitle')}</h2>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ const Homepage = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-title">
-                <h2>{t("homepage.categoriesTitle")}</h2>
+                <h2>{t('homepage.categoriesTitle')}</h2>
               </div>
             </div>
           </div>
@@ -78,26 +78,16 @@ const Homepage = () => {
             <div className="col-lg-8 col-12">
               <div className="big-content">
                 <img
-                  src={
-                    homepage.categories[0]?.url_image ??
-                    "https://via.placeholder.com/850x530"
-                  }
+                  src={homepage.categories[0]?.url_image ?? 'https://via.placeholder.com/850x530'}
                   alt="category image"
                 />
                 <div className="inner">
-                  <h4
-                    className={
-                      homepage.categories[0]?.name === null ? "" : "title"
-                    }
-                  >
-                    {homepage.categories[0]?.name ?? t("homepage.noCategories")}
+                  <h4 className={homepage.categories[0]?.name === null ? '' : 'title'}>
+                    {homepage.categories[0]?.name ?? t('homepage.noCategories')}
                   </h4>
                   <div className="button">
-                    <Link
-                      to={`category/${homepage.categories[0]?.id}`}
-                      className="btn"
-                    >
-                      {t("homepage.seeMore")}
+                    <Link to={`category/${homepage.categories[0]?.id}`} className="btn">
+                      {t('homepage.seeMore')}
                     </Link>
                   </div>
                 </div>
@@ -111,7 +101,7 @@ const Homepage = () => {
                     <h4 className="title">{category.name}</h4>
                     <div className="button">
                       <Link to={`category/${category.id}`} className="btn">
-                        {t("homepage.seeMore")}
+                        {t('homepage.seeMore')}
                       </Link>
                     </div>
                   </div>
@@ -121,9 +111,7 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      {homepage.topProducts.length > 0 && (
-        <ProductList products={homepage.topProducts} />
-      )}
+      {homepage.topProducts.length > 0 && <ProductList products={homepage.topProducts} />}
       <Subscription />
       <Footer />
     </>

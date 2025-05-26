@@ -6,7 +6,7 @@ import {
   Datagrid,
   ReferenceField,
   FunctionField,
-} from "react-admin";
+} from 'react-admin';
 
 export const CategoryShow = () => (
   <Show>
@@ -17,12 +17,8 @@ export const CategoryShow = () => (
         <Datagrid bulkActionButtons={false} sort={false} rowClick={false}>
           <TextField source="name" label="Name" />
           <TextField source="description" label="Description" />
-          <ReferenceField
-            source="locale"
-            reference="locale_cynas"
-            label="Locale"
-          >
-            <FunctionField render={(record) => record.code.split("/").pop()} />
+          <ReferenceField source="locale" reference="locale_cynas" label="Locale">
+            <FunctionField render={(record) => record.code.split('/').pop()} />
           </ReferenceField>
         </Datagrid>
       </ArrayField>

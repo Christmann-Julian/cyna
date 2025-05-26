@@ -10,9 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SubscriptionController extends AbstractController
 {
-    public function __construct(private SubscriptionRepository $subscriptionRepository)
-    {
-    }
+    public function __construct(private SubscriptionRepository $subscriptionRepository) {}
     #[Route('api/{locale}/subscriptions', name: 'get_all_subscription', methods: ['GET'], requirements: ['locale' => '^[a-z]{2}-[A-Z]{2}$'])]
     public function getAllSubscription(string $locale): Response
     {

@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "../assets/css/product-area.css";
-import "../assets/css/filters.css";
-import SingleProduct from "../components/SingleProduct";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
-import apiRequest from "../utils/apiRequest";
-import { getCurrentLocale } from "../utils/language";
-import { Pagination } from "react-bootstrap";
-import ReactSlider from "react-slider";
-import LoadingSpinner from "../components/LoadingSpinner";
+import React, { useEffect, useState, useRef } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import '../assets/css/product-area.css';
+import '../assets/css/filters.css';
+import SingleProduct from '../components/SingleProduct';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import apiRequest from '../utils/apiRequest';
+import { getCurrentLocale } from '../utils/language';
+import { Pagination } from 'react-bootstrap';
+import ReactSlider from 'react-slider';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ProductGrid = () => {
   const { t } = useTranslation();
@@ -21,28 +21,28 @@ const ProductGrid = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(8);
-  const [by, setBy] = useState("");
+  const [by, setBy] = useState('');
   const [priceRange, setPriceRange] = useState([0, 15000]);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const searchTerm = searchParams.get("q") || "";
-    const page = parseInt(searchParams.get("page"), 10) || 1;
-    const limit = parseInt(searchParams.get("limit"), 10) || 8;
-    const by = searchParams.get("by") || "";
-    const category = searchParams.get("category") || "";
-    const priceMin = parseInt(searchParams.get("priceMin"), 10) || 0;
-    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 15000;
+    const searchTerm = searchParams.get('q') || '';
+    const page = parseInt(searchParams.get('page'), 10) || 1;
+    const limit = parseInt(searchParams.get('limit'), 10) || 8;
+    const by = searchParams.get('by') || '';
+    const category = searchParams.get('category') || '';
+    const priceMin = parseInt(searchParams.get('priceMin'), 10) || 0;
+    const priceMax = parseInt(searchParams.get('priceMax'), 10) || 15000;
 
     const fetchProducts = async () => {
       let url = `/search?q=${searchTerm}&locale=${locale}&page=${page}&limit=${limit}`;
 
-      if (by && by !== "") {
+      if (by && by !== '') {
         url += `&by=${by}`;
       }
 
-      if (category && category !== "") {
+      if (category && category !== '') {
         url += `&category=${category}`;
       }
 
@@ -54,7 +54,7 @@ const ProductGrid = () => {
         url += `&priceMax=${priceMax}`;
       }
 
-      const { data } = await apiRequest(url, "GET");
+      const { data } = await apiRequest(url, 'GET');
       setProducts(data.data);
       setTotalPages(data.totalPages);
       setCurrentPage(page);
@@ -70,23 +70,19 @@ const ProductGrid = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const priceMin = parseInt(searchParams.get("priceMin"), 10) || 0;
-    const priceMax = parseInt(searchParams.get("priceMax"), 10) || 15000;
+    const priceMin = parseInt(searchParams.get('priceMin'), 10) || 0;
+    const priceMax = parseInt(searchParams.get('priceMax'), 10) || 15000;
 
     setPriceRange([Number(priceMin), Number(priceMax)]);
   }, []);
 
   const fetchCategories = async () => {
     setCategoriesLoading(true);
-    const { data, error: errorCode } = await apiRequest(
-      `/${locale}/categories/filter`,
-      "GET",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const { data, error: errorCode } = await apiRequest(`/${locale}/categories/filter`, 'GET', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (errorCode) {
       setCategories(null);
     } else {
@@ -97,22 +93,22 @@ const ProductGrid = () => {
 
   const handlePageChange = (pageNumber) => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page", pageNumber);
-    searchParams.set("limit", limit);
+    searchParams.set('page', pageNumber);
+    searchParams.set('limit', limit);
     const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.history.pushState({}, '', newUrl);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const handleLimitChange = (event) => {
     const newLimit = parseInt(event.target.value, 10);
     setLimit(newLimit);
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("limit", newLimit);
-    searchParams.set("page", 1);
+    searchParams.set('limit', newLimit);
+    searchParams.set('page', 1);
     const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.history.pushState({}, '', newUrl);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const handleByChange = (event) => {
@@ -120,26 +116,26 @@ const ProductGrid = () => {
     setBy(newBy);
     const searchParams = new URLSearchParams(location.search);
     if (newBy) {
-      searchParams.set("by", newBy);
+      searchParams.set('by', newBy);
     } else {
-      searchParams.delete("by");
+      searchParams.delete('by');
     }
     const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.history.pushState({}, '', newUrl);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const handleCategoryClick = (categoryId) => {
     const searchParams = new URLSearchParams(location.search);
-    if (categoryId === "all") {
-      searchParams.delete("category");
+    if (categoryId === 'all') {
+      searchParams.delete('category');
     } else {
-      searchParams.set("category", categoryId);
+      searchParams.set('category', categoryId);
     }
-    searchParams.set("page", 1);
+    searchParams.set('page', 1);
     const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.history.pushState({}, '', newUrl);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const debounceTimer = useRef(null);
@@ -154,21 +150,21 @@ const ProductGrid = () => {
     debounceTimer.current = setTimeout(() => {
       const searchParams = new URLSearchParams(location.search);
       if (values[0] === 0 && values[1] === 15000) {
-        searchParams.delete("priceMin");
-        searchParams.delete("priceMax");
+        searchParams.delete('priceMin');
+        searchParams.delete('priceMax');
       } else if (values[0] === 0) {
-        searchParams.delete("priceMin");
-        searchParams.set("priceMax", values[1]);
+        searchParams.delete('priceMin');
+        searchParams.set('priceMax', values[1]);
       } else if (values[1] === 15000) {
-        searchParams.set("priceMin", values[0]);
-        searchParams.delete("priceMax");
+        searchParams.set('priceMin', values[0]);
+        searchParams.delete('priceMax');
       } else {
-        searchParams.set("priceMin", values[0]);
-        searchParams.set("priceMax", values[1]);
+        searchParams.set('priceMin', values[0]);
+        searchParams.set('priceMax', values[1]);
       }
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-      window.history.pushState({}, "", newUrl);
-      window.dispatchEvent(new PopStateEvent("popstate"));
+      window.history.pushState({}, '', newUrl);
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }, 300);
   };
 
@@ -181,25 +177,23 @@ const ProductGrid = () => {
             <div className="col-lg-3 col-md-4 col-12">
               <div className="shop-sidebar">
                 <div className="single-widget category">
-                  <h3 className="title">{t("product-grid.categories")}</h3>
+                  <h3 className="title">{t('product-grid.categories')}</h3>
                   <ul className="category-list">
                     {categoriesLoading ? (
-                      <LoadingSpinner height={"30px"} />
+                      <LoadingSpinner height={'30px'} />
                     ) : (
                       <>
                         {categories === null ? (
-                          <li>{t("navbar.no-categories")}</li>
+                          <li>{t('navbar.no-categories')}</li>
                         ) : (
                           <>
-                            <li onClick={(event) => handleCategoryClick("all")}>
-                              {t("product-grid.allCategories")}
+                            <li onClick={(event) => handleCategoryClick('all')}>
+                              {t('product-grid.allCategories')}
                             </li>
                             {categories.map((category) => (
                               <li
                                 key={category.id}
-                                onClick={(event) =>
-                                  handleCategoryClick(category.id)
-                                }
+                                onClick={(event) => handleCategoryClick(category.id)}
                               >
                                 {category.name}
                               </li>
@@ -211,7 +205,7 @@ const ProductGrid = () => {
                   </ul>
                 </div>
                 <div className="single-widget range">
-                  <h3 className="title">{t("product-grid.sortByPrice")}</h3>
+                  <h3 className="title">{t('product-grid.sortByPrice')}</h3>
                   <div className="price-filter">
                     <div className="price-filter-inner">
                       <ReactSlider
@@ -230,7 +224,7 @@ const ProductGrid = () => {
                               key={key}
                               {...otherProps}
                               className={`example-track ${
-                                state.index === 1 ? "example-track-1" : ""
+                                state.index === 1 ? 'example-track-1' : ''
                               }`}
                             />
                           );
@@ -278,40 +272,22 @@ const ProductGrid = () => {
                   <div className="shop-top">
                     <div className="shop-shorter">
                       <div className="single-shorter">
-                        <label>{t("product-grid.show")} :</label>
-                        <select
-                          className="form-select"
-                          value={limit}
-                          onChange={handleLimitChange}
-                        >
+                        <label>{t('product-grid.show')} :</label>
+                        <select className="form-select" value={limit} onChange={handleLimitChange}>
                           <option value="8">08</option>
                           <option value="16">16</option>
                           <option value="20">20</option>
                         </select>
                       </div>
                       <div className="single-shorter">
-                        <label>{t("product-grid.sortBy")} :</label>
-                        <select
-                          className="form-select"
-                          value={by}
-                          onChange={handleByChange}
-                        >
+                        <label>{t('product-grid.sortBy')} :</label>
+                        <select className="form-select" value={by} onChange={handleByChange}>
                           <option value="">---</option>
-                          <option value="disponibility">
-                            {t("product-grid.disponibility")}
-                          </option>
-                          <option value="created_at">
-                            {t("product-grid.new")}
-                          </option>
-                          <option value="price-asc">
-                            {t("product-grid.priceAsc")}
-                          </option>
-                          <option value="price-desc">
-                            {t("product-grid.priceDesc")}
-                          </option>
-                          <option value="promotion">
-                            {t("product-grid.promotion")}
-                          </option>
+                          <option value="disponibility">{t('product-grid.disponibility')}</option>
+                          <option value="created_at">{t('product-grid.new')}</option>
+                          <option value="price-asc">{t('product-grid.priceAsc')}</option>
+                          <option value="price-desc">{t('product-grid.priceDesc')}</option>
+                          <option value="promotion">{t('product-grid.promotion')}</option>
                         </select>
                       </div>
                     </div>
@@ -323,26 +299,19 @@ const ProductGrid = () => {
                   <div className="row">
                     {products.length === 0 ? (
                       <div className="col-12">
-                        <h3>{t("product-grid.noProduct")}</h3>
+                        <h3>{t('product-grid.noProduct')}</h3>
                       </div>
                     ) : (
                       <>
                         {products.map((product) => (
-                          <div
-                            className="col-xl-3 col-lg-3 col-md-2 col-12"
-                            key={product.id}
-                          >
+                          <div className="col-xl-3 col-lg-3 col-md-2 col-12" key={product.id}>
                             <SingleProduct product={product} />
                           </div>
                         ))}
                         <Pagination className="justify-content-center pt-3">
-                          <Pagination.First
-                            onClick={() => handlePageChange(1)}
-                          />
+                          <Pagination.First onClick={() => handlePageChange(1)} />
                           <Pagination.Prev
-                            onClick={() =>
-                              handlePageChange(Math.max(1, currentPage - 1))
-                            }
+                            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                           />
                           {[...Array(totalPages)].map((_, index) => (
                             <Pagination.Item
@@ -354,15 +323,9 @@ const ProductGrid = () => {
                             </Pagination.Item>
                           ))}
                           <Pagination.Next
-                            onClick={() =>
-                              handlePageChange(
-                                Math.min(totalPages, currentPage + 1)
-                              )
-                            }
+                            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                           />
-                          <Pagination.Last
-                            onClick={() => handlePageChange(totalPages)}
-                          />
+                          <Pagination.Last onClick={() => handlePageChange(totalPages)} />
                         </Pagination>
                       </>
                     )}

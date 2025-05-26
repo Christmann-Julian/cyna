@@ -10,9 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ActivityLoggerService
 {
-    public function __construct(private EntityManagerInterface $em, private TokenStorageInterface $tokenStorage)
-    {
-    }
+    public function __construct(private EntityManagerInterface $em, private TokenStorageInterface $tokenStorage) {}
 
     public function log(string $action, string $entityType, int $entityId = null, array $changeSet = []): void
     {
@@ -38,7 +36,7 @@ class ActivityLoggerService
 
         $eventManager = $this->em->getEventManager();
         $entityActivityListener = null;
-        
+
         foreach ($eventManager->getListeners('preUpdate') as $listener) {
             if ($listener instanceof \App\EventListener\EntityActivityListener) {
                 $entityActivityListener = $listener;

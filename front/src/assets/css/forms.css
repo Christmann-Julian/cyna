@@ -80,7 +80,7 @@
 .shop.login .login-form .checkbox label input {
   margin-right: 10px;
 }
-.shop.login .login-form .checkbox input[type="checkbox"]:checked {
+.shop.login .login-form .checkbox input[type='checkbox']:checked {
   background-color: var(--main-color);
   border-color: var(--main-color);
 }

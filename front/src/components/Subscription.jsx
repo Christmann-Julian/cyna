@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import "../assets/css/subscription.css";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import apiRequest from "../utils/apiRequest";
-import { formatPrice } from "../utils/utils";
-import { getCurrentLocale } from "../utils/language";
-import { useDispatch } from "react-redux";
-import { addSubscription } from "../redux/cartSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import '../assets/css/subscription.css';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import apiRequest from '../utils/apiRequest';
+import { formatPrice } from '../utils/utils';
+import { getCurrentLocale } from '../utils/language';
+import { useDispatch } from 'react-redux';
+import { addSubscription } from '../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Subscription = () => {
   const { t } = useTranslation();
@@ -15,20 +15,20 @@ const Subscription = () => {
   const currentLocale = getCurrentLocale();
   const navigate = useNavigate();
   const durationTitle = {
-    1: t("homepage.month"),
-    12: t("homepage.year"),
+    1: t('homepage.month'),
+    12: t('homepage.year'),
   };
 
   const dispatch = useDispatch();
 
   const handleSubscribe = (subscription) => {
     dispatch(addSubscription(subscription));
-    navigate("/order/checkout/subscription")
+    navigate('/order/checkout/subscription');
   };
 
   useEffect(() => {
     const fetchSubscriptions = async () => {
-      const { data, error } = await apiRequest(`/${currentLocale}/subscriptions`, "GET");
+      const { data, error } = await apiRequest(`/${currentLocale}/subscriptions`, 'GET');
 
       if (error) {
         setSubscriptions([]);
@@ -52,7 +52,7 @@ const Subscription = () => {
         <div className="row">
           <div className="col-12">
             <div className="section-title">
-              <h2>{t("homepage.subscriptionTitle")}</h2>
+              <h2>{t('homepage.subscriptionTitle')}</h2>
             </div>
           </div>
         </div>
@@ -63,9 +63,7 @@ const Subscription = () => {
               <div className="card pricing-card h-100 border-0 shadow">
                 <div
                   className={`card-header text-center border-0 pt-4 ${
-                    subscription.id === lastSubscription.id
-                      ? "bg-primary text-white"
-                      : "bg-white"
+                    subscription.id === lastSubscription.id ? 'bg-primary text-white' : 'bg-white'
                   }`}
                 >
                   <h4 className="my-0 fw-bold">{subscription.title}</h4>
@@ -85,12 +83,12 @@ const Subscription = () => {
                     type="button"
                     className={`btn btn-lg btn-subscribe w-75 ${
                       subscription.id === lastSubscription.id
-                        ? "btn-primary"
-                        : "btn-outline-primary"
+                        ? 'btn-primary'
+                        : 'btn-outline-primary'
                     }`}
                     onClick={() => handleSubscribe(subscription)}
                   >
-                    {t("homepage.subscribe")}
+                    {t('homepage.subscribe')}
                   </button>
                 </div>
               </div>
@@ -100,9 +98,9 @@ const Subscription = () => {
 
         <div className="text-center mt-5">
           <p className="mb-0 text-muted">
-            {t("homepage.questions")}{" "}
+            {t('homepage.questions')}{' '}
             <Link to="/contact" className="text-decoration-none">
-              {t("homepage.contactUs")}
+              {t('homepage.contactUs')}
             </Link>
           </p>
         </div>

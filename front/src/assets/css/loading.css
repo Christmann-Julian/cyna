@@ -32,7 +32,8 @@
   height: 5px;
   border-radius: 50%;
   color: var(--main-color);
-  box-shadow: calc(1 * var(--d)) calc(0 * var(--d)) 0 0,
+  box-shadow:
+    calc(1 * var(--d)) calc(0 * var(--d)) 0 0,
     calc(0.707 * var(--d)) calc(0.707 * var(--d)) 0 1.1px,
     calc(0 * var(--d)) calc(1 * var(--d)) 0 2.2px,
     calc(-0.707 * var(--d)) calc(0.707 * var(--d)) 0 3.4px,

@@ -17,9 +17,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 
 class OrderController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
-    }
+    public function __construct(private EntityManagerInterface $entityManager) {}
 
     #[Route('/api/order/{locale}/{id}/download', name: 'api_order_download', methods: ['GET'])]
     public function downloadOrderPdf(int $id, string $locale, Request $request, JWTEncoderInterface $jwtEncoder): Response

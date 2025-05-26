@@ -9,9 +9,7 @@ final class MultipartDecoder implements DecoderInterface
 {
     public const FORMAT = 'multipart';
 
-    public function __construct(private readonly RequestStack $requestStack)
-    {
-    }
+    public function __construct(private readonly RequestStack $requestStack) {}
 
     public function decode(string $data, string $format, array $context = []): ?array
     {

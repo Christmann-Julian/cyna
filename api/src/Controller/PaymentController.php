@@ -28,8 +28,7 @@ class PaymentController extends AbstractController
         private ParameterBagInterface $params,
         private EntityManagerInterface $entityManager,
         private EmailService $emailService
-    ) {
-    }
+    ) {}
 
     #[Route('/api/payment/stripe', name: 'api_payment_stripe', methods: ['POST'])]
     public function payWithStripe(
