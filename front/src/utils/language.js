@@ -2,27 +2,27 @@ import cookies from 'js-cookie';
 
 const languages = [
   {
-    code: "fr",
-    name: "Français",
-    country_code: "fr",
+    code: 'fr',
+    name: 'Français',
+    country_code: 'fr',
   },
   {
-    code: "en",
-    name: "English",
-    country_code: "gb",
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
   },
   {
-    code: "ar",
-    name: "العربية",
-    dir: "rtl",
-    country_code: "sa",
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'sa',
   },
 ];
 
 export default languages;
 
 export const getCurrentLanguageCode = () => {
-  return cookies.get("i18next") || "en";
+  return cookies.get('i18next') || 'en';
 };
 
 export const getCurrentLanguage = () => {
@@ -31,6 +31,6 @@ export const getCurrentLanguage = () => {
 };
 
 export const getCurrentLocale = () => {
-    const currentLanguage = getCurrentLanguage();
-    return `${currentLanguage.code}-${currentLanguage.country_code.toUpperCase()}`;
+  const currentLanguage = getCurrentLanguage();
+  return `${currentLanguage.code}-${currentLanguage.country_code.toUpperCase()}`;
 };

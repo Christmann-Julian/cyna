@@ -10,41 +10,37 @@ import {
   ReferenceInput,
   required,
   minLength,
-  maxLength
-} from "react-admin";
-import { RichTextInput } from "ra-input-rich-text";
+  maxLength,
+} from 'react-admin';
+import { RichTextInput } from 'ra-input-rich-text';
 
 export const ProductCreate = () => (
   <Create>
     <SimpleForm>
-      <ReferenceInput 
-        source="image" 
+      <ReferenceInput
+        source="image"
         reference="media_objects"
         sort={{ field: 'id', order: 'DESC' }}
       >
-        <SelectInput
-          optionText="contentUrl"
-          optionValue="@id"
-          required
-        />
+        <SelectInput optionText="contentUrl" optionValue="@id" required />
       </ReferenceInput>
       <ArrayInput source="productImages">
         <SimpleFormIterator>
-          <ReferenceInput 
-            source="image" 
+          <ReferenceInput
+            source="image"
             reference="media_objects"
             sort={{ field: 'id', order: 'DESC' }}
           >
-            <SelectInput
-              optionText="contentUrl"
-              optionValue="@id"
-              validate={[required()]}
-            />
+            <SelectInput optionText="contentUrl" optionValue="@id" validate={[required()]} />
           </ReferenceInput>
-          <TextInput source="alt" label="Alternative text" validate={[required(), minLength(2), maxLength(255)]} />
+          <TextInput
+            source="alt"
+            label="Alternative text"
+            validate={[required(), minLength(2), maxLength(255)]}
+          />
         </SimpleFormIterator>
       </ArrayInput>
-      <NumberInput source="price"  validate={[required()]}/>
+      <NumberInput source="price" validate={[required()]} />
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
@@ -58,10 +54,14 @@ export const ProductCreate = () => (
       <NumberInput source="position" defaultValue={0} label="Top product position" />
       <BooleanInput source="promotionActive" label="Promotion is active" />
       <TextInput source="promotionLabel" label="Promotion label" />
-      <NumberInput source="promotionPrice" label="Promotion price"/>
+      <NumberInput source="promotionPrice" label="Promotion price" />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]}/>
+          <TextInput
+            source="name"
+            label="Name"
+            validate={[required(), minLength(2), maxLength(255)]}
+          />
           <TextInput
             source="description"
             label="Description"
@@ -78,9 +78,9 @@ export const ProductCreate = () => (
             source="locale"
             validate={[required()]}
             choices={[
-              { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
-              { id: "/api/locale_cynas/en-GB", name: "en-GB" },
-              { id: "/api/locale_cynas/ar-SA", name: "ar-SA" },
+              { id: '/api/locale_cynas/fr-FR', name: 'fr-FR' },
+              { id: '/api/locale_cynas/en-GB', name: 'en-GB' },
+              { id: '/api/locale_cynas/ar-SA', name: 'ar-SA' },
             ]}
           />
         </SimpleFormIterator>

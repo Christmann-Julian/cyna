@@ -6,7 +6,7 @@ import {
   ArrayField,
   Datagrid,
   TextField,
-} from "react-admin";
+} from 'react-admin';
 
 export const SubscriptionShow = () => (
   <Show>

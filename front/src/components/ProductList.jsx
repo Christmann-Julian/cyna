@@ -2,7 +2,7 @@ import React from 'react';
 import SingleProduct from './SingleProduct';
 import { useTranslation } from 'react-i18next';
 
-const ProductList = ({products}) => {
+const ProductList = ({ products }) => {
   const { t } = useTranslation();
 
   return (
@@ -11,7 +11,7 @@ const ProductList = ({products}) => {
         <div className="row">
           <div className="col-12">
             <div className="section-title">
-              <h2>{t("homepage.topServicesTitle")}</h2>
+              <h2>{t('homepage.topServicesTitle')}</h2>
             </div>
           </div>
         </div>
@@ -25,6 +25,6 @@ const ProductList = ({products}) => {
       </div>
     </section>
   );
-}
+};
 
 export default ProductList;

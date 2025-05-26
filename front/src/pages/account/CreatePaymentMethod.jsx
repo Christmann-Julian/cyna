@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import apiRequest from "../../utils/apiRequest";
-import { jwtDecode } from "jwt-decode";
-import { useTranslation } from "react-i18next";
-import Alert from "../../components/Alert";
-import Loading from "../Loading";
-import { useNavigate } from "react-router-dom";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import "../../assets/css/payment-method.css";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import apiRequest from '../../utils/apiRequest';
+import { jwtDecode } from 'jwt-decode';
+import { useTranslation } from 'react-i18next';
+import Alert from '../../components/Alert';
+import Loading from '../Loading';
+import { useNavigate } from 'react-router-dom';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import '../../assets/css/payment-method.css';
+import { useSelector } from 'react-redux';
 
 const CreatePaymentMethod = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
-  const [alertCreate, setAlertCreate] = useState({ message: "", type: "" });
+  const [alertCreate, setAlertCreate] = useState({ message: '', type: '' });
   const [createLoading, setCreateLoading] = useState(false);
   const token = useSelector((state) => state.auth.token);
 
@@ -32,50 +32,45 @@ const CreatePaymentMethod = () => {
 
     const cardElement = elements.getElement(CardElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
+      type: 'card',
       card: cardElement,
     });
 
     if (!error) {
-
       let userId;
       if (token) {
         const decodedToken = jwtDecode(token);
         userId = decodedToken.id;
       }
 
-      const { error: errorPM } = await apiRequest(
-        `/add_payment_method`,
-        "POST",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: {
-            userId,
-            paymentMethodId: paymentMethod.id,
-          },
-        }
-      );
+      const { error: errorPM } = await apiRequest(`/add_payment_method`, 'POST', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: {
+          userId,
+          paymentMethodId: paymentMethod.id,
+        },
+      });
 
       if (errorPM) {
         setAlertCreate({
-          message: t("paymentMethod.errors.serverError"),
-          type: "danger",
+          message: t('paymentMethod.errors.serverError'),
+          type: 'danger',
         });
         setCreateLoading(false);
       } else {
         setAlertCreate({
-          message: t("paymentMethod.createSuccess"),
-          type: "success",
+          message: t('paymentMethod.createSuccess'),
+          type: 'success',
         });
         setCreateLoading(false);
       }
     } else {
       setAlertCreate({
         message: error.message,
-        type: "danger",
+        type: 'danger',
       });
       setCreateLoading(false);
     }
@@ -88,21 +83,20 @@ const CreatePaymentMethod = () => {
       ) : (
         <>
           <Navbar />
-          <div className="container payment-method" >
+          <div className="container payment-method">
             <div className="row justify-content-center align-items-center pm-height">
               <div className="col-md-6">
                 <form onSubmit={handleSubmit} className="card p-4">
-                  <Alert
-                    message={alertCreate.message}
-                    type={alertCreate.type}
-                  />
+                  <Alert message={alertCreate.message} type={alertCreate.type} />
                   <div className="form-group">
                     <CardElement className="form-control" />
                   </div>
                   <button className="btn mt-3 mb-2" type="submit">
-                    {t("paymentMethod.addCard")}
+                    {t('paymentMethod.addCard')}
                   </button>
-                  <a href="#" onClick={backToPreviousPage}>{t('paymentMethod.backToPreviousPage')}</a>
+                  <a href="#" onClick={backToPreviousPage}>
+                    {t('paymentMethod.backToPreviousPage')}
+                  </a>
                 </form>
               </div>
             </div>

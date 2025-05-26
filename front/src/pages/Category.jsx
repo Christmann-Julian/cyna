@@ -1,16 +1,16 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "../assets/css/hero-slider.css";
-import "../assets/css/product-area.css";
-import ErrorPage from "./ErrorPage";
-import SingleProduct from "../components/SingleProduct";
-import { useTranslation } from "react-i18next";
-import apiRequest from "../utils/apiRequest";
-import Loading from "./Loading";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getCurrentLocale } from "../utils/language";
+import React from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import '../assets/css/hero-slider.css';
+import '../assets/css/product-area.css';
+import ErrorPage from './ErrorPage';
+import SingleProduct from '../components/SingleProduct';
+import { useTranslation } from 'react-i18next';
+import apiRequest from '../utils/apiRequest';
+import Loading from './Loading';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCurrentLocale } from '../utils/language';
 
 const Category = () => {
   const { t } = useTranslation();
@@ -22,10 +22,10 @@ const Category = () => {
   const fetchItems = async () => {
     const { data: category, error: errorCode } = await apiRequest(
       `/category/${currentLocale}/${id}`,
-      "GET",
+      'GET',
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -52,7 +52,7 @@ const Category = () => {
       <section className="hero-slider">
         <div className="single-slider">
           <div className="slide">
-            <img src={category.url_image} alt={t("category.category")} />
+            <img src={category.url_image} alt={t('category.category')} />
             <div className="container">
               <div className="row no-gutters">
                 <div className="col-lg-9 offset-lg-3 col-12">
@@ -61,7 +61,7 @@ const Category = () => {
                       <div className="col-lg-7 col-12">
                         <div className="hero-text">
                           <h1>
-                            <span>{t("category.category")} </span>
+                            <span>{t('category.category')} </span>
                             {category.name}
                           </h1>
                         </div>
@@ -79,7 +79,7 @@ const Category = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-title">
-                <h2>{t("category.description")}</h2>
+                <h2>{t('category.description')}</h2>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ const Category = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-title">
-                <h2>{t("category.services")}</h2>
+                <h2>{t('category.services')}</h2>
               </div>
             </div>
           </div>
@@ -103,10 +103,7 @@ const Category = () => {
             <div className="col-12">
               <div className="row">
                 {category.products.map((product) => (
-                  <div
-                    className="col-xl-3 col-lg-4 col-md-4 col-12"
-                    key={product.id}
-                  >
+                  <div className="col-xl-3 col-lg-4 col-md-4 col-12" key={product.id}>
                     <SingleProduct product={product} />
                   </div>
                 ))}

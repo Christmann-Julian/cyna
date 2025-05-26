@@ -10,9 +10,9 @@ import {
   ReferenceInput,
   required,
   minLength,
-  maxLength
-} from "react-admin";
-import { RichTextInput } from "ra-input-rich-text";
+  maxLength,
+} from 'react-admin';
+import { RichTextInput } from 'ra-input-rich-text';
 
 const transform = (data) => {
   const transformedData = {
@@ -22,7 +22,7 @@ const transform = (data) => {
   };
 
   if (data.productImages) {
-    transformedData.productImages = data.productImages.map(productImage => ({
+    transformedData.productImages = data.productImages.map((productImage) => ({
       ...productImage,
       image: productImage.image?.['@id'], // Transforme en IRI chaque image des slides
     }));
@@ -34,53 +34,51 @@ const transform = (data) => {
 export const ProductEdit = () => (
   <Edit transform={transform}>
     <SimpleForm>
-      <ReferenceInput 
-        source="image.@id" 
+      <ReferenceInput
+        source="image.@id"
         reference="media_objects"
         sort={{ field: 'id', order: 'DESC' }}
       >
-        <SelectInput
-          optionText="contentUrl"
-          optionValue="@id"
-        />
+        <SelectInput optionText="contentUrl" optionValue="@id" />
       </ReferenceInput>
       <ArrayInput source="productImages">
         <SimpleFormIterator>
-          <ReferenceInput 
-            source="image.@id" 
+          <ReferenceInput
+            source="image.@id"
             reference="media_objects"
             sort={{ field: 'id', order: 'DESC' }}
           >
-            <SelectInput
-              optionText="contentUrl"
-              optionValue="@id"
-              validate={[required()]}
-            />
+            <SelectInput optionText="contentUrl" optionValue="@id" validate={[required()]} />
           </ReferenceInput>
-          <TextInput source="alt" label="Alternative text" validate={[required(), minLength(2), maxLength(255)]} />
+          <TextInput
+            source="alt"
+            label="Alternative text"
+            validate={[required(), minLength(2), maxLength(255)]}
+          />
         </SimpleFormIterator>
       </ArrayInput>
-      <NumberInput source="price" validate={[required()]}/>
+      <NumberInput source="price" validate={[required()]} />
       <NumberInput source="priority" />
       <BooleanInput source="disponibility" />
       <BooleanInput source="top_product" />
-      <NumberInput source="position" defaultValue={0} label="Top product position"/>
-      <ReferenceInput 
-        source="category.id" 
-        reference="categories" 
+      <NumberInput source="position" defaultValue={0} label="Top product position" />
+      <ReferenceInput
+        source="category.id"
+        reference="categories"
         sort={{ field: 'id', order: 'DESC' }}
       >
-        <SelectInput 
-          optionText="categoryTranslations[0].name"
-          optionValue="id"
-        />
+        <SelectInput optionText="categoryTranslations[0].name" optionValue="id" />
       </ReferenceInput>
       <BooleanInput source="promotionActive" />
-      <TextInput source="promotionLabel"/>
+      <TextInput source="promotionLabel" />
       <NumberInput source="promotionPrice" />
       <ArrayInput source="productTranslations">
         <SimpleFormIterator>
-          <TextInput source="name" label="Name" validate={[required(), minLength(2), maxLength(255)]} />
+          <TextInput
+            source="name"
+            label="Name"
+            validate={[required(), minLength(2), maxLength(255)]}
+          />
           <TextInput
             source="description"
             label="Description"
@@ -97,10 +95,10 @@ export const ProductEdit = () => (
             source="locale"
             validate={[required()]}
             choices={[
-              { id: "/api/locale_cynas/fr-FR", name: "fr-FR" },
-              { id: "/api/locale_cynas/en-GB", name: "en-GB" },
-              { id: "/api/locale_cynas/ar-SA", name: "ar-SA" },
-            ]} 
+              { id: '/api/locale_cynas/fr-FR', name: 'fr-FR' },
+              { id: '/api/locale_cynas/en-GB', name: 'en-GB' },
+              { id: '/api/locale_cynas/ar-SA', name: 'ar-SA' },
+            ]}
           />
         </SimpleFormIterator>
       </ArrayInput>

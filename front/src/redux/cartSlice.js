@@ -75,7 +75,7 @@ const cartSlice = createSlice({
       }
 
       recalculateTotalWithPromotions(state);
-      
+
       state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
       saveToLocalStorage(state);
     },
@@ -83,7 +83,7 @@ const cartSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === action.payload.id);
       if (existingItem) {
         state.totalPrice -= existingItem.total;
-        existingItem.price =  (existingItem.price / existingItem.duration) * action.payload.duration;
+        existingItem.price = (existingItem.price / existingItem.duration) * action.payload.duration;
         existingItem.duration = action.payload.duration;
         existingItem.total = existingItem.price * existingItem.quantity;
         state.totalPrice += existingItem.total;
@@ -143,7 +143,17 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, decreaseFromCart, updateDuration, applyPromotionalCode, removePromotionalCode, clearCart, addSubscription, clearSubscriptions } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  decreaseFromCart,
+  updateDuration,
+  applyPromotionalCode,
+  removePromotionalCode,
+  clearCart,
+  addSubscription,
+  clearSubscriptions,
+} = cartSlice.actions;
 export default cartSlice.reducer;
 
 const recalculateTotalWithPromotions = (state) => {
@@ -153,9 +163,7 @@ const recalculateTotalWithPromotions = (state) => {
   const removedPromotions = [];
 
   state.promotionalCodeItems.forEach((code) => {
-    const discount = code.isPercent
-      ? (total * code.promotion) / 100
-      : code.promotion;
+    const discount = code.isPercent ? (total * code.promotion) / 100 : code.promotion;
 
     if (total - discount >= 0) {
       total -= discount;

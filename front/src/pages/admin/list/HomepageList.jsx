@@ -1,4 +1,4 @@
-import { ListGuesser, FieldGuesser } from "@api-platform/admin";
+import { ListGuesser, FieldGuesser } from '@api-platform/admin';
 
 export const HomepageList = () => (
   <ListGuesser>

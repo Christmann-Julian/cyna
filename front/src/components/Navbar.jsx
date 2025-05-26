@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import "../assets/css/navbar.css";
-import logo from "../assets/img/logo-cyna.webp";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import '../assets/css/navbar.css';
+import logo from '../assets/img/logo-cyna.webp';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import languages, {
   getCurrentLanguage,
   getCurrentLanguageCode,
   getCurrentLocale,
-} from "../utils/language";
-import Dropdown from "react-bootstrap/Dropdown";
+} from '../utils/language';
+import Dropdown from 'react-bootstrap/Dropdown';
 import {
   Navbar as BoostrapNavbar,
   Container,
@@ -16,21 +16,16 @@ import {
   InputGroup,
   Button,
   Badge,
-} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-  faGlobe,
-  faUser,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import i18next from "i18next";
-import { useTranslation } from "react-i18next";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
-import authProvider from "../utils/authProvider";
-import apiRequest from "../utils/apiRequest";
-import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../redux/authSlice";
+} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping, faGlobe, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
+import '/node_modules/flag-icons/css/flag-icons.min.css';
+import authProvider from '../utils/authProvider';
+import apiRequest from '../utils/apiRequest';
+import { useSelector, useDispatch } from 'react-redux';
+import { setToken } from '../redux/authSlice';
 
 const Navbar = () => {
   const [isAuth, setIsAuth] = useState(null);
@@ -45,15 +40,11 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const fetchCategories = async () => {
-    const { data, error: errorCode } = await apiRequest(
-      `/${currentLocale}/categories`,
-      "GET",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const { data, error: errorCode } = await apiRequest(`/${currentLocale}/categories`, 'GET', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (errorCode) {
       setCategories(null);
     } else {
@@ -80,7 +71,7 @@ const Navbar = () => {
 
   useEffect(() => {
     document.documentElement.lang = getCurrentLanguageCode();
-    document.documentElement.dir = currentLanguage.dir || "ltr";
+    document.documentElement.dir = currentLanguage.dir || 'ltr';
   }, [currentLanguage, t]);
 
   const handleSearch = (event) => {
@@ -92,8 +83,8 @@ const Navbar = () => {
   const handleLogout = () => {
     authProvider.logout();
     setIsAuth(false);
-    if (location.pathname.includes("account") || location.pathname.includes("order")) {
-      navigate("/login");
+    if (location.pathname.includes('account') || location.pathname.includes('order')) {
+      navigate('/login');
     }
   };
 
@@ -134,7 +125,7 @@ const Navbar = () => {
                 EUR €
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {["EUR €"].map((currency) => (
+                {['EUR €'].map((currency) => (
                   <Dropdown.Item key={currency} as="button">
                     {currency}
                   </Dropdown.Item>
@@ -155,7 +146,7 @@ const Navbar = () => {
                   <Form.Control
                     type="search"
                     name="search"
-                    placeholder={t("navbar.input-search")}
+                    placeholder={t('navbar.input-search')}
                   />
                   <Button type="submit" variant="light">
                     <FontAwesomeIcon icon={faSearch} />
@@ -168,21 +159,16 @@ const Navbar = () => {
           <BoostrapNavbar.Collapse id="navbarMain">
             <Nav className="me-auto mb-2 mb-lg-0 d-lg-flex align-items-lg-center">
               <Link to="/" className="nav-link text-white d-flex align-items-center">
-                <span>{t("navbar.home")}</span>
+                <span>{t('navbar.home')}</span>
               </Link>
               <Dropdown>
                 <Dropdown.Toggle variant="link" className="nav-link text-white">
-                  {t("navbar.categories")}
+                  {t('navbar.categories')}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {categories === null ? (
-                    <Link
-                      to="#"
-                      className="dropdown-item"
-                      role="button"
-                      disabled
-                    >
-                      {t("navbar.no-categories")}
+                    <Link to="#" className="dropdown-item" role="button" disabled>
+                      {t('navbar.no-categories')}
                     </Link>
                   ) : (
                     <>
@@ -202,44 +188,32 @@ const Navbar = () => {
               </Dropdown>
               <Dropdown>
                 <Dropdown.Toggle variant="link" className="nav-link text-white">
-                  {t("navbar.cyna")}
+                  {t('navbar.cyna')}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Link to="/about" className="dropdown-item" role="button">
-                      {t("navbar.about")}
-                    </Link>
-                    <Link
-                      to="/cgu"
-                      className="dropdown-item"
-                      role="button"
-                    >
-                      {t("navbar.terms-condition")}
-                    </Link>
-                    <Link
-                      to="/legal-notice"
-                      className="dropdown-item"
-                      role="button"
-                    >
-                      {t("navbar.legal-notices")}
-                    </Link>
-                    <Link to="/contact" className="dropdown-item" role="button">
-                      {t("navbar.contact")}
-                    </Link>
+                  <Link to="/about" className="dropdown-item" role="button">
+                    {t('navbar.about')}
+                  </Link>
+                  <Link to="/cgu" className="dropdown-item" role="button">
+                    {t('navbar.terms-condition')}
+                  </Link>
+                  <Link to="/legal-notice" className="dropdown-item" role="button">
+                    {t('navbar.legal-notices')}
+                  </Link>
+                  <Link to="/contact" className="dropdown-item" role="button">
+                    {t('navbar.contact')}
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav>
 
             <Form
               className="d-none d-lg-flex mx-auto"
-              style={{ minWidth: "40%" }}
+              style={{ minWidth: '40%' }}
               onSubmit={handleSearch}
             >
               <InputGroup>
-                <Form.Control
-                  type="search"
-                  name="search"
-                  placeholder={t("navbar.input-search")}
-                />
+                <Form.Control type="search" name="search" placeholder={t('navbar.input-search')} />
                 <Button type="submit" variant="light">
                   <FontAwesomeIcon icon={faSearch} />
                 </Button>
@@ -253,48 +227,35 @@ const Navbar = () => {
                   className="nav-link text-white d-flex align-items-center"
                 >
                   <FontAwesomeIcon icon={faUser} className="me-2" />
-                  <span>{t("navbar.account")}</span>
+                  <span>{t('navbar.account')}</span>
                 </Dropdown.Toggle>
                 {isAuth ? (
                   <Dropdown.Menu align="end">
                     <Link to="/account" className="dropdown-item" role="button">
-                      {t("navbar.infoAccount")}
+                      {t('navbar.infoAccount')}
                     </Link>
-                    <Link
-                      to="/account/order"
-                      className="dropdown-item"
-                      role="button"
-                    >
-                      {t("navbar.orderAccount")}
+                    <Link to="/account/order" className="dropdown-item" role="button">
+                      {t('navbar.orderAccount')}
                     </Link>
                     <Dropdown.Divider />
-                    <Link
-                      to="#"
-                      className="dropdown-item"
-                      role="button"
-                      onClick={handleLogout}
-                    >
-                      {t("navbar.logout")}
+                    <Link to="#" className="dropdown-item" role="button" onClick={handleLogout}>
+                      {t('navbar.logout')}
                     </Link>
                   </Dropdown.Menu>
                 ) : (
                   <Dropdown.Menu align="end">
                     <Link to="/login" className="dropdown-item" role="button">
-                      {t("navbar.login")}
+                      {t('navbar.login')}
                     </Link>
-                    <Link
-                      to="/register"
-                      className="dropdown-item"
-                      role="button"
-                    >
-                      {t("navbar.register")}
+                    <Link to="/register" className="dropdown-item" role="button">
+                      {t('navbar.register')}
                     </Link>
                   </Dropdown.Menu>
                 )}
               </Dropdown>
               <Link to="/cart" className="nav-link text-white d-flex align-items-center">
                 <FontAwesomeIcon icon={faCartShopping} className="me-2" />
-                <span>{t("navbar.cart")}</span>
+                <span>{t('navbar.cart')}</span>
                 <Badge bg="light" text="dark" pill className="ms-2">
                   {cart.totalQuantity}
                 </Badge>

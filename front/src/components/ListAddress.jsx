@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Accordion } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import apiRequest from "../utils/apiRequest";
-import LoadingSpinner from "./LoadingSpinner";
-import AddressUpdateForm from "./AddressUpdateForm";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Accordion } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import apiRequest from '../utils/apiRequest';
+import LoadingSpinner from './LoadingSpinner';
+import AddressUpdateForm from './AddressUpdateForm';
+import { useSelector } from 'react-redux';
 
 const ListAddress = () => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ const ListAddress = () => {
 
     const fetchAddresses = async () => {
       try {
-        const { data, error } = await apiRequest("/user/addresses", "GET", {
+        const { data, error } = await apiRequest('/user/addresses', 'GET', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -29,7 +29,7 @@ const ListAddress = () => {
           setFetchAddressesLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching addresses:", error);
+        console.error('Error fetching addresses:', error);
         setFetchAddressesLoading(false);
       }
     };
@@ -40,19 +40,17 @@ const ListAddress = () => {
   return (
     <>
       {fetchAddressesLoading ? (
-        <LoadingSpinner height={"100px"} />
+        <LoadingSpinner height={'100px'} />
       ) : (
         <>
           {addresses.length === 0 ? (
-            <div className="d-flex justify-content-center">
-              {t("address.noAddress")}
-            </div>
+            <div className="d-flex justify-content-center">{t('address.noAddress')}</div>
           ) : (
             <Accordion defaultActiveKey="Accordion">
               {addresses.map((address, index) => (
                 <Accordion.Item eventKey={index} key={index}>
                   <Accordion.Header>
-                    {t("address.name")} {index + 1}
+                    {t('address.name')} {index + 1}
                   </Accordion.Header>
                   <Accordion.Body>
                     <AddressUpdateForm address={address} />
@@ -63,7 +61,7 @@ const ListAddress = () => {
           )}
           <div className="d-flex justify-content-center mt-4">
             <Link to="/account/address" className="btn btn-add">
-              {t("address.add")}
+              {t('address.add')}
             </Link>
           </div>
         </>

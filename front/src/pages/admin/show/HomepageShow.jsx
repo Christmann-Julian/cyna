@@ -1,10 +1,4 @@
-import {
-  Show,
-  SimpleShowLayout,
-  TextField,
-  ArrayField,
-  Datagrid,
-} from "react-admin";
+import { Show, SimpleShowLayout, TextField, ArrayField, Datagrid } from 'react-admin';
 
 export const HomepageShow = () => (
   <Show>
